@@ -371,6 +371,23 @@ export class InstanceDefinitions extends EventEmitter<InstanceDefinitionsEvents>
 	}
 
 	/**
+	 * Get all entity definitions of a type, keyed by connection id then definition id
+	 */
+	getAllEntityDefinitions(
+		entityType: EntityModelType
+	): Readonly<Record<string, Readonly<Record<string, ClientEntityDefinition>>>> {
+		switch (entityType) {
+			case EntityModelType.Action:
+				return this.#actionDefinitions
+			case EntityModelType.Feedback:
+				return this.#feedbackDefinitions
+			default:
+				assertNever(entityType)
+				return {}
+		}
+	}
+
+	/**
 	 * Get a composite element definition
 	 */
 	getCompositeElementDefinition(connectionId: string, elementId: string): CompositeElementDefinition | undefined {

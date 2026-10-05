@@ -3214,6 +3214,2080 @@
 				"tags": ["Connections"]
 			}
 		},
+		"/definitions/v1/actions": {
+			"get": {
+				"description": "Returns the action definitions of all running connections, including built-in ones under the \"internal\" connection. Definitions only exist while a connection is running.",
+				"parameters": [
+					{
+						"description": "Only return definitions from this connection.",
+						"in": "query",
+						"name": "connectionId",
+						"required": false,
+						"schema": {
+							"description": "Only return definitions from this connection.",
+							"type": "string"
+						}
+					},
+					{
+						"description": "Case-insensitive search across definition id, label and description.",
+						"in": "query",
+						"name": "q",
+						"required": false,
+						"schema": {
+							"description": "Case-insensitive search across definition id, label and description.",
+							"type": "string"
+						}
+					},
+					{
+						"description": "Maximum number of definitions to return (default 100, max 1000).",
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"default": 100,
+							"description": "Maximum number of definitions to return (default 100, max 1000).",
+							"maximum": 1000,
+							"minimum": 1,
+							"type": "integer"
+						}
+					},
+					{
+						"description": "Number of definitions to skip.",
+						"in": "query",
+						"name": "offset",
+						"required": false,
+						"schema": {
+							"default": 0,
+							"description": "Number of definitions to skip.",
+							"minimum": 0,
+							"nullable": true,
+							"type": "integer"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": [
+										{
+											"connectionId": "nPi5lhVjy4hSOYsPz_YPj",
+											"definitionId": "route",
+											"description": null,
+											"hasLearn": false,
+											"hasResult": false,
+											"label": "Route input to output",
+											"options": [
+												{
+													"choices": [
+														{
+															"id": 1,
+															"label": "Camera 1"
+														},
+														{
+															"id": 2,
+															"label": "Camera 2"
+														}
+													],
+													"default": 1,
+													"id": "input",
+													"label": "Input",
+													"type": "dropdown"
+												}
+											],
+											"optionsSupportExpressions": true,
+											"sortKey": null
+										}
+									],
+									"meta": {
+										"limit": 100,
+										"offset": 0,
+										"total": 1
+									}
+								},
+								"schema": {
+									"properties": {
+										"data": {
+											"items": {
+												"properties": {
+													"connectionId": {
+														"description": "Id of the connection providing the definition, or \"internal\" for built-in actions and feedbacks.",
+														"example": "nPi5lhVjy4hSOYsPz_YPj",
+														"type": "string"
+													},
+													"definitionId": {
+														"description": "Definition id, unique within the connection.",
+														"example": "route",
+														"type": "string"
+													},
+													"description": {
+														"description": "Longer description, or null.",
+														"nullable": true,
+														"type": "string"
+													},
+													"hasLearn": {
+														"description": "Whether the definition supports learning its option values from the device.",
+														"type": "boolean"
+													},
+													"hasResult": {
+														"description": "Whether the action returns a result that can be stored in a variable.",
+														"type": "boolean"
+													},
+													"label": {
+														"description": "Display label.",
+														"example": "Route input to output",
+														"type": "string"
+													},
+													"options": {
+														"description": "Option fields, in display order.",
+														"items": {
+															"additionalProperties": {
+																"nullable": true
+															},
+															"properties": {
+																"default": {
+																	"description": "Default value used when the option is not set.",
+																	"nullable": true
+																},
+																"description": {
+																	"description": "Longer help text for the option.",
+																	"type": "string"
+																},
+																"disableAutoExpression": {
+																	"description": "If true, the option cannot be set to an expression.",
+																	"type": "boolean"
+																},
+																"id": {
+																	"description": "Option id, used as the key in an options object.",
+																	"example": "input",
+																	"type": "string"
+																},
+																"label": {
+																	"description": "Display label for the option.",
+																	"example": "Input",
+																	"type": "string"
+																},
+																"tooltip": {
+																	"description": "Short help text for the option.",
+																	"type": "string"
+																},
+																"type": {
+																	"description": "Field type, e.g. textinput, number, checkbox, dropdown, multidropdown, colorpicker, expression, custom-variable, static-text, or an internal:* type for built-in actions. Additional properties depend on the type and match the module API input field definitions.",
+																	"example": "dropdown",
+																	"type": "string"
+																}
+															},
+															"required": ["id", "type", "label"],
+															"type": "object"
+														},
+														"type": "array"
+													},
+													"optionsSupportExpressions": {
+														"description": "Whether option values may be expressions (subject to each field's disableAutoExpression).",
+														"type": "boolean"
+													},
+													"sortKey": {
+														"description": "Key used to order definitions in the UI, or null.",
+														"nullable": true,
+														"type": "string"
+													}
+												},
+												"required": [
+													"connectionId",
+													"definitionId",
+													"label",
+													"description",
+													"sortKey",
+													"optionsSupportExpressions",
+													"hasLearn",
+													"options",
+													"hasResult"
+												],
+												"type": "object"
+											},
+											"type": "array"
+										},
+										"meta": {
+											"example": {
+												"limit": 100,
+												"offset": 0,
+												"total": 1
+											},
+											"properties": {
+												"limit": {
+													"description": "Maximum number of resources returned by this response.",
+													"example": 100,
+													"type": "number"
+												},
+												"offset": {
+													"description": "Number of resources skipped before this response.",
+													"example": 0,
+													"type": "number"
+												},
+												"total": {
+													"description": "Total number of resources available.",
+													"example": 1,
+													"type": "number"
+												}
+											},
+											"required": ["total", "limit", "offset"],
+											"type": "object"
+										}
+									},
+									"required": ["data", "meta"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "List of action definitions"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["read"]
+					}
+				],
+				"summary": "List action definitions",
+				"tags": ["Definitions"]
+			}
+		},
+		"/definitions/v1/actions/{connectionId}/{definitionId}": {
+			"get": {
+				"description": "Returns a single action definition with its option fields.",
+				"parameters": [
+					{
+						"description": "Connection id, or \"internal\".",
+						"in": "path",
+						"name": "connectionId",
+						"required": true,
+						"schema": {
+							"description": "Connection id, or \"internal\".",
+							"example": "internal",
+							"type": "string"
+						}
+					},
+					{
+						"description": "Definition id.",
+						"in": "path",
+						"name": "definitionId",
+						"required": true,
+						"schema": {
+							"description": "Definition id.",
+							"example": "set_page",
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"connectionId": "nPi5lhVjy4hSOYsPz_YPj",
+										"definitionId": "route",
+										"description": null,
+										"hasLearn": false,
+										"hasResult": false,
+										"label": "Route input to output",
+										"options": [
+											{
+												"choices": [
+													{
+														"id": 1,
+														"label": "Camera 1"
+													},
+													{
+														"id": 2,
+														"label": "Camera 2"
+													}
+												],
+												"default": 1,
+												"id": "input",
+												"label": "Input",
+												"type": "dropdown"
+											}
+										],
+										"optionsSupportExpressions": true,
+										"sortKey": null
+									}
+								},
+								"schema": {
+									"properties": {
+										"data": {
+											"properties": {
+												"connectionId": {
+													"description": "Id of the connection providing the definition, or \"internal\" for built-in actions and feedbacks.",
+													"example": "nPi5lhVjy4hSOYsPz_YPj",
+													"type": "string"
+												},
+												"definitionId": {
+													"description": "Definition id, unique within the connection.",
+													"example": "route",
+													"type": "string"
+												},
+												"description": {
+													"description": "Longer description, or null.",
+													"nullable": true,
+													"type": "string"
+												},
+												"hasLearn": {
+													"description": "Whether the definition supports learning its option values from the device.",
+													"type": "boolean"
+												},
+												"hasResult": {
+													"description": "Whether the action returns a result that can be stored in a variable.",
+													"type": "boolean"
+												},
+												"label": {
+													"description": "Display label.",
+													"example": "Route input to output",
+													"type": "string"
+												},
+												"options": {
+													"description": "Option fields, in display order.",
+													"items": {
+														"additionalProperties": {
+															"nullable": true
+														},
+														"properties": {
+															"default": {
+																"description": "Default value used when the option is not set.",
+																"nullable": true
+															},
+															"description": {
+																"description": "Longer help text for the option.",
+																"type": "string"
+															},
+															"disableAutoExpression": {
+																"description": "If true, the option cannot be set to an expression.",
+																"type": "boolean"
+															},
+															"id": {
+																"description": "Option id, used as the key in an options object.",
+																"example": "input",
+																"type": "string"
+															},
+															"label": {
+																"description": "Display label for the option.",
+																"example": "Input",
+																"type": "string"
+															},
+															"tooltip": {
+																"description": "Short help text for the option.",
+																"type": "string"
+															},
+															"type": {
+																"description": "Field type, e.g. textinput, number, checkbox, dropdown, multidropdown, colorpicker, expression, custom-variable, static-text, or an internal:* type for built-in actions. Additional properties depend on the type and match the module API input field definitions.",
+																"example": "dropdown",
+																"type": "string"
+															}
+														},
+														"required": ["id", "type", "label"],
+														"type": "object"
+													},
+													"type": "array"
+												},
+												"optionsSupportExpressions": {
+													"description": "Whether option values may be expressions (subject to each field's disableAutoExpression).",
+													"type": "boolean"
+												},
+												"sortKey": {
+													"description": "Key used to order definitions in the UI, or null.",
+													"nullable": true,
+													"type": "string"
+												}
+											},
+											"required": [
+												"connectionId",
+												"definitionId",
+												"label",
+												"description",
+												"sortKey",
+												"optionsSupportExpressions",
+												"hasLearn",
+												"options",
+												"hasResult"
+											],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The action definition"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["read"]
+					}
+				],
+				"summary": "Get action definition",
+				"tags": ["Definitions"]
+			}
+		},
+		"/definitions/v1/actions/{connectionId}/{definitionId}/validate": {
+			"post": {
+				"description": "Check an options object against the action definition without changing anything. Always returns 200 with the validation result; 404 if the definition does not exist.",
+				"parameters": [
+					{
+						"description": "Connection id, or \"internal\".",
+						"in": "path",
+						"name": "connectionId",
+						"required": true,
+						"schema": {
+							"description": "Connection id, or \"internal\".",
+							"example": "internal",
+							"type": "string"
+						}
+					},
+					{
+						"description": "Definition id.",
+						"in": "path",
+						"name": "definitionId",
+						"required": true,
+						"schema": {
+							"description": "Definition id.",
+							"example": "set_page",
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"example": {
+								"options": {
+									"input": {
+										"isExpression": false,
+										"value": 7
+									}
+								}
+							},
+							"schema": {
+								"additionalProperties": false,
+								"properties": {
+									"options": {
+										"additionalProperties": {
+											"nullable": true
+										},
+										"description": "Options to validate, keyed by option id, in stored form: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }. Omitted options are not errors.",
+										"type": "object"
+									}
+								},
+								"required": ["options"],
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"errors": [
+											{
+												"code": "invalid_value",
+												"message": "Value is not in the list of choices",
+												"optionId": "input"
+											}
+										],
+										"valid": false,
+										"warnings": []
+									}
+								},
+								"schema": {
+									"properties": {
+										"data": {
+											"properties": {
+												"errors": {
+													"description": "Problems that would make Companion reject or misinterpret the options.",
+													"items": {
+														"properties": {
+															"code": {
+																"enum": [
+																	"unknown_option",
+																	"invalid_shape",
+																	"expression_not_allowed",
+																	"invalid_expression",
+																	"invalid_value"
+																],
+																"type": "string"
+															},
+															"message": {
+																"type": "string"
+															},
+															"optionId": {
+																"type": "string"
+															}
+														},
+														"required": ["optionId", "code", "message"],
+														"type": "object"
+													},
+													"type": "array"
+												},
+												"valid": {
+													"description": "True if there are no errors. Warnings do not affect validity.",
+													"type": "boolean"
+												},
+												"warnings": {
+													"description": "Values that can only be fully checked at run time.",
+													"items": {
+														"properties": {
+															"message": {
+																"type": "string"
+															},
+															"optionId": {
+																"type": "string"
+															}
+														},
+														"required": ["optionId", "message"],
+														"type": "object"
+													},
+													"type": "array"
+												}
+											},
+											"required": ["valid", "errors", "warnings"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Validation result"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["read"]
+					}
+				],
+				"summary": "Validate action options",
+				"tags": ["Definitions"]
+			}
+		},
+		"/definitions/v1/feedbacks": {
+			"get": {
+				"description": "Returns the feedback definitions of all running connections, including built-in ones under the \"internal\" connection. Definitions only exist while a connection is running.",
+				"parameters": [
+					{
+						"description": "Only return definitions from this connection.",
+						"in": "query",
+						"name": "connectionId",
+						"required": false,
+						"schema": {
+							"description": "Only return definitions from this connection.",
+							"type": "string"
+						}
+					},
+					{
+						"description": "Case-insensitive search across definition id, label and description.",
+						"in": "query",
+						"name": "q",
+						"required": false,
+						"schema": {
+							"description": "Case-insensitive search across definition id, label and description.",
+							"type": "string"
+						}
+					},
+					{
+						"description": "Maximum number of definitions to return (default 100, max 1000).",
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"default": 100,
+							"description": "Maximum number of definitions to return (default 100, max 1000).",
+							"maximum": 1000,
+							"minimum": 1,
+							"type": "integer"
+						}
+					},
+					{
+						"description": "Number of definitions to skip.",
+						"in": "query",
+						"name": "offset",
+						"required": false,
+						"schema": {
+							"default": 0,
+							"description": "Number of definitions to skip.",
+							"minimum": 0,
+							"nullable": true,
+							"type": "integer"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": [
+										{
+											"connectionId": "nPi5lhVjy4hSOYsPz_YPj",
+											"definitionId": "routed",
+											"description": null,
+											"feedbackType": "boolean",
+											"hasLearn": false,
+											"label": "Input is routed to output",
+											"options": [
+												{
+													"choices": [
+														{
+															"id": 1,
+															"label": "Camera 1"
+														},
+														{
+															"id": 2,
+															"label": "Camera 2"
+														}
+													],
+													"default": 1,
+													"id": "input",
+													"label": "Input",
+													"type": "dropdown"
+												}
+											],
+											"optionsSupportExpressions": true,
+											"showInvert": true,
+											"sortKey": null
+										}
+									],
+									"meta": {
+										"limit": 100,
+										"offset": 0,
+										"total": 1
+									}
+								},
+								"schema": {
+									"properties": {
+										"data": {
+											"items": {
+												"properties": {
+													"connectionId": {
+														"description": "Id of the connection providing the definition, or \"internal\" for built-in actions and feedbacks.",
+														"example": "nPi5lhVjy4hSOYsPz_YPj",
+														"type": "string"
+													},
+													"definitionId": {
+														"description": "Definition id, unique within the connection.",
+														"example": "route",
+														"type": "string"
+													},
+													"description": {
+														"description": "Longer description, or null.",
+														"nullable": true,
+														"type": "string"
+													},
+													"feedbackType": {
+														"description": "Kind of feedback: boolean, advanced, value or style-override.",
+														"enum": ["boolean", "advanced", "value", "style-override", null],
+														"nullable": true,
+														"type": "string"
+													},
+													"hasLearn": {
+														"description": "Whether the definition supports learning its option values from the device.",
+														"type": "boolean"
+													},
+													"label": {
+														"description": "Display label.",
+														"example": "Route input to output",
+														"type": "string"
+													},
+													"options": {
+														"description": "Option fields, in display order.",
+														"items": {
+															"additionalProperties": {
+																"nullable": true
+															},
+															"properties": {
+																"default": {
+																	"description": "Default value used when the option is not set.",
+																	"nullable": true
+																},
+																"description": {
+																	"description": "Longer help text for the option.",
+																	"type": "string"
+																},
+																"disableAutoExpression": {
+																	"description": "If true, the option cannot be set to an expression.",
+																	"type": "boolean"
+																},
+																"id": {
+																	"description": "Option id, used as the key in an options object.",
+																	"example": "input",
+																	"type": "string"
+																},
+																"label": {
+																	"description": "Display label for the option.",
+																	"example": "Input",
+																	"type": "string"
+																},
+																"tooltip": {
+																	"description": "Short help text for the option.",
+																	"type": "string"
+																},
+																"type": {
+																	"description": "Field type, e.g. textinput, number, checkbox, dropdown, multidropdown, colorpicker, expression, custom-variable, static-text, or an internal:* type for built-in actions. Additional properties depend on the type and match the module API input field definitions.",
+																	"example": "dropdown",
+																	"type": "string"
+																}
+															},
+															"required": ["id", "type", "label"],
+															"type": "object"
+														},
+														"type": "array"
+													},
+													"optionsSupportExpressions": {
+														"description": "Whether option values may be expressions (subject to each field's disableAutoExpression).",
+														"type": "boolean"
+													},
+													"showInvert": {
+														"description": "Whether the feedback can be inverted.",
+														"type": "boolean"
+													},
+													"sortKey": {
+														"description": "Key used to order definitions in the UI, or null.",
+														"nullable": true,
+														"type": "string"
+													}
+												},
+												"required": [
+													"connectionId",
+													"definitionId",
+													"label",
+													"description",
+													"sortKey",
+													"optionsSupportExpressions",
+													"hasLearn",
+													"options",
+													"feedbackType",
+													"showInvert"
+												],
+												"type": "object"
+											},
+											"type": "array"
+										},
+										"meta": {
+											"example": {
+												"limit": 100,
+												"offset": 0,
+												"total": 1
+											},
+											"properties": {
+												"limit": {
+													"description": "Maximum number of resources returned by this response.",
+													"example": 100,
+													"type": "number"
+												},
+												"offset": {
+													"description": "Number of resources skipped before this response.",
+													"example": 0,
+													"type": "number"
+												},
+												"total": {
+													"description": "Total number of resources available.",
+													"example": 1,
+													"type": "number"
+												}
+											},
+											"required": ["total", "limit", "offset"],
+											"type": "object"
+										}
+									},
+									"required": ["data", "meta"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "List of feedback definitions"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["read"]
+					}
+				],
+				"summary": "List feedback definitions",
+				"tags": ["Definitions"]
+			}
+		},
+		"/definitions/v1/feedbacks/{connectionId}/{definitionId}": {
+			"get": {
+				"description": "Returns a single feedback definition with its option fields.",
+				"parameters": [
+					{
+						"description": "Connection id, or \"internal\".",
+						"in": "path",
+						"name": "connectionId",
+						"required": true,
+						"schema": {
+							"description": "Connection id, or \"internal\".",
+							"example": "internal",
+							"type": "string"
+						}
+					},
+					{
+						"description": "Definition id.",
+						"in": "path",
+						"name": "definitionId",
+						"required": true,
+						"schema": {
+							"description": "Definition id.",
+							"example": "set_page",
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"connectionId": "nPi5lhVjy4hSOYsPz_YPj",
+										"definitionId": "routed",
+										"description": null,
+										"feedbackType": "boolean",
+										"hasLearn": false,
+										"label": "Input is routed to output",
+										"options": [
+											{
+												"choices": [
+													{
+														"id": 1,
+														"label": "Camera 1"
+													},
+													{
+														"id": 2,
+														"label": "Camera 2"
+													}
+												],
+												"default": 1,
+												"id": "input",
+												"label": "Input",
+												"type": "dropdown"
+											}
+										],
+										"optionsSupportExpressions": true,
+										"showInvert": true,
+										"sortKey": null
+									}
+								},
+								"schema": {
+									"properties": {
+										"data": {
+											"properties": {
+												"connectionId": {
+													"description": "Id of the connection providing the definition, or \"internal\" for built-in actions and feedbacks.",
+													"example": "nPi5lhVjy4hSOYsPz_YPj",
+													"type": "string"
+												},
+												"definitionId": {
+													"description": "Definition id, unique within the connection.",
+													"example": "route",
+													"type": "string"
+												},
+												"description": {
+													"description": "Longer description, or null.",
+													"nullable": true,
+													"type": "string"
+												},
+												"feedbackType": {
+													"description": "Kind of feedback: boolean, advanced, value or style-override.",
+													"enum": ["boolean", "advanced", "value", "style-override", null],
+													"nullable": true,
+													"type": "string"
+												},
+												"hasLearn": {
+													"description": "Whether the definition supports learning its option values from the device.",
+													"type": "boolean"
+												},
+												"label": {
+													"description": "Display label.",
+													"example": "Route input to output",
+													"type": "string"
+												},
+												"options": {
+													"description": "Option fields, in display order.",
+													"items": {
+														"additionalProperties": {
+															"nullable": true
+														},
+														"properties": {
+															"default": {
+																"description": "Default value used when the option is not set.",
+																"nullable": true
+															},
+															"description": {
+																"description": "Longer help text for the option.",
+																"type": "string"
+															},
+															"disableAutoExpression": {
+																"description": "If true, the option cannot be set to an expression.",
+																"type": "boolean"
+															},
+															"id": {
+																"description": "Option id, used as the key in an options object.",
+																"example": "input",
+																"type": "string"
+															},
+															"label": {
+																"description": "Display label for the option.",
+																"example": "Input",
+																"type": "string"
+															},
+															"tooltip": {
+																"description": "Short help text for the option.",
+																"type": "string"
+															},
+															"type": {
+																"description": "Field type, e.g. textinput, number, checkbox, dropdown, multidropdown, colorpicker, expression, custom-variable, static-text, or an internal:* type for built-in actions. Additional properties depend on the type and match the module API input field definitions.",
+																"example": "dropdown",
+																"type": "string"
+															}
+														},
+														"required": ["id", "type", "label"],
+														"type": "object"
+													},
+													"type": "array"
+												},
+												"optionsSupportExpressions": {
+													"description": "Whether option values may be expressions (subject to each field's disableAutoExpression).",
+													"type": "boolean"
+												},
+												"showInvert": {
+													"description": "Whether the feedback can be inverted.",
+													"type": "boolean"
+												},
+												"sortKey": {
+													"description": "Key used to order definitions in the UI, or null.",
+													"nullable": true,
+													"type": "string"
+												}
+											},
+											"required": [
+												"connectionId",
+												"definitionId",
+												"label",
+												"description",
+												"sortKey",
+												"optionsSupportExpressions",
+												"hasLearn",
+												"options",
+												"feedbackType",
+												"showInvert"
+											],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The feedback definition"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["read"]
+					}
+				],
+				"summary": "Get feedback definition",
+				"tags": ["Definitions"]
+			}
+		},
+		"/definitions/v1/feedbacks/{connectionId}/{definitionId}/validate": {
+			"post": {
+				"description": "Check an options object against the feedback definition without changing anything. Always returns 200 with the validation result; 404 if the definition does not exist.",
+				"parameters": [
+					{
+						"description": "Connection id, or \"internal\".",
+						"in": "path",
+						"name": "connectionId",
+						"required": true,
+						"schema": {
+							"description": "Connection id, or \"internal\".",
+							"example": "internal",
+							"type": "string"
+						}
+					},
+					{
+						"description": "Definition id.",
+						"in": "path",
+						"name": "definitionId",
+						"required": true,
+						"schema": {
+							"description": "Definition id.",
+							"example": "set_page",
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"example": {
+								"options": {
+									"input": {
+										"isExpression": false,
+										"value": 7
+									}
+								}
+							},
+							"schema": {
+								"additionalProperties": false,
+								"properties": {
+									"options": {
+										"additionalProperties": {
+											"nullable": true
+										},
+										"description": "Options to validate, keyed by option id, in stored form: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }. Omitted options are not errors.",
+										"type": "object"
+									}
+								},
+								"required": ["options"],
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"errors": [
+											{
+												"code": "invalid_value",
+												"message": "Value is not in the list of choices",
+												"optionId": "input"
+											}
+										],
+										"valid": false,
+										"warnings": []
+									}
+								},
+								"schema": {
+									"properties": {
+										"data": {
+											"properties": {
+												"errors": {
+													"description": "Problems that would make Companion reject or misinterpret the options.",
+													"items": {
+														"properties": {
+															"code": {
+																"enum": [
+																	"unknown_option",
+																	"invalid_shape",
+																	"expression_not_allowed",
+																	"invalid_expression",
+																	"invalid_value"
+																],
+																"type": "string"
+															},
+															"message": {
+																"type": "string"
+															},
+															"optionId": {
+																"type": "string"
+															}
+														},
+														"required": ["optionId", "code", "message"],
+														"type": "object"
+													},
+													"type": "array"
+												},
+												"valid": {
+													"description": "True if there are no errors. Warnings do not affect validity.",
+													"type": "boolean"
+												},
+												"warnings": {
+													"description": "Values that can only be fully checked at run time.",
+													"items": {
+														"properties": {
+															"message": {
+																"type": "string"
+															},
+															"optionId": {
+																"type": "string"
+															}
+														},
+														"required": ["optionId", "message"],
+														"type": "object"
+													},
+													"type": "array"
+												}
+											},
+											"required": ["valid", "errors", "warnings"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Validation result"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["read"]
+					}
+				],
+				"summary": "Validate feedback options",
+				"tags": ["Definitions"]
+			}
+		},
 		"/surfaces/v1": {
 			"get": {
 				"description": "Returns all known surfaces, connected or not, with their current state.",
