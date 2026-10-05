@@ -5,7 +5,7 @@ import { $, argv, fs, glob, usePowerShell } from 'zx'
 import { fetchBuiltinSurfaceModules } from '../fetch_builtin_modules.mts'
 import { fetchNodejs } from '../fetch_nodejs.mts'
 import { generateLegalArtifacts } from '../licenses/generate.mts'
-import { generateVersionString } from '../lib.mts'
+import { generateVersionString, readReleaseVersion } from '../lib.mts'
 import { determinePlatformInfo } from './util.mts'
 
 $.verbose = true
@@ -124,20 +124,19 @@ if (process.env.ELECTRON !== '0') {
 	const launcherPkgJsonPath = new URL('../../launcher/package.json', import.meta.url)
 	const launcherPkgJsonStr = await fs.readFile(launcherPkgJsonPath)
 
-	// Update the version if not a stable build
+	// Use the full version for non-stable builds, and the release version for stable ones (the same as
+	// package.json upstream; 5.1.0-potato.N for Companion Planter builds)
 	const versionInfo = await generateVersionString()
-	if (!versionInfo.includes('-stable-')) {
-		const launcherPkgJson = JSON.parse(launcherPkgJsonStr.toString())
-		launcherPkgJson.version = versionInfo
-
-		await fs.writeFile(launcherPkgJsonPath, JSON.stringify(launcherPkgJson))
-	}
+	const launcherPkgJson = JSON.parse(launcherPkgJsonStr.toString())
+	launcherPkgJson.version = versionInfo.includes('-stable-') ? await readReleaseVersion() : versionInfo
+	await fs.writeFile(launcherPkgJsonPath, JSON.stringify(launcherPkgJson))
 
 	try {
 		const options: electronBuilder.Configuration = {
 			productName: 'Companion',
 			executableName: 'Companion',
-			appId: 'test-companion.bitfocus.no',
+			// Companion Planter builds set their own bundle id, as they are signed with their own identity
+			appId: process.env.COMPANION_APP_ID || 'test-companion.bitfocus.no',
 			dmg: {
 				artifactName: 'companion-mac-${arch}.dmg',
 			},
@@ -154,7 +153,8 @@ if (process.env.ELECTRON !== '0') {
 				entitlements: 'launcher/entitlements.mac.plist',
 				entitlementsInherit: 'launcher/entitlements.mac.plist',
 				icon: 'icon-macos-glass.icon',
-				identity: process.env.CSC_LINK ? undefined : null, // Disable signing when CSC_LINK is not set
+				// Disable signing unless a certificate (CSC_LINK) or a keychain identity name (CSC_NAME) is given
+				identity: process.env.CSC_LINK || process.env.CSC_NAME ? undefined : null,
 			},
 			win: {
 				target: 'nsis',

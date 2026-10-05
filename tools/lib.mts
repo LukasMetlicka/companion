@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url'
 import { $, fs } from 'zx'
 
 // suppress fnm reporting node version
@@ -13,14 +14,27 @@ async function parseGitRef() {
 	}
 }
 
+/**
+ * The version this build is released as. Companion Planter ("potato") builds keep upstream's version in
+ * package.json (it is what module stores and other services are told), and carry their own release
+ * version, e.g. 5.1.0-potato.1, in POTATO_VERSION.
+ */
+export async function readReleaseVersion(): Promise<string> {
+	const potatoVersionPath = fileURLToPath(new URL('../POTATO_VERSION', import.meta.url))
+	if (await fs.pathExists(potatoVersionPath)) {
+		return (await fs.readFile(potatoVersionPath)).toString().trim()
+	}
+
+	const packageJsonStr = await fs.readFile(new URL('../package.json', import.meta.url))
+	return JSON.parse(packageJsonStr.toString()).version
+}
+
 export async function generateVersionString() {
 	return goSilent(async () => {
 		const headHashRaw = await $`git rev-parse --short=10 HEAD`
 		const headHash = headHashRaw.stdout.trim()
 
-		const packageJsonStr = await fs.readFile(new URL('../package.json', import.meta.url))
-		const packageJson = JSON.parse(packageJsonStr.toString())
-		const packageVersion = packageJson.version
+		const packageVersion = await readReleaseVersion()
 
 		let gitRef = await parseGitRef()
 
@@ -51,9 +65,7 @@ export async function generateVersionString() {
 
 export async function generateMiniVersionString() {
 	return goSilent(async () => {
-		const packageJsonStr = await fs.readFile(new URL('../package.json', import.meta.url))
-		const packageJson = JSON.parse(packageJsonStr.toString())
-		const packageVersion = packageJson.version
+		const packageVersion = await readReleaseVersion()
 
 		const gitRef = await parseGitRef()
 		if (gitRef === 'v' + packageVersion) {

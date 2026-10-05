@@ -483,7 +483,13 @@ export class Registry {
 		try {
 			// old 'modules_loaded' events
 			this.usageStatistics.startStopCycle()
-			this.ui.update.startCycle()
+			// Companion Planter ("potato") builds are not upstream releases: don't ask Bitfocus' update server
+			// about them, or report them to it as a stock version
+			if (buildNumber.includes('-potato.')) {
+				this.#logger.info('Update check disabled in Companion Planter builds')
+			} else {
+				this.ui.update.startCycle()
+			}
 
 			this.controls.init()
 
