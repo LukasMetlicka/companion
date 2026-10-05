@@ -3214,6 +3214,3706 @@
 				"tags": ["Connections"]
 			}
 		},
+		"/controls/v1/{controlId}": {
+			"delete": {
+				"description": "Delete a grid control, leaving its location empty. Send If-Match to only delete a version you have seen.",
+				"parameters": [
+					{
+						"description": "Control id.",
+						"in": "path",
+						"name": "controlId",
+						"required": true,
+						"schema": {
+							"description": "Control id.",
+							"example": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "Control deleted"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					},
+					"412": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "If-Match does not match the current ETag"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["write"]
+					}
+				],
+				"summary": "Delete a control",
+				"tags": ["Controls"]
+			},
+			"get": {
+				"description": "Returns a grid control with its full model and location. The ETag header identifies this version.",
+				"parameters": [
+					{
+						"description": "Control id.",
+						"in": "path",
+						"name": "controlId",
+						"required": true,
+						"schema": {
+							"description": "Control id.",
+							"example": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"controlId": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+										"location": {
+											"column": 1,
+											"pageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+											"pageNumber": 1,
+											"row": 0
+										},
+										"model": {
+											"type": "pageup"
+										},
+										"warnings": []
+									}
+								},
+								"schema": {
+									"example": {
+										"data": {
+											"controlId": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+											"location": {
+												"column": 1,
+												"pageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+												"pageNumber": 1,
+												"row": 0
+											},
+											"model": {
+												"type": "pageup"
+											},
+											"warnings": []
+										}
+									},
+									"properties": {
+										"data": {
+											"example": {
+												"controlId": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+												"location": {
+													"column": 1,
+													"pageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+													"pageNumber": 1,
+													"row": 0
+												},
+												"model": {
+													"type": "pageup"
+												},
+												"warnings": []
+											},
+											"properties": {
+												"controlId": {
+													"description": "Control id; null in a dry run that would create a new control.",
+													"nullable": true,
+													"type": "string"
+												},
+												"location": {
+													"description": "Where the control is placed, or null.",
+													"nullable": true,
+													"properties": {
+														"column": {
+															"type": "integer"
+														},
+														"pageId": {
+															"type": "string"
+														},
+														"pageNumber": {
+															"type": "integer"
+														},
+														"row": {
+															"type": "integer"
+														}
+													},
+													"required": ["pageId", "pageNumber", "row", "column"],
+													"type": "object"
+												},
+												"model": {
+													"additionalProperties": {
+														"nullable": true
+													},
+													"description": "The control model as Companion stores it. Writable as-is with PUT.",
+													"properties": {
+														"type": {
+															"type": "string"
+														}
+													},
+													"required": ["type"],
+													"type": "object"
+												},
+												"warnings": {
+													"description": "Things that could only be partly checked. Empty on reads.",
+													"items": {
+														"properties": {
+															"message": {
+																"type": "string"
+															},
+															"path": {
+																"type": "string"
+															}
+														},
+														"required": ["path", "message"],
+														"type": "object"
+													},
+													"type": "array"
+												}
+											},
+											"required": ["controlId", "location", "model", "warnings"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The control"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["read"]
+					}
+				],
+				"summary": "Get a control",
+				"tags": ["Controls"]
+			},
+			"patch": {
+				"description": "Partially update a layered button. options is merged; style, feedbacks, steps and localVariables each replace the whole list when given. Validated like PUT. Send If-Match to only update a version you have seen.",
+				"parameters": [
+					{
+						"description": "Control id.",
+						"in": "path",
+						"name": "controlId",
+						"required": true,
+						"schema": {
+							"description": "Control id.",
+							"example": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+							"type": "string"
+						}
+					},
+					{
+						"description": "If true, validate and return the resulting model without writing anything.",
+						"in": "query",
+						"name": "dryRun",
+						"required": false,
+						"schema": {
+							"description": "If true, validate and return the resulting model without writing anything.",
+							"enum": ["true", "false"],
+							"type": "string"
+						}
+					},
+					{
+						"description": "If true, actions and feedbacks of connections that are not running (so have no definitions) are accepted with a warning instead of rejected.",
+						"in": "query",
+						"name": "allowMissingDefinitions",
+						"required": false,
+						"schema": {
+							"description": "If true, actions and feedbacks of connections that are not running (so have no definitions) are accepted with a warning instead of rejected.",
+							"enum": ["true", "false"],
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"example": {
+								"options": {
+									"notes": "Generated by Planter"
+								}
+							},
+							"schema": {
+								"additionalProperties": false,
+								"properties": {
+									"feedbacks": {
+										"description": "Replaces all feedbacks.",
+										"items": {
+											"additionalProperties": false,
+											"properties": {
+												"children": {
+													"additionalProperties": {
+														"items": {
+															"nullable": true
+														},
+														"type": "array"
+													},
+													"description": "Child entities of internal logic entities, keyed by child group id. Same shape as this entity.",
+													"type": "object"
+												},
+												"connectionId": {
+													"description": "Connection id, or \"internal\".",
+													"minLength": 1,
+													"type": "string"
+												},
+												"definitionId": {
+													"description": "Definition id, from the definitions resource.",
+													"minLength": 1,
+													"type": "string"
+												},
+												"disabled": {
+													"type": "boolean"
+												},
+												"headline": {
+													"type": "string"
+												},
+												"id": {
+													"description": "Ignored on write: entity ids are regenerated.",
+													"type": "string"
+												},
+												"isInverted": {
+													"additionalProperties": false,
+													"description": "Feedbacks only: invert a boolean feedback.",
+													"properties": {
+														"isExpression": {
+															"type": "boolean"
+														},
+														"value": {
+															"nullable": true
+														}
+													},
+													"required": ["isExpression"],
+													"type": "object"
+												},
+												"options": {
+													"additionalProperties": {
+														"additionalProperties": false,
+														"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+														"properties": {
+															"isExpression": {
+																"type": "boolean"
+															},
+															"value": {
+																"nullable": true
+															}
+														},
+														"required": ["isExpression"],
+														"type": "object"
+													},
+													"default": {},
+													"description": "Option values keyed by option id. Omitted options use their defaults.",
+													"type": "object"
+												},
+												"storeResult": {
+													"description": "Actions only: where to store the action result.",
+													"nullable": true
+												},
+												"styleOverrides": {
+													"description": "Feedbacks only: style element properties this feedback overrides.",
+													"items": {
+														"additionalProperties": false,
+														"properties": {
+															"elementId": {
+																"type": "string"
+															},
+															"elementProperty": {
+																"type": "string"
+															},
+															"override": {
+																"additionalProperties": false,
+																"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+																"properties": {
+																	"isExpression": {
+																		"type": "boolean"
+																	},
+																	"value": {
+																		"nullable": true
+																	}
+																},
+																"required": ["isExpression"],
+																"type": "object"
+															},
+															"overrideId": {
+																"type": "string"
+															}
+														},
+														"required": ["overrideId", "elementId", "elementProperty", "override"],
+														"type": "object"
+													},
+													"type": "array"
+												},
+												"type": {
+													"description": "action or feedback.",
+													"enum": ["action", "feedback"],
+													"type": "string"
+												},
+												"upgradeIndex": {
+													"description": "Omit to mean \"current\".",
+													"type": "integer"
+												},
+												"variableName": {
+													"description": "Local variables only: the variable name.",
+													"type": "string"
+												}
+											},
+											"required": ["type", "connectionId", "definitionId"],
+											"type": "object"
+										},
+										"type": "array"
+									},
+									"localVariables": {
+										"description": "Replaces all local variables.",
+										"items": {
+											"additionalProperties": false,
+											"properties": {
+												"children": {
+													"additionalProperties": {
+														"items": {
+															"nullable": true
+														},
+														"type": "array"
+													},
+													"description": "Child entities of internal logic entities, keyed by child group id. Same shape as this entity.",
+													"type": "object"
+												},
+												"connectionId": {
+													"description": "Connection id, or \"internal\".",
+													"minLength": 1,
+													"type": "string"
+												},
+												"definitionId": {
+													"description": "Definition id, from the definitions resource.",
+													"minLength": 1,
+													"type": "string"
+												},
+												"disabled": {
+													"type": "boolean"
+												},
+												"headline": {
+													"type": "string"
+												},
+												"id": {
+													"description": "Ignored on write: entity ids are regenerated.",
+													"type": "string"
+												},
+												"isInverted": {
+													"additionalProperties": false,
+													"description": "Feedbacks only: invert a boolean feedback.",
+													"properties": {
+														"isExpression": {
+															"type": "boolean"
+														},
+														"value": {
+															"nullable": true
+														}
+													},
+													"required": ["isExpression"],
+													"type": "object"
+												},
+												"options": {
+													"additionalProperties": {
+														"additionalProperties": false,
+														"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+														"properties": {
+															"isExpression": {
+																"type": "boolean"
+															},
+															"value": {
+																"nullable": true
+															}
+														},
+														"required": ["isExpression"],
+														"type": "object"
+													},
+													"default": {},
+													"description": "Option values keyed by option id. Omitted options use their defaults.",
+													"type": "object"
+												},
+												"storeResult": {
+													"description": "Actions only: where to store the action result.",
+													"nullable": true
+												},
+												"styleOverrides": {
+													"description": "Feedbacks only: style element properties this feedback overrides.",
+													"items": {
+														"additionalProperties": false,
+														"properties": {
+															"elementId": {
+																"type": "string"
+															},
+															"elementProperty": {
+																"type": "string"
+															},
+															"override": {
+																"additionalProperties": false,
+																"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+																"properties": {
+																	"isExpression": {
+																		"type": "boolean"
+																	},
+																	"value": {
+																		"nullable": true
+																	}
+																},
+																"required": ["isExpression"],
+																"type": "object"
+															},
+															"overrideId": {
+																"type": "string"
+															}
+														},
+														"required": ["overrideId", "elementId", "elementProperty", "override"],
+														"type": "object"
+													},
+													"type": "array"
+												},
+												"type": {
+													"description": "action or feedback.",
+													"enum": ["action", "feedback"],
+													"type": "string"
+												},
+												"upgradeIndex": {
+													"description": "Omit to mean \"current\".",
+													"type": "integer"
+												},
+												"variableName": {
+													"description": "Local variables only: the variable name.",
+													"type": "string"
+												}
+											},
+											"required": ["type", "connectionId", "definitionId"],
+											"type": "object"
+										},
+										"type": "array"
+									},
+									"options": {
+										"additionalProperties": false,
+										"description": "Merged into the current options.",
+										"properties": {
+											"canModifyStyleInApis": {
+												"type": "boolean"
+											},
+											"notes": {
+												"type": "string"
+											},
+											"rotaryActions": {
+												"type": "boolean"
+											},
+											"stepExpression": {
+												"type": "string"
+											},
+											"stepProgression": {
+												"enum": ["auto", "manual", "expression"],
+												"type": "string"
+											}
+										},
+										"type": "object"
+									},
+									"steps": {
+										"additionalProperties": {
+											"additionalProperties": false,
+											"properties": {
+												"action_sets": {
+													"additionalProperties": {
+														"items": {
+															"additionalProperties": false,
+															"properties": {
+																"children": {
+																	"additionalProperties": {
+																		"items": {
+																			"nullable": true
+																		},
+																		"type": "array"
+																	},
+																	"description": "Child entities of internal logic entities, keyed by child group id. Same shape as this entity.",
+																	"type": "object"
+																},
+																"connectionId": {
+																	"description": "Connection id, or \"internal\".",
+																	"minLength": 1,
+																	"type": "string"
+																},
+																"definitionId": {
+																	"description": "Definition id, from the definitions resource.",
+																	"minLength": 1,
+																	"type": "string"
+																},
+																"disabled": {
+																	"type": "boolean"
+																},
+																"headline": {
+																	"type": "string"
+																},
+																"id": {
+																	"description": "Ignored on write: entity ids are regenerated.",
+																	"type": "string"
+																},
+																"isInverted": {
+																	"additionalProperties": false,
+																	"description": "Feedbacks only: invert a boolean feedback.",
+																	"properties": {
+																		"isExpression": {
+																			"type": "boolean"
+																		},
+																		"value": {
+																			"nullable": true
+																		}
+																	},
+																	"required": ["isExpression"],
+																	"type": "object"
+																},
+																"options": {
+																	"additionalProperties": {
+																		"additionalProperties": false,
+																		"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+																		"properties": {
+																			"isExpression": {
+																				"type": "boolean"
+																			},
+																			"value": {
+																				"nullable": true
+																			}
+																		},
+																		"required": ["isExpression"],
+																		"type": "object"
+																	},
+																	"default": {},
+																	"description": "Option values keyed by option id. Omitted options use their defaults.",
+																	"type": "object"
+																},
+																"storeResult": {
+																	"description": "Actions only: where to store the action result.",
+																	"nullable": true
+																},
+																"styleOverrides": {
+																	"description": "Feedbacks only: style element properties this feedback overrides.",
+																	"items": {
+																		"additionalProperties": false,
+																		"properties": {
+																			"elementId": {
+																				"type": "string"
+																			},
+																			"elementProperty": {
+																				"type": "string"
+																			},
+																			"override": {
+																				"additionalProperties": false,
+																				"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+																				"properties": {
+																					"isExpression": {
+																						"type": "boolean"
+																					},
+																					"value": {
+																						"nullable": true
+																					}
+																				},
+																				"required": ["isExpression"],
+																				"type": "object"
+																			},
+																			"overrideId": {
+																				"type": "string"
+																			}
+																		},
+																		"required": ["overrideId", "elementId", "elementProperty", "override"],
+																		"type": "object"
+																	},
+																	"type": "array"
+																},
+																"type": {
+																	"description": "action or feedback.",
+																	"enum": ["action", "feedback"],
+																	"type": "string"
+																},
+																"upgradeIndex": {
+																	"description": "Omit to mean \"current\".",
+																	"type": "integer"
+																},
+																"variableName": {
+																	"description": "Local variables only: the variable name.",
+																	"type": "string"
+																}
+															},
+															"required": ["type", "connectionId", "definitionId"],
+															"type": "object"
+														},
+														"type": "array"
+													},
+													"description": "Actions keyed by set: down, up, rotate_left, rotate_right, or a hold duration in ms.",
+													"type": "object"
+												},
+												"options": {
+													"additionalProperties": false,
+													"default": {
+														"runWhileHeld": []
+													},
+													"properties": {
+														"name": {
+															"type": "string"
+														},
+														"runWhileHeld": {
+															"default": [],
+															"items": {
+																"type": "number"
+															},
+															"type": "array"
+														}
+													},
+													"type": "object"
+												}
+											},
+											"required": ["action_sets"],
+											"type": "object"
+										},
+										"description": "Replaces all steps and their actions.",
+										"type": "object"
+									},
+									"style": {
+										"additionalProperties": false,
+										"description": "Replaces the whole style.",
+										"properties": {
+											"layers": {
+												"description": "Layers, bottom first; the first is the canvas.",
+												"items": {
+													"additionalProperties": {
+														"nullable": true
+													},
+													"description": "A style element. Properties left out take the defaults for its type.",
+													"properties": {
+														"id": {
+															"description": "Element id; generated if omitted. Needed to target style overrides.",
+															"minLength": 1,
+															"type": "string"
+														},
+														"name": {
+															"type": "string"
+														},
+														"type": {
+															"description": "canvas, text, image, box, line, group, circle, composite, reference or gauge.",
+															"type": "string"
+														},
+														"usage": {
+															"type": "string"
+														}
+													},
+													"required": ["type"],
+													"type": "object"
+												},
+												"minItems": 1,
+												"type": "array"
+											}
+										},
+										"required": ["layers"],
+										"type": "object"
+									}
+								},
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"controlId": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+										"location": {
+											"column": 1,
+											"pageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+											"pageNumber": 1,
+											"row": 0
+										},
+										"model": {
+											"type": "pageup"
+										},
+										"warnings": []
+									}
+								},
+								"schema": {
+									"example": {
+										"data": {
+											"controlId": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+											"location": {
+												"column": 1,
+												"pageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+												"pageNumber": 1,
+												"row": 0
+											},
+											"model": {
+												"type": "pageup"
+											},
+											"warnings": []
+										}
+									},
+									"properties": {
+										"data": {
+											"example": {
+												"controlId": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+												"location": {
+													"column": 1,
+													"pageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+													"pageNumber": 1,
+													"row": 0
+												},
+												"model": {
+													"type": "pageup"
+												},
+												"warnings": []
+											},
+											"properties": {
+												"controlId": {
+													"description": "Control id; null in a dry run that would create a new control.",
+													"nullable": true,
+													"type": "string"
+												},
+												"location": {
+													"description": "Where the control is placed, or null.",
+													"nullable": true,
+													"properties": {
+														"column": {
+															"type": "integer"
+														},
+														"pageId": {
+															"type": "string"
+														},
+														"pageNumber": {
+															"type": "integer"
+														},
+														"row": {
+															"type": "integer"
+														}
+													},
+													"required": ["pageId", "pageNumber", "row", "column"],
+													"type": "object"
+												},
+												"model": {
+													"additionalProperties": {
+														"nullable": true
+													},
+													"description": "The control model as Companion stores it. Writable as-is with PUT.",
+													"properties": {
+														"type": {
+															"type": "string"
+														}
+													},
+													"required": ["type"],
+													"type": "object"
+												},
+												"warnings": {
+													"description": "Things that could only be partly checked. Empty on reads.",
+													"items": {
+														"properties": {
+															"message": {
+																"type": "string"
+															},
+															"path": {
+																"type": "string"
+															}
+														},
+														"required": ["path", "message"],
+														"type": "object"
+													},
+													"type": "array"
+												}
+											},
+											"required": ["controlId", "location", "model", "warnings"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The updated control"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					},
+					"409": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Conflict"
+					},
+					"412": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "If-Match does not match the current ETag"
+					},
+					"422": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The model is not valid; details lists each problem with its path"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["write"]
+					}
+				],
+				"summary": "Update a layered button",
+				"tags": ["Controls"]
+			}
+		},
+		"/controls/v1/{controlId}/down": {
+			"post": {
+				"description": "Use down and up separately to test holds and chords.",
+				"parameters": [
+					{
+						"description": "Control id.",
+						"in": "path",
+						"name": "controlId",
+						"required": true,
+						"schema": {
+							"description": "Control id.",
+							"example": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"additionalProperties": false,
+								"properties": {
+									"surfaceId": {
+										"description": "Surface to attribute the press to, as if pressed on it.",
+										"type": "string"
+									}
+								},
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"204": {
+						"description": "Done"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["execute"]
+					}
+				],
+				"summary": "Press a control (without releasing)",
+				"tags": ["Controls"]
+			}
+		},
+		"/controls/v1/{controlId}/press": {
+			"post": {
+				"description": "Runs the down actions, then the up actions, as a quick tap would.",
+				"parameters": [
+					{
+						"description": "Control id.",
+						"in": "path",
+						"name": "controlId",
+						"required": true,
+						"schema": {
+							"description": "Control id.",
+							"example": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"additionalProperties": false,
+								"properties": {
+									"surfaceId": {
+										"description": "Surface to attribute the press to, as if pressed on it.",
+										"type": "string"
+									}
+								},
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"204": {
+						"description": "Done"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["execute"]
+					}
+				],
+				"summary": "Press and release a control",
+				"tags": ["Controls"]
+			}
+		},
+		"/controls/v1/{controlId}/rotate": {
+			"post": {
+				"description": "Runs the rotate_left or rotate_right actions of a button with rotary actions enabled.",
+				"parameters": [
+					{
+						"description": "Control id.",
+						"in": "path",
+						"name": "controlId",
+						"required": true,
+						"schema": {
+							"description": "Control id.",
+							"example": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"additionalProperties": false,
+								"properties": {
+									"direction": {
+										"enum": ["left", "right"],
+										"type": "string"
+									},
+									"surfaceId": {
+										"type": "string"
+									}
+								},
+								"required": ["direction"],
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"204": {
+						"description": "Done"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["execute"]
+					}
+				],
+				"summary": "Rotate a control",
+				"tags": ["Controls"]
+			}
+		},
+		"/controls/v1/{controlId}/up": {
+			"post": {
+				"description": "Use down and up separately to test holds and chords.",
+				"parameters": [
+					{
+						"description": "Control id.",
+						"in": "path",
+						"name": "controlId",
+						"required": true,
+						"schema": {
+							"description": "Control id.",
+							"example": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"additionalProperties": false,
+								"properties": {
+									"surfaceId": {
+										"description": "Surface to attribute the press to, as if pressed on it.",
+										"type": "string"
+									}
+								},
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"204": {
+						"description": "Done"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["execute"]
+					}
+				],
+				"summary": "Release a control",
+				"tags": ["Controls"]
+			}
+		},
+		"/controls/v1/locations/{pageId}/{row}/{column}": {
+			"get": {
+				"description": "Returns the control placed at a grid location, or 404 if the location is empty.",
+				"parameters": [
+					{
+						"description": "Page id.",
+						"in": "path",
+						"name": "pageId",
+						"required": true,
+						"schema": {
+							"description": "Page id.",
+							"example": "ggmHXCUQ0RRXUwEr8HHtQ",
+							"type": "string"
+						}
+					},
+					{
+						"description": "Grid row.",
+						"in": "path",
+						"name": "row",
+						"required": false,
+						"schema": {
+							"description": "Grid row.",
+							"nullable": true,
+							"type": "integer"
+						}
+					},
+					{
+						"description": "Grid column.",
+						"in": "path",
+						"name": "column",
+						"required": false,
+						"schema": {
+							"description": "Grid column.",
+							"nullable": true,
+							"type": "integer"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"controlId": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+										"location": {
+											"column": 1,
+											"pageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+											"pageNumber": 1,
+											"row": 0
+										},
+										"model": {
+											"type": "pageup"
+										},
+										"warnings": []
+									}
+								},
+								"schema": {
+									"example": {
+										"data": {
+											"controlId": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+											"location": {
+												"column": 1,
+												"pageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+												"pageNumber": 1,
+												"row": 0
+											},
+											"model": {
+												"type": "pageup"
+											},
+											"warnings": []
+										}
+									},
+									"properties": {
+										"data": {
+											"example": {
+												"controlId": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+												"location": {
+													"column": 1,
+													"pageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+													"pageNumber": 1,
+													"row": 0
+												},
+												"model": {
+													"type": "pageup"
+												},
+												"warnings": []
+											},
+											"properties": {
+												"controlId": {
+													"description": "Control id; null in a dry run that would create a new control.",
+													"nullable": true,
+													"type": "string"
+												},
+												"location": {
+													"description": "Where the control is placed, or null.",
+													"nullable": true,
+													"properties": {
+														"column": {
+															"type": "integer"
+														},
+														"pageId": {
+															"type": "string"
+														},
+														"pageNumber": {
+															"type": "integer"
+														},
+														"row": {
+															"type": "integer"
+														}
+													},
+													"required": ["pageId", "pageNumber", "row", "column"],
+													"type": "object"
+												},
+												"model": {
+													"additionalProperties": {
+														"nullable": true
+													},
+													"description": "The control model as Companion stores it. Writable as-is with PUT.",
+													"properties": {
+														"type": {
+															"type": "string"
+														}
+													},
+													"required": ["type"],
+													"type": "object"
+												},
+												"warnings": {
+													"description": "Things that could only be partly checked. Empty on reads.",
+													"items": {
+														"properties": {
+															"message": {
+																"type": "string"
+															},
+															"path": {
+																"type": "string"
+															}
+														},
+														"required": ["path", "message"],
+														"type": "object"
+													},
+													"type": "array"
+												}
+											},
+											"required": ["controlId", "location", "model", "warnings"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The control"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["read"]
+					}
+				],
+				"summary": "Get the control at a location",
+				"tags": ["Controls"]
+			},
+			"put": {
+				"description": "Write a whole control model to a grid location. Replacing keeps the control id; entity ids are regenerated. A layered button may leave out options, style, feedbacks, steps and localVariables, and style elements may leave out properties: defaults fill them in. Every action, feedback and style property is validated first; a 422 lists every problem with its path. Send If-Match to only replace a version you have seen (use \"*\" to require that a control exists).",
+				"parameters": [
+					{
+						"description": "Page id.",
+						"in": "path",
+						"name": "pageId",
+						"required": true,
+						"schema": {
+							"description": "Page id.",
+							"example": "ggmHXCUQ0RRXUwEr8HHtQ",
+							"type": "string"
+						}
+					},
+					{
+						"description": "Grid row.",
+						"in": "path",
+						"name": "row",
+						"required": false,
+						"schema": {
+							"description": "Grid row.",
+							"nullable": true,
+							"type": "integer"
+						}
+					},
+					{
+						"description": "Grid column.",
+						"in": "path",
+						"name": "column",
+						"required": false,
+						"schema": {
+							"description": "Grid column.",
+							"nullable": true,
+							"type": "integer"
+						}
+					},
+					{
+						"description": "If true, validate and return the resulting model without writing anything.",
+						"in": "query",
+						"name": "dryRun",
+						"required": false,
+						"schema": {
+							"description": "If true, validate and return the resulting model without writing anything.",
+							"enum": ["true", "false"],
+							"type": "string"
+						}
+					},
+					{
+						"description": "If true, actions and feedbacks of connections that are not running (so have no definitions) are accepted with a warning instead of rejected.",
+						"in": "query",
+						"name": "allowMissingDefinitions",
+						"required": false,
+						"schema": {
+							"description": "If true, actions and feedbacks of connections that are not running (so have no definitions) are accepted with a warning instead of rejected.",
+							"enum": ["true", "false"],
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"example": {
+								"type": "pageup"
+							},
+							"schema": {
+								"oneOf": [
+									{
+										"additionalProperties": false,
+										"properties": {
+											"feedbacks": {
+												"items": {
+													"additionalProperties": false,
+													"properties": {
+														"children": {
+															"additionalProperties": {
+																"items": {
+																	"nullable": true
+																},
+																"type": "array"
+															},
+															"description": "Child entities of internal logic entities, keyed by child group id. Same shape as this entity.",
+															"type": "object"
+														},
+														"connectionId": {
+															"description": "Connection id, or \"internal\".",
+															"minLength": 1,
+															"type": "string"
+														},
+														"definitionId": {
+															"description": "Definition id, from the definitions resource.",
+															"minLength": 1,
+															"type": "string"
+														},
+														"disabled": {
+															"type": "boolean"
+														},
+														"headline": {
+															"type": "string"
+														},
+														"id": {
+															"description": "Ignored on write: entity ids are regenerated.",
+															"type": "string"
+														},
+														"isInverted": {
+															"additionalProperties": false,
+															"description": "Feedbacks only: invert a boolean feedback.",
+															"properties": {
+																"isExpression": {
+																	"type": "boolean"
+																},
+																"value": {
+																	"nullable": true
+																}
+															},
+															"required": ["isExpression"],
+															"type": "object"
+														},
+														"options": {
+															"additionalProperties": {
+																"additionalProperties": false,
+																"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+																"properties": {
+																	"isExpression": {
+																		"type": "boolean"
+																	},
+																	"value": {
+																		"nullable": true
+																	}
+																},
+																"required": ["isExpression"],
+																"type": "object"
+															},
+															"default": {},
+															"description": "Option values keyed by option id. Omitted options use their defaults.",
+															"type": "object"
+														},
+														"storeResult": {
+															"description": "Actions only: where to store the action result.",
+															"nullable": true
+														},
+														"styleOverrides": {
+															"description": "Feedbacks only: style element properties this feedback overrides.",
+															"items": {
+																"additionalProperties": false,
+																"properties": {
+																	"elementId": {
+																		"type": "string"
+																	},
+																	"elementProperty": {
+																		"type": "string"
+																	},
+																	"override": {
+																		"additionalProperties": false,
+																		"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+																		"properties": {
+																			"isExpression": {
+																				"type": "boolean"
+																			},
+																			"value": {
+																				"nullable": true
+																			}
+																		},
+																		"required": ["isExpression"],
+																		"type": "object"
+																	},
+																	"overrideId": {
+																		"type": "string"
+																	}
+																},
+																"required": ["overrideId", "elementId", "elementProperty", "override"],
+																"type": "object"
+															},
+															"type": "array"
+														},
+														"type": {
+															"description": "action or feedback.",
+															"enum": ["action", "feedback"],
+															"type": "string"
+														},
+														"upgradeIndex": {
+															"description": "Omit to mean \"current\".",
+															"type": "integer"
+														},
+														"variableName": {
+															"description": "Local variables only: the variable name.",
+															"type": "string"
+														}
+													},
+													"required": ["type", "connectionId", "definitionId"],
+													"type": "object"
+												},
+												"type": "array"
+											},
+											"localVariables": {
+												"items": {
+													"additionalProperties": false,
+													"properties": {
+														"children": {
+															"additionalProperties": {
+																"items": {
+																	"nullable": true
+																},
+																"type": "array"
+															},
+															"description": "Child entities of internal logic entities, keyed by child group id. Same shape as this entity.",
+															"type": "object"
+														},
+														"connectionId": {
+															"description": "Connection id, or \"internal\".",
+															"minLength": 1,
+															"type": "string"
+														},
+														"definitionId": {
+															"description": "Definition id, from the definitions resource.",
+															"minLength": 1,
+															"type": "string"
+														},
+														"disabled": {
+															"type": "boolean"
+														},
+														"headline": {
+															"type": "string"
+														},
+														"id": {
+															"description": "Ignored on write: entity ids are regenerated.",
+															"type": "string"
+														},
+														"isInverted": {
+															"additionalProperties": false,
+															"description": "Feedbacks only: invert a boolean feedback.",
+															"properties": {
+																"isExpression": {
+																	"type": "boolean"
+																},
+																"value": {
+																	"nullable": true
+																}
+															},
+															"required": ["isExpression"],
+															"type": "object"
+														},
+														"options": {
+															"additionalProperties": {
+																"additionalProperties": false,
+																"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+																"properties": {
+																	"isExpression": {
+																		"type": "boolean"
+																	},
+																	"value": {
+																		"nullable": true
+																	}
+																},
+																"required": ["isExpression"],
+																"type": "object"
+															},
+															"default": {},
+															"description": "Option values keyed by option id. Omitted options use their defaults.",
+															"type": "object"
+														},
+														"storeResult": {
+															"description": "Actions only: where to store the action result.",
+															"nullable": true
+														},
+														"styleOverrides": {
+															"description": "Feedbacks only: style element properties this feedback overrides.",
+															"items": {
+																"additionalProperties": false,
+																"properties": {
+																	"elementId": {
+																		"type": "string"
+																	},
+																	"elementProperty": {
+																		"type": "string"
+																	},
+																	"override": {
+																		"additionalProperties": false,
+																		"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+																		"properties": {
+																			"isExpression": {
+																				"type": "boolean"
+																			},
+																			"value": {
+																				"nullable": true
+																			}
+																		},
+																		"required": ["isExpression"],
+																		"type": "object"
+																	},
+																	"overrideId": {
+																		"type": "string"
+																	}
+																},
+																"required": ["overrideId", "elementId", "elementProperty", "override"],
+																"type": "object"
+															},
+															"type": "array"
+														},
+														"type": {
+															"description": "action or feedback.",
+															"enum": ["action", "feedback"],
+															"type": "string"
+														},
+														"upgradeIndex": {
+															"description": "Omit to mean \"current\".",
+															"type": "integer"
+														},
+														"variableName": {
+															"description": "Local variables only: the variable name.",
+															"type": "string"
+														}
+													},
+													"required": ["type", "connectionId", "definitionId"],
+													"type": "object"
+												},
+												"type": "array"
+											},
+											"options": {
+												"additionalProperties": false,
+												"properties": {
+													"canModifyStyleInApis": {
+														"type": "boolean"
+													},
+													"notes": {
+														"type": "string"
+													},
+													"rotaryActions": {
+														"type": "boolean"
+													},
+													"stepExpression": {
+														"type": "string"
+													},
+													"stepProgression": {
+														"enum": ["auto", "manual", "expression"],
+														"type": "string"
+													}
+												},
+												"type": "object"
+											},
+											"steps": {
+												"additionalProperties": {
+													"additionalProperties": false,
+													"properties": {
+														"action_sets": {
+															"additionalProperties": {
+																"items": {
+																	"additionalProperties": false,
+																	"properties": {
+																		"children": {
+																			"additionalProperties": {
+																				"items": {
+																					"nullable": true
+																				},
+																				"type": "array"
+																			},
+																			"description": "Child entities of internal logic entities, keyed by child group id. Same shape as this entity.",
+																			"type": "object"
+																		},
+																		"connectionId": {
+																			"description": "Connection id, or \"internal\".",
+																			"minLength": 1,
+																			"type": "string"
+																		},
+																		"definitionId": {
+																			"description": "Definition id, from the definitions resource.",
+																			"minLength": 1,
+																			"type": "string"
+																		},
+																		"disabled": {
+																			"type": "boolean"
+																		},
+																		"headline": {
+																			"type": "string"
+																		},
+																		"id": {
+																			"description": "Ignored on write: entity ids are regenerated.",
+																			"type": "string"
+																		},
+																		"isInverted": {
+																			"additionalProperties": false,
+																			"description": "Feedbacks only: invert a boolean feedback.",
+																			"properties": {
+																				"isExpression": {
+																					"type": "boolean"
+																				},
+																				"value": {
+																					"nullable": true
+																				}
+																			},
+																			"required": ["isExpression"],
+																			"type": "object"
+																		},
+																		"options": {
+																			"additionalProperties": {
+																				"additionalProperties": false,
+																				"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+																				"properties": {
+																					"isExpression": {
+																						"type": "boolean"
+																					},
+																					"value": {
+																						"nullable": true
+																					}
+																				},
+																				"required": ["isExpression"],
+																				"type": "object"
+																			},
+																			"default": {},
+																			"description": "Option values keyed by option id. Omitted options use their defaults.",
+																			"type": "object"
+																		},
+																		"storeResult": {
+																			"description": "Actions only: where to store the action result.",
+																			"nullable": true
+																		},
+																		"styleOverrides": {
+																			"description": "Feedbacks only: style element properties this feedback overrides.",
+																			"items": {
+																				"additionalProperties": false,
+																				"properties": {
+																					"elementId": {
+																						"type": "string"
+																					},
+																					"elementProperty": {
+																						"type": "string"
+																					},
+																					"override": {
+																						"additionalProperties": false,
+																						"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+																						"properties": {
+																							"isExpression": {
+																								"type": "boolean"
+																							},
+																							"value": {
+																								"nullable": true
+																							}
+																						},
+																						"required": ["isExpression"],
+																						"type": "object"
+																					},
+																					"overrideId": {
+																						"type": "string"
+																					}
+																				},
+																				"required": ["overrideId", "elementId", "elementProperty", "override"],
+																				"type": "object"
+																			},
+																			"type": "array"
+																		},
+																		"type": {
+																			"description": "action or feedback.",
+																			"enum": ["action", "feedback"],
+																			"type": "string"
+																		},
+																		"upgradeIndex": {
+																			"description": "Omit to mean \"current\".",
+																			"type": "integer"
+																		},
+																		"variableName": {
+																			"description": "Local variables only: the variable name.",
+																			"type": "string"
+																		}
+																	},
+																	"required": ["type", "connectionId", "definitionId"],
+																	"type": "object"
+																},
+																"type": "array"
+															},
+															"description": "Actions keyed by set: down, up, rotate_left, rotate_right, or a hold duration in ms.",
+															"type": "object"
+														},
+														"options": {
+															"additionalProperties": false,
+															"default": {
+																"runWhileHeld": []
+															},
+															"properties": {
+																"name": {
+																	"type": "string"
+																},
+																"runWhileHeld": {
+																	"default": [],
+																	"items": {
+																		"type": "number"
+																	},
+																	"type": "array"
+																}
+															},
+															"type": "object"
+														}
+													},
+													"required": ["action_sets"],
+													"type": "object"
+												},
+												"description": "Steps keyed by step id. Omit for one empty step.",
+												"type": "object"
+											},
+											"style": {
+												"additionalProperties": false,
+												"description": "Omit for the default button style.",
+												"properties": {
+													"layers": {
+														"description": "Layers, bottom first; the first is the canvas.",
+														"items": {
+															"additionalProperties": {
+																"nullable": true
+															},
+															"description": "A style element. Properties left out take the defaults for its type.",
+															"properties": {
+																"id": {
+																	"description": "Element id; generated if omitted. Needed to target style overrides.",
+																	"minLength": 1,
+																	"type": "string"
+																},
+																"name": {
+																	"type": "string"
+																},
+																"type": {
+																	"description": "canvas, text, image, box, line, group, circle, composite, reference or gauge.",
+																	"type": "string"
+																},
+																"usage": {
+																	"type": "string"
+																}
+															},
+															"required": ["type"],
+															"type": "object"
+														},
+														"minItems": 1,
+														"type": "array"
+													}
+												},
+												"required": ["layers"],
+												"type": "object"
+											},
+											"type": {
+												"enum": ["button-layered"],
+												"type": "string"
+											}
+										},
+										"required": ["type"],
+										"type": "object"
+									},
+									{
+										"additionalProperties": false,
+										"properties": {
+											"type": {
+												"enum": ["pageup"],
+												"type": "string"
+											}
+										},
+										"required": ["type"],
+										"type": "object"
+									},
+									{
+										"additionalProperties": false,
+										"properties": {
+											"type": {
+												"enum": ["pagedown"],
+												"type": "string"
+											}
+										},
+										"required": ["type"],
+										"type": "object"
+									},
+									{
+										"additionalProperties": false,
+										"properties": {
+											"type": {
+												"enum": ["pagenum"],
+												"type": "string"
+											}
+										},
+										"required": ["type"],
+										"type": "object"
+									},
+									{
+										"additionalProperties": false,
+										"properties": {
+											"options": {
+												"additionalProperties": false,
+												"properties": {
+													"location": {
+														"additionalProperties": false,
+														"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+														"properties": {
+															"isExpression": {
+																"type": "boolean"
+															},
+															"value": {
+																"nullable": true
+															}
+														},
+														"required": ["isExpression"],
+														"type": "object"
+													},
+													"notes": {
+														"type": "string"
+													}
+												},
+												"required": ["location"],
+												"type": "object"
+											},
+											"type": {
+												"enum": ["button-reference"],
+												"type": "string"
+											}
+										},
+										"required": ["type", "options"],
+										"type": "object"
+									}
+								]
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"controlId": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+										"location": {
+											"column": 1,
+											"pageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+											"pageNumber": 1,
+											"row": 0
+										},
+										"model": {
+											"type": "pageup"
+										},
+										"warnings": []
+									}
+								},
+								"schema": {
+									"example": {
+										"data": {
+											"controlId": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+											"location": {
+												"column": 1,
+												"pageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+												"pageNumber": 1,
+												"row": 0
+											},
+											"model": {
+												"type": "pageup"
+											},
+											"warnings": []
+										}
+									},
+									"properties": {
+										"data": {
+											"example": {
+												"controlId": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+												"location": {
+													"column": 1,
+													"pageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+													"pageNumber": 1,
+													"row": 0
+												},
+												"model": {
+													"type": "pageup"
+												},
+												"warnings": []
+											},
+											"properties": {
+												"controlId": {
+													"description": "Control id; null in a dry run that would create a new control.",
+													"nullable": true,
+													"type": "string"
+												},
+												"location": {
+													"description": "Where the control is placed, or null.",
+													"nullable": true,
+													"properties": {
+														"column": {
+															"type": "integer"
+														},
+														"pageId": {
+															"type": "string"
+														},
+														"pageNumber": {
+															"type": "integer"
+														},
+														"row": {
+															"type": "integer"
+														}
+													},
+													"required": ["pageId", "pageNumber", "row", "column"],
+													"type": "object"
+												},
+												"model": {
+													"additionalProperties": {
+														"nullable": true
+													},
+													"description": "The control model as Companion stores it. Writable as-is with PUT.",
+													"properties": {
+														"type": {
+															"type": "string"
+														}
+													},
+													"required": ["type"],
+													"type": "object"
+												},
+												"warnings": {
+													"description": "Things that could only be partly checked. Empty on reads.",
+													"items": {
+														"properties": {
+															"message": {
+																"type": "string"
+															},
+															"path": {
+																"type": "string"
+															}
+														},
+														"required": ["path", "message"],
+														"type": "object"
+													},
+													"type": "array"
+												}
+											},
+											"required": ["controlId", "location", "model", "warnings"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The written control"
+					},
+					"201": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"data": {
+											"controlId": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+											"location": {
+												"column": 1,
+												"pageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+												"pageNumber": 1,
+												"row": 0
+											},
+											"model": {
+												"type": "pageup"
+											},
+											"warnings": []
+										}
+									},
+									"properties": {
+										"data": {
+											"example": {
+												"controlId": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+												"location": {
+													"column": 1,
+													"pageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+													"pageNumber": 1,
+													"row": 0
+												},
+												"model": {
+													"type": "pageup"
+												},
+												"warnings": []
+											},
+											"properties": {
+												"controlId": {
+													"description": "Control id; null in a dry run that would create a new control.",
+													"nullable": true,
+													"type": "string"
+												},
+												"location": {
+													"description": "Where the control is placed, or null.",
+													"nullable": true,
+													"properties": {
+														"column": {
+															"type": "integer"
+														},
+														"pageId": {
+															"type": "string"
+														},
+														"pageNumber": {
+															"type": "integer"
+														},
+														"row": {
+															"type": "integer"
+														}
+													},
+													"required": ["pageId", "pageNumber", "row", "column"],
+													"type": "object"
+												},
+												"model": {
+													"additionalProperties": {
+														"nullable": true
+													},
+													"description": "The control model as Companion stores it. Writable as-is with PUT.",
+													"properties": {
+														"type": {
+															"type": "string"
+														}
+													},
+													"required": ["type"],
+													"type": "object"
+												},
+												"warnings": {
+													"description": "Things that could only be partly checked. Empty on reads.",
+													"items": {
+														"properties": {
+															"message": {
+																"type": "string"
+															},
+															"path": {
+																"type": "string"
+															}
+														},
+														"required": ["path", "message"],
+														"type": "object"
+													},
+													"type": "array"
+												}
+											},
+											"required": ["controlId", "location", "model", "warnings"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Created a new control"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					},
+					"409": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Conflict"
+					},
+					"412": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "If-Match does not match the current ETag"
+					},
+					"422": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The model is not valid; details lists each problem with its path"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["write"]
+					}
+				],
+				"summary": "Create or replace the control at a location",
+				"tags": ["Controls"]
+			}
+		},
 		"/definitions/v1/actions": {
 			"get": {
 				"description": "Returns the action definitions of all running connections, including built-in ones under the \"internal\" connection. Definitions only exist while a connection is running.",

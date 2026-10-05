@@ -1,6 +1,7 @@
 import crypto from 'node:crypto'
 import { EventEmitter } from 'node:events'
 import debounceFn from 'debounce-fn'
+import type express from 'express'
 import { nanoid } from 'nanoid'
 import z from 'zod'
 import {
@@ -25,7 +26,7 @@ import { createStableObjectHash } from '@companion-app/shared/Util/Hash.js'
 import type { DataDatabase } from '../Data/Database.js'
 import type { ImageResult } from '../Graphics/ImageResult.js'
 import type { CompositeElementIdString } from '../Instance/Definitions.js'
-import LogController from '../Log/Controller.js'
+import LogController, { type Logger } from '../Log/Controller.js'
 import type { ActiveLearningStore } from '../Resources/ActiveLearningStore.js'
 import { publicProcedure, router, toIterable } from '../UI/TRPC.js'
 import { injectOverriddenLocalVariableValues } from '../Variables/Util.js'
@@ -36,6 +37,7 @@ import type {
 } from '../Variables/VariablesAndExpressionParser.js'
 import { createActionSetsTrpcRouter } from './ActionSetsTrpcRouter.js'
 import type { ControlChangeEvents, ControlCommonEvents, ControlExternalDependencies } from './ControlDependencies.js'
+import { createControlsRestApiRouter } from './ControlsRestApi.js'
 import type { ControlStore } from './ControlStore.js'
 import { createControlsTrpcRouter } from './ControlsTrpcRouter.js'
 import { ControlButtonLayered } from './ControlTypes/Button/Layered.js'
@@ -220,6 +222,15 @@ export class ControlsController {
 			maxWait: 500,
 		}
 	)
+
+	createRestApiRouter(logger: Logger): express.Router {
+		return createControlsRestApiRouter(logger, {
+			controls: this,
+			pageStore: this.#deps.pageStore,
+			definitions: this.#deps.instance.definitions,
+			userconfig: this.#deps.userconfig,
+		})
+	}
 
 	createTrpcRouter() {
 		const self = this

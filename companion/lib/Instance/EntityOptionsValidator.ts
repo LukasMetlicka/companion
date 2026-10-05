@@ -50,11 +50,29 @@ export function validateEntityOptions(
 	definition: ClientEntityDefinition,
 	options: Record<string, unknown>
 ): EntityOptionsValidationResult {
+	return validateOptionValues(definition.options, definition.optionsSupportExpressions, options)
+}
+
+/**
+ * Validate stored-form option values against a list of input fields. This is the core of
+ * validateEntityOptions, also used for other expressionable property sets such as button style elements.
+ *
+ * @param fields The input fields the values belong to
+ * @param supportsExpressions Whether values may be expressions (subject to each field's disableAutoExpression)
+ * @param options The values, keyed by field id
+ */
+export function validateOptionValues(
+	fields: SomeCompanionInputField[],
+	supportsExpressions: boolean,
+	options: Record<string, unknown>
+): EntityOptionsValidationResult {
 	const errors: EntityOptionIssue[] = []
 	const warnings: EntityOptionWarning[] = []
 
 	const fieldsById = new Map<string, SomeCompanionInputField>()
-	for (const field of definition.options) fieldsById.set(field.id, field)
+	for (const field of fields) fieldsById.set(field.id, field)
+	// The visibility helper only reads these two members of a definition
+	const definition = { options: fields, optionsSupportExpressions: supportsExpressions } as ClientEntityDefinition
 
 	// Shape errors are reported first; the remaining checks only see well-formed values
 	const wellFormed: Record<string, { isExpression: boolean; value: JsonValue | undefined }> = {}

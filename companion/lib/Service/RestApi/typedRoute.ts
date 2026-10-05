@@ -18,9 +18,12 @@ export type RestRouteResult<T> =
 			status?: 200 | 201
 			body: T
 			location?: string
+			/** Extra response headers, e.g. ETag */
+			headers?: Record<string, string>
 	  }
 	| {
 			status: 204
+			headers?: Record<string, string>
 	  }
 
 export interface RestRouteContext<
@@ -32,6 +35,8 @@ export interface RestRouteContext<
 	query: InferSchema<QuerySchema>
 	body: InferSchema<BodySchema>
 	token: ApiToken
+	/** The raw request headers, e.g. for If-Match */
+	headers: Express.Request['headers']
 }
 
 export interface RestEndpointContract<
@@ -163,7 +168,9 @@ export function mountRestEndpoint(
 			const query = parseRequestPart(endpoint.request?.query, req.query, 'Invalid query parameters')
 			const body = parseRequestPart(endpoint.request?.body, req.body, 'Invalid request body')
 
-			const result = await endpoint.handler({ params, query, body, token })
+			const result = await endpoint.handler({ params, query, body, token, headers: req.headers })
+
+			if (result.headers) res.set(result.headers)
 
 			if (result.status === 204) {
 				res.status(204).send()
