@@ -1,5 +1,6 @@
 import { nanoid } from 'nanoid'
 import { elementSchemas, type ElementSchemaSection } from '@companion-app/shared/Graphics/ElementPropertiesSchemas.js'
+import { isLabelValid } from '@companion-app/shared/Label.js'
 import type {
 	ButtonModelBase,
 	LayeredButtonModel,
@@ -15,6 +16,7 @@ import {
 } from '@companion-app/shared/Model/EntityModel.js'
 import type { ExpressionVariableModel } from '@companion-app/shared/Model/ExpressionVariableModel.js'
 import type { SomeCompanionInputField } from '@companion-app/shared/Model/Options.js'
+import type { PageControlModel } from '@companion-app/shared/Model/PageControlModel.js'
 import type { SomeButtonGraphicsElement } from '@companion-app/shared/Model/StyleLayersModel.js'
 import type { TriggerModel } from '@companion-app/shared/Model/TriggerModel.js'
 import { validateInputValue } from '@companion-app/shared/ValidateInputValue.js'
@@ -490,6 +492,66 @@ export function prepareExpressionVariableModel(
 	checker.checkList(model.localVariables, EntityModelType.Feedback, 'localVariables')
 
 	return { model, errors, warnings }
+}
+
+export interface PreparedPageVariables {
+	model: PageControlModel
+	errors: ControlModelIssue[]
+	warnings: ControlModelWarning[]
+}
+
+/**
+ * Validate the local variables of a page (5.1 page variables, used as `$(page:<name>)`).
+ *
+ * Each must be a value feedback with a valid definition and options, and a name that is valid and unique
+ * on the page.
+ */
+export function preparePageVariables(
+	localVariables: SomeEntityModel[],
+	deps: ControlModelValidatorDeps,
+	options: ControlModelValidatorOptions
+): PreparedPageVariables {
+	const errors: ControlModelIssue[] = []
+	const warnings: ControlModelWarning[] = []
+
+	const model: PageControlModel = { type: 'page', localVariables: structuredClone(localVariables) }
+
+	const checker = new EntityChecker(deps, options, errors, warnings, new Map())
+	checker.checkList(model.localVariables, EntityModelType.Feedback, 'localVariables')
+
+	const seenNames = new Set<string>()
+	model.localVariables.forEach((entity, index) => {
+		const path = `localVariables[${index}]`
+
+		const definition = deps.getEntityDefinition(entity.type, entity.connectionId, entity.definitionId)
+		if (definition && definition.feedbackType !== FeedbackEntitySubType.Value) {
+			errors.push({ path, code: 'wrong_entity_type', message: 'Page variables must be value feedbacks' })
+		}
+
+		const name = entity.type === EntityModelType.Feedback ? entity.variableName : undefined
+		if (!name || !isLabelValid(name)) {
+			errors.push({
+				path: `${path}.variableName`,
+				code: 'invalid_value',
+				message: 'A name is required: letters, digits, underscores and dashes, and not a reserved word',
+			})
+		} else if (seenNames.has(name)) {
+			errors.push({
+				path: `${path}.variableName`,
+				code: 'invalid_value',
+				message: `Name "${name}" is used more than once`,
+			})
+		} else {
+			seenNames.add(name)
+		}
+	})
+
+	return { model, errors, warnings }
+}
+
+/** Page variable content for change detection: entity ids are left out, as they are regenerated on write */
+export function stripPageVariableIds(model: PageControlModel): unknown {
+	return { ...model, localVariables: stripEntityListIds(model.localVariables) }
 }
 
 /** Expression variable content for change detection: entity ids are left out, as they are regenerated on write */

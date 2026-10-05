@@ -10727,6 +10727,753 @@
 				"tags": ["Pages"]
 			}
 		},
+		"/pages/v1/{pageId}/variables": {
+			"get": {
+				"description": "Returns the page variables (available to every button on the page as $(page:<name>)). The ETag header identifies this version.",
+				"parameters": [
+					{
+						"description": "Page id.",
+						"in": "path",
+						"name": "pageId",
+						"required": true,
+						"schema": {
+							"description": "Page id.",
+							"example": "ggmHXCUQ0RRXUwEr8HHtQ",
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"localVariables": [],
+										"pageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+										"warnings": []
+									}
+								},
+								"schema": {
+									"example": {
+										"data": {
+											"localVariables": [],
+											"pageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+											"warnings": []
+										}
+									},
+									"properties": {
+										"data": {
+											"example": {
+												"localVariables": [],
+												"pageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+												"warnings": []
+											},
+											"properties": {
+												"localVariables": {
+													"description": "The page variables as Companion stores them. Writable as-is with PUT.",
+													"items": {
+														"additionalProperties": {
+															"nullable": true
+														},
+														"properties": {
+															"type": {
+																"type": "string"
+															}
+														},
+														"required": ["type"],
+														"type": "object"
+													},
+													"type": "array"
+												},
+												"pageId": {
+													"type": "string"
+												},
+												"warnings": {
+													"items": {
+														"properties": {
+															"message": {
+																"type": "string"
+															},
+															"path": {
+																"type": "string"
+															}
+														},
+														"required": ["path", "message"],
+														"type": "object"
+													},
+													"type": "array"
+												}
+											},
+											"required": ["pageId", "localVariables", "warnings"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The page variables"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["read"]
+					}
+				],
+				"summary": "Get the variables of a page",
+				"tags": ["Pages"]
+			},
+			"put": {
+				"description": "Replace all page variables. Each must be a value feedback with a valid, unique variableName. Send If-Match to only replace a version you have seen.",
+				"parameters": [
+					{
+						"description": "Page id.",
+						"in": "path",
+						"name": "pageId",
+						"required": true,
+						"schema": {
+							"description": "Page id.",
+							"example": "ggmHXCUQ0RRXUwEr8HHtQ",
+							"type": "string"
+						}
+					},
+					{
+						"description": "If true, validate and return the resulting variables without writing anything.",
+						"in": "query",
+						"name": "dryRun",
+						"required": false,
+						"schema": {
+							"description": "If true, validate and return the resulting variables without writing anything.",
+							"enum": ["true", "false"],
+							"type": "string"
+						}
+					},
+					{
+						"description": "If true, entities of connections that are not running are accepted with a warning.",
+						"in": "query",
+						"name": "allowMissingDefinitions",
+						"required": false,
+						"schema": {
+							"description": "If true, entities of connections that are not running are accepted with a warning.",
+							"enum": ["true", "false"],
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"additionalProperties": false,
+								"properties": {
+									"localVariables": {
+										"description": "The page variables: value feedbacks, each with a variableName (used as $(page:<name>)), e.g. internal user_value or expression_value. Replaces all of them.",
+										"items": {
+											"additionalProperties": false,
+											"properties": {
+												"children": {
+													"additionalProperties": {
+														"items": {
+															"nullable": true
+														},
+														"type": "array"
+													},
+													"description": "Child entities of internal logic entities, keyed by child group id. Same shape as this entity.",
+													"type": "object"
+												},
+												"connectionId": {
+													"description": "Connection id, or \"internal\".",
+													"minLength": 1,
+													"type": "string"
+												},
+												"definitionId": {
+													"description": "Definition id, from the definitions resource.",
+													"minLength": 1,
+													"type": "string"
+												},
+												"disabled": {
+													"type": "boolean"
+												},
+												"headline": {
+													"type": "string"
+												},
+												"id": {
+													"description": "Ignored on write: entity ids are regenerated.",
+													"type": "string"
+												},
+												"isInverted": {
+													"additionalProperties": false,
+													"description": "Feedbacks only: invert a boolean feedback.",
+													"properties": {
+														"isExpression": {
+															"type": "boolean"
+														},
+														"value": {
+															"nullable": true
+														}
+													},
+													"required": ["isExpression"],
+													"type": "object"
+												},
+												"options": {
+													"additionalProperties": {
+														"additionalProperties": false,
+														"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+														"properties": {
+															"isExpression": {
+																"type": "boolean"
+															},
+															"value": {
+																"nullable": true
+															}
+														},
+														"required": ["isExpression"],
+														"type": "object"
+													},
+													"default": {},
+													"description": "Option values keyed by option id. Omitted options use their defaults.",
+													"type": "object"
+												},
+												"storeResult": {
+													"description": "Actions only: where to store the action result.",
+													"nullable": true
+												},
+												"styleOverrides": {
+													"description": "Feedbacks only: style element properties this feedback overrides.",
+													"items": {
+														"additionalProperties": false,
+														"properties": {
+															"elementId": {
+																"type": "string"
+															},
+															"elementProperty": {
+																"type": "string"
+															},
+															"override": {
+																"additionalProperties": false,
+																"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+																"properties": {
+																	"isExpression": {
+																		"type": "boolean"
+																	},
+																	"value": {
+																		"nullable": true
+																	}
+																},
+																"required": ["isExpression"],
+																"type": "object"
+															},
+															"overrideId": {
+																"type": "string"
+															}
+														},
+														"required": ["overrideId", "elementId", "elementProperty", "override"],
+														"type": "object"
+													},
+													"type": "array"
+												},
+												"type": {
+													"description": "action or feedback.",
+													"enum": ["action", "feedback"],
+													"type": "string"
+												},
+												"upgradeIndex": {
+													"description": "Omit to mean \"current\".",
+													"type": "integer"
+												},
+												"variableName": {
+													"description": "Local variables only: the variable name.",
+													"type": "string"
+												}
+											},
+											"required": ["type", "connectionId", "definitionId"],
+											"type": "object"
+										},
+										"type": "array"
+									}
+								},
+								"required": ["localVariables"],
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"localVariables": [],
+										"pageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+										"warnings": []
+									}
+								},
+								"schema": {
+									"example": {
+										"data": {
+											"localVariables": [],
+											"pageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+											"warnings": []
+										}
+									},
+									"properties": {
+										"data": {
+											"example": {
+												"localVariables": [],
+												"pageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+												"warnings": []
+											},
+											"properties": {
+												"localVariables": {
+													"description": "The page variables as Companion stores them. Writable as-is with PUT.",
+													"items": {
+														"additionalProperties": {
+															"nullable": true
+														},
+														"properties": {
+															"type": {
+																"type": "string"
+															}
+														},
+														"required": ["type"],
+														"type": "object"
+													},
+													"type": "array"
+												},
+												"pageId": {
+													"type": "string"
+												},
+												"warnings": {
+													"items": {
+														"properties": {
+															"message": {
+																"type": "string"
+															},
+															"path": {
+																"type": "string"
+															}
+														},
+														"required": ["path", "message"],
+														"type": "object"
+													},
+													"type": "array"
+												}
+											},
+											"required": ["pageId", "localVariables", "warnings"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The written page variables"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					},
+					"412": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "If-Match does not match the current ETag"
+					},
+					"422": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The variables are not valid; details lists each problem with its path"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["write"]
+					}
+				],
+				"summary": "Replace the variables of a page",
+				"tags": ["Pages"]
+			}
+		},
 		"/surfaces/v1": {
 			"get": {
 				"description": "Returns all known surfaces, connected or not, with their current state.",

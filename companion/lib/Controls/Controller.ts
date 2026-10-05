@@ -60,6 +60,7 @@ import { createExpressionVariablesRestApiRouter } from './ExpressionVariablesRes
 import { createExpressionVariableTrpcRouter } from './ExpressionVariableTrpcRouter.js'
 import { ControlsFactory } from './Factory.js'
 import type { SomeControl } from './IControlFragments.js'
+import { createPageVariablesRestApiRouter } from './PageVariablesRestApi.js'
 import { createStepsTrpcRouter } from './StepsTrpcRouter.js'
 import { createStylesTrpcRouter } from './StylesTrpcRouter.js'
 import { TriggerCollections } from './TriggerCollections.js'
@@ -248,6 +249,13 @@ export class ControlsController {
 				controls: this,
 				definitions: this.#deps.instance.definitions,
 				values: this.#deps.variableValues,
+			})
+		)
+		router.use(
+			createPageVariablesRestApiRouter(logger, {
+				controls: this,
+				pageStore: this.#deps.pageStore,
+				definitions: this.#deps.instance.definitions,
 			})
 		)
 		return router
