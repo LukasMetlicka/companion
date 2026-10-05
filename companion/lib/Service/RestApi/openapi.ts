@@ -1,5 +1,6 @@
 import { OpenApiGeneratorV3 } from '@asteasolutions/zod-to-openapi'
 import { registerControlPaths } from '../../Controls/ControlsRestApi.js'
+import { registerExpressionVariablePaths } from '../../Controls/ExpressionVariablesRestApi.js'
 import { registerTriggerPaths } from '../../Controls/TriggersRestApi.js'
 import { registerInstanceRestApiPaths } from '../../Instance/RestApi.js'
 import { registerPagePaths } from '../../Page/PagesRestApi.js'
@@ -25,6 +26,7 @@ export function generateOpenApiDocument(
 	registerVariablesPaths(registry)
 	registerControlPaths(registry)
 	registerTriggerPaths(registry)
+	registerExpressionVariablePaths(registry)
 
 	const generator = new OpenApiGeneratorV3(registry.definitions)
 

@@ -56,6 +56,7 @@ import { createEntitiesTrpcRouter } from './EntitiesTrpcRouter.js'
 import { createEventsTrpcRouter } from './EventsTrpcRouter.js'
 import { ExpressionVariableCollections } from './ExpressionVariableCollections.js'
 import { ExpressionVariableNameMap } from './ExpressionVariableNameMap.js'
+import { createExpressionVariablesRestApiRouter } from './ExpressionVariablesRestApi.js'
 import { createExpressionVariableTrpcRouter } from './ExpressionVariableTrpcRouter.js'
 import { ControlsFactory } from './Factory.js'
 import type { SomeControl } from './IControlFragments.js'
@@ -240,6 +241,13 @@ export class ControlsController {
 				controls: this,
 				definitions: this.#deps.instance.definitions,
 				eventDefinitions: EventDefinitions,
+			})
+		)
+		router.use(
+			createExpressionVariablesRestApiRouter(logger, {
+				controls: this,
+				definitions: this.#deps.instance.definitions,
+				values: this.#deps.variableValues,
 			})
 		)
 		return router

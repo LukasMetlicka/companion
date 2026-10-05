@@ -8,7 +8,12 @@ import type {
 } from '@companion-app/shared/Model/ButtonModel.js'
 import type { EventDefinition } from '@companion-app/shared/Model/Common.js'
 import type { ClientEntityDefinition } from '@companion-app/shared/Model/EntityDefinitionModel.js'
-import { EntityModelType, type SomeEntityModel } from '@companion-app/shared/Model/EntityModel.js'
+import {
+	EntityModelType,
+	FeedbackEntitySubType,
+	type SomeEntityModel,
+} from '@companion-app/shared/Model/EntityModel.js'
+import type { ExpressionVariableModel } from '@companion-app/shared/Model/ExpressionVariableModel.js'
 import type { SomeCompanionInputField } from '@companion-app/shared/Model/Options.js'
 import type { SomeButtonGraphicsElement } from '@companion-app/shared/Model/StyleLayersModel.js'
 import type { TriggerModel } from '@companion-app/shared/Model/TriggerModel.js'
@@ -16,6 +21,7 @@ import { validateInputValue } from '@companion-app/shared/ValidateInputValue.js'
 import { validateEntityOptions, validateOptionValues } from '../Instance/EntityOptionsValidator.js'
 import { CreateElementOfType } from './ControlTypes/Button/LayerDefaults.js'
 import { ControlButtonLayered } from './ControlTypes/Button/Layered.js'
+import { ControlExpressionVariable } from './ControlTypes/ExpressionVariable.js'
 import { ControlTrigger } from './ControlTypes/Triggers/Trigger.js'
 
 export type ControlModelIssueCode =
@@ -434,6 +440,65 @@ export function prepareTriggerModel(
 	checker.checkList(model.localVariables, EntityModelType.Feedback, 'localVariables')
 
 	return { model, errors, warnings }
+}
+
+export interface PreparedExpressionVariableModel {
+	/** The model, completed with Companion's defaults. Only safe to write if `errors` is empty. */
+	model: ExpressionVariableModel
+	errors: ControlModelIssue[]
+	warnings: ControlModelWarning[]
+}
+
+/**
+ * Complete and validate an expression variable model before it is written to Companion.
+ *
+ * The root `entity` must be a value feedback (e.g. internal `expression_value`); it is checked against its
+ * definition like any other entity, as are the local variables.
+ */
+export function prepareExpressionVariableModel(
+	input: Partial<ExpressionVariableModel>,
+	deps: ControlModelValidatorDeps,
+	options: ControlModelValidatorOptions
+): PreparedExpressionVariableModel {
+	const errors: ControlModelIssue[] = []
+	const warnings: ControlModelWarning[] = []
+
+	const model: ExpressionVariableModel = {
+		type: 'expression-variable',
+		options: { ...structuredClone(ControlExpressionVariable.DefaultOptions), ...input.options },
+		entity: structuredClone(input.entity ?? null),
+		localVariables: structuredClone(input.localVariables ?? []),
+	}
+
+	const checker = new EntityChecker(deps, options, errors, warnings, new Map())
+	if (model.entity) {
+		checker.checkList([model.entity], EntityModelType.Feedback, 'entity')
+
+		const definition = deps.getEntityDefinition(
+			EntityModelType.Feedback,
+			model.entity.connectionId,
+			model.entity.definitionId
+		)
+		if (definition && definition.feedbackType !== FeedbackEntitySubType.Value) {
+			errors.push({
+				path: 'entity',
+				code: 'wrong_entity_type',
+				message: `The root entity must be a value feedback; "${model.entity.definitionId}" is a ${definition.feedbackType ?? 'non-value'} feedback`,
+			})
+		}
+	}
+	checker.checkList(model.localVariables, EntityModelType.Feedback, 'localVariables')
+
+	return { model, errors, warnings }
+}
+
+/** Expression variable content for change detection: entity ids are left out, as they are regenerated on write */
+export function stripExpressionVariableIds(model: ExpressionVariableModel): unknown {
+	return {
+		...model,
+		entity: model.entity ? stripEntityListIds([model.entity])[0] : null,
+		localVariables: stripEntityListIds(model.localVariables),
+	}
 }
 
 /** Entities without the ids and upgrade indexes Companion (re)generates on write, recursing into children */

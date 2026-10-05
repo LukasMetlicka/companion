@@ -17329,6 +17329,2941 @@
 				"tags": ["Variables"]
 			}
 		},
+		"/variables/v1/expression": {
+			"get": {
+				"description": "Returns a summary of every expression variable, in list order.",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": [
+										{
+											"collectionId": null,
+											"controlId": "expression-variable:Rk2pV8xQ1mZ4",
+											"description": "Label for the DIT route button",
+											"isActive": true,
+											"sortOrder": 0,
+											"variableName": "dit_route_label"
+										}
+									],
+									"meta": {
+										"limit": 1,
+										"offset": 0,
+										"total": 1
+									}
+								},
+								"schema": {
+									"example": {
+										"data": [
+											{
+												"collectionId": null,
+												"controlId": "expression-variable:Rk2pV8xQ1mZ4",
+												"description": "Label for the DIT route button",
+												"isActive": true,
+												"sortOrder": 0,
+												"variableName": "dit_route_label"
+											}
+										],
+										"meta": {
+											"limit": 100,
+											"offset": 0,
+											"total": 1
+										}
+									},
+									"properties": {
+										"data": {
+											"items": {
+												"example": {
+													"collectionId": null,
+													"controlId": "expression-variable:Rk2pV8xQ1mZ4",
+													"description": "Label for the DIT route button",
+													"isActive": true,
+													"sortOrder": 0,
+													"variableName": "dit_route_label"
+												},
+												"properties": {
+													"collectionId": {
+														"nullable": true,
+														"type": "string"
+													},
+													"controlId": {
+														"type": "string"
+													},
+													"description": {
+														"type": "string"
+													},
+													"isActive": {
+														"description": "False if another expression variable with the same name takes precedence, or the name is empty.",
+														"type": "boolean"
+													},
+													"sortOrder": {
+														"type": "number"
+													},
+													"value": {
+														"description": "Current value, as $(expression:<name>). Omitted if unset or inactive.",
+														"nullable": true
+													},
+													"variableName": {
+														"type": "string"
+													}
+												},
+												"required": [
+													"controlId",
+													"variableName",
+													"description",
+													"isActive",
+													"sortOrder",
+													"collectionId"
+												],
+												"type": "object"
+											},
+											"type": "array"
+										},
+										"meta": {
+											"example": {
+												"limit": 100,
+												"offset": 0,
+												"total": 1
+											},
+											"properties": {
+												"limit": {
+													"description": "Maximum number of resources returned by this response.",
+													"example": 100,
+													"type": "number"
+												},
+												"offset": {
+													"description": "Number of resources skipped before this response.",
+													"example": 0,
+													"type": "number"
+												},
+												"total": {
+													"description": "Total number of resources available.",
+													"example": 1,
+													"type": "number"
+												}
+											},
+											"required": ["total", "limit", "offset"],
+											"type": "object"
+										}
+									},
+									"required": ["data", "meta"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "List of expression variables"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["read"]
+					}
+				],
+				"summary": "List expression variables",
+				"tags": ["Variables"]
+			},
+			"post": {
+				"description": "Create an expression variable. options.variableName is required and must be unique. Give expression for a plain expression, or entity for any value feedback.",
+				"parameters": [
+					{
+						"description": "If true, validate and return the resulting model without writing anything.",
+						"in": "query",
+						"name": "dryRun",
+						"required": false,
+						"schema": {
+							"description": "If true, validate and return the resulting model without writing anything.",
+							"enum": ["true", "false"],
+							"type": "string"
+						}
+					},
+					{
+						"description": "If true, entities of connections that are not running are accepted with a warning.",
+						"in": "query",
+						"name": "allowMissingDefinitions",
+						"required": false,
+						"schema": {
+							"description": "If true, entities of connections that are not running are accepted with a warning.",
+							"enum": ["true", "false"],
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"example": {
+								"expression": "concat('SRC ', $(kumo:dest_1_source))",
+								"options": {
+									"description": "Label for the DIT route button",
+									"variableName": "dit_route_label"
+								}
+							},
+							"schema": {
+								"additionalProperties": false,
+								"properties": {
+									"entity": {
+										"additionalProperties": false,
+										"description": "The value feedback that computes the value. Use expression instead for a plain expression.",
+										"nullable": true,
+										"properties": {
+											"children": {
+												"additionalProperties": {
+													"items": {
+														"nullable": true
+													},
+													"type": "array"
+												},
+												"description": "Child entities of internal logic entities, keyed by child group id. Same shape as this entity.",
+												"type": "object"
+											},
+											"connectionId": {
+												"description": "Connection id, or \"internal\".",
+												"minLength": 1,
+												"type": "string"
+											},
+											"definitionId": {
+												"description": "Definition id, from the definitions resource.",
+												"minLength": 1,
+												"type": "string"
+											},
+											"disabled": {
+												"type": "boolean"
+											},
+											"headline": {
+												"type": "string"
+											},
+											"id": {
+												"description": "Ignored on write: entity ids are regenerated.",
+												"type": "string"
+											},
+											"isInverted": {
+												"additionalProperties": false,
+												"description": "Feedbacks only: invert a boolean feedback.",
+												"properties": {
+													"isExpression": {
+														"type": "boolean"
+													},
+													"value": {
+														"nullable": true
+													}
+												},
+												"required": ["isExpression"],
+												"type": "object"
+											},
+											"options": {
+												"additionalProperties": {
+													"additionalProperties": false,
+													"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+													"properties": {
+														"isExpression": {
+															"type": "boolean"
+														},
+														"value": {
+															"nullable": true
+														}
+													},
+													"required": ["isExpression"],
+													"type": "object"
+												},
+												"default": {},
+												"description": "Option values keyed by option id. Omitted options use their defaults.",
+												"type": "object"
+											},
+											"storeResult": {
+												"description": "Actions only: where to store the action result.",
+												"nullable": true
+											},
+											"styleOverrides": {
+												"description": "Feedbacks only: style element properties this feedback overrides.",
+												"items": {
+													"additionalProperties": false,
+													"properties": {
+														"elementId": {
+															"type": "string"
+														},
+														"elementProperty": {
+															"type": "string"
+														},
+														"override": {
+															"additionalProperties": false,
+															"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+															"properties": {
+																"isExpression": {
+																	"type": "boolean"
+																},
+																"value": {
+																	"nullable": true
+																}
+															},
+															"required": ["isExpression"],
+															"type": "object"
+														},
+														"overrideId": {
+															"type": "string"
+														}
+													},
+													"required": ["overrideId", "elementId", "elementProperty", "override"],
+													"type": "object"
+												},
+												"type": "array"
+											},
+											"type": {
+												"description": "action or feedback.",
+												"enum": ["action", "feedback"],
+												"type": "string"
+											},
+											"upgradeIndex": {
+												"description": "Omit to mean \"current\".",
+												"type": "integer"
+											},
+											"variableName": {
+												"description": "Local variables only: the variable name.",
+												"type": "string"
+											}
+										},
+										"required": ["type", "connectionId", "definitionId"],
+										"type": "object"
+									},
+									"expression": {
+										"description": "Shorthand for an entity that evaluates this expression (internal expression_value). Not allowed together with entity.",
+										"type": "string"
+									},
+									"localVariables": {
+										"items": {
+											"additionalProperties": false,
+											"properties": {
+												"children": {
+													"additionalProperties": {
+														"items": {
+															"nullable": true
+														},
+														"type": "array"
+													},
+													"description": "Child entities of internal logic entities, keyed by child group id. Same shape as this entity.",
+													"type": "object"
+												},
+												"connectionId": {
+													"description": "Connection id, or \"internal\".",
+													"minLength": 1,
+													"type": "string"
+												},
+												"definitionId": {
+													"description": "Definition id, from the definitions resource.",
+													"minLength": 1,
+													"type": "string"
+												},
+												"disabled": {
+													"type": "boolean"
+												},
+												"headline": {
+													"type": "string"
+												},
+												"id": {
+													"description": "Ignored on write: entity ids are regenerated.",
+													"type": "string"
+												},
+												"isInverted": {
+													"additionalProperties": false,
+													"description": "Feedbacks only: invert a boolean feedback.",
+													"properties": {
+														"isExpression": {
+															"type": "boolean"
+														},
+														"value": {
+															"nullable": true
+														}
+													},
+													"required": ["isExpression"],
+													"type": "object"
+												},
+												"options": {
+													"additionalProperties": {
+														"additionalProperties": false,
+														"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+														"properties": {
+															"isExpression": {
+																"type": "boolean"
+															},
+															"value": {
+																"nullable": true
+															}
+														},
+														"required": ["isExpression"],
+														"type": "object"
+													},
+													"default": {},
+													"description": "Option values keyed by option id. Omitted options use their defaults.",
+													"type": "object"
+												},
+												"storeResult": {
+													"description": "Actions only: where to store the action result.",
+													"nullable": true
+												},
+												"styleOverrides": {
+													"description": "Feedbacks only: style element properties this feedback overrides.",
+													"items": {
+														"additionalProperties": false,
+														"properties": {
+															"elementId": {
+																"type": "string"
+															},
+															"elementProperty": {
+																"type": "string"
+															},
+															"override": {
+																"additionalProperties": false,
+																"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+																"properties": {
+																	"isExpression": {
+																		"type": "boolean"
+																	},
+																	"value": {
+																		"nullable": true
+																	}
+																},
+																"required": ["isExpression"],
+																"type": "object"
+															},
+															"overrideId": {
+																"type": "string"
+															}
+														},
+														"required": ["overrideId", "elementId", "elementProperty", "override"],
+														"type": "object"
+													},
+													"type": "array"
+												},
+												"type": {
+													"description": "action or feedback.",
+													"enum": ["action", "feedback"],
+													"type": "string"
+												},
+												"upgradeIndex": {
+													"description": "Omit to mean \"current\".",
+													"type": "integer"
+												},
+												"variableName": {
+													"description": "Local variables only: the variable name.",
+													"type": "string"
+												}
+											},
+											"required": ["type", "connectionId", "definitionId"],
+											"type": "object"
+										},
+										"type": "array"
+									},
+									"options": {
+										"additionalProperties": false,
+										"properties": {
+											"collectionId": {
+												"type": "string"
+											},
+											"description": {
+												"type": "string"
+											},
+											"notes": {
+												"type": "string"
+											},
+											"sortOrder": {
+												"description": "Position in the list. Defaults to the end.",
+												"type": "number"
+											},
+											"variableName": {
+												"description": "Name, referenced as $(expression:<name>). Must be unique.",
+												"type": "string"
+											}
+										},
+										"type": "object"
+									},
+									"type": {
+										"enum": ["expression-variable"],
+										"type": "string"
+									}
+								},
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"201": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"controlId": "expression-variable:Rk2pV8xQ1mZ4",
+										"isActive": true,
+										"model": {
+											"entity": null,
+											"localVariables": [],
+											"options": {
+												"description": "",
+												"notes": "",
+												"sortOrder": 0,
+												"variableName": "dit_route_label"
+											},
+											"type": "expression-variable"
+										},
+										"warnings": []
+									}
+								},
+								"schema": {
+									"example": {
+										"data": {
+											"controlId": "expression-variable:Rk2pV8xQ1mZ4",
+											"isActive": true,
+											"model": {
+												"entity": null,
+												"localVariables": [],
+												"options": {
+													"description": "",
+													"notes": "",
+													"sortOrder": 0,
+													"variableName": "dit_route_label"
+												},
+												"type": "expression-variable"
+											},
+											"warnings": []
+										}
+									},
+									"properties": {
+										"data": {
+											"example": {
+												"controlId": "expression-variable:Rk2pV8xQ1mZ4",
+												"isActive": true,
+												"model": {
+													"entity": null,
+													"localVariables": [],
+													"options": {
+														"description": "",
+														"notes": "",
+														"sortOrder": 0,
+														"variableName": "dit_route_label"
+													},
+													"type": "expression-variable"
+												},
+												"warnings": []
+											},
+											"properties": {
+												"controlId": {
+													"description": "Id; null in a dry run that would create one.",
+													"nullable": true,
+													"type": "string"
+												},
+												"isActive": {
+													"type": "boolean"
+												},
+												"model": {
+													"additionalProperties": {
+														"nullable": true
+													},
+													"description": "The model as Companion stores it. Writable as-is with PUT.",
+													"properties": {
+														"type": {
+															"enum": ["expression-variable"],
+															"type": "string"
+														}
+													},
+													"required": ["type"],
+													"type": "object"
+												},
+												"value": {
+													"description": "Current value. Omitted if unset or inactive.",
+													"nullable": true
+												},
+												"warnings": {
+													"items": {
+														"properties": {
+															"message": {
+																"type": "string"
+															},
+															"path": {
+																"type": "string"
+															}
+														},
+														"required": ["path", "message"],
+														"type": "object"
+													},
+													"type": "array"
+												}
+											},
+											"required": ["controlId", "model", "isActive", "warnings"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The created expression variable"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					},
+					"409": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Another expression variable already has this name"
+					},
+					"422": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The model is not valid; details lists each problem with its path"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["write"]
+					}
+				],
+				"summary": "Create an expression variable",
+				"tags": ["Variables"]
+			}
+		},
+		"/variables/v1/expression/{controlId}": {
+			"delete": {
+				"description": "Send If-Match to only delete a version you have seen.",
+				"parameters": [
+					{
+						"description": "Expression variable id.",
+						"in": "path",
+						"name": "controlId",
+						"required": true,
+						"schema": {
+							"description": "Expression variable id.",
+							"example": "expression-variable:Rk2pV8xQ1mZ4",
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "Deleted"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					},
+					"412": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "If-Match does not match the current ETag"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["write"]
+					}
+				],
+				"summary": "Delete an expression variable",
+				"tags": ["Variables"]
+			},
+			"get": {
+				"description": "Returns an expression variable with its full model. The ETag header identifies this version.",
+				"parameters": [
+					{
+						"description": "Expression variable id.",
+						"in": "path",
+						"name": "controlId",
+						"required": true,
+						"schema": {
+							"description": "Expression variable id.",
+							"example": "expression-variable:Rk2pV8xQ1mZ4",
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"controlId": "expression-variable:Rk2pV8xQ1mZ4",
+										"isActive": true,
+										"model": {
+											"entity": null,
+											"localVariables": [],
+											"options": {
+												"description": "",
+												"notes": "",
+												"sortOrder": 0,
+												"variableName": "dit_route_label"
+											},
+											"type": "expression-variable"
+										},
+										"warnings": []
+									}
+								},
+								"schema": {
+									"example": {
+										"data": {
+											"controlId": "expression-variable:Rk2pV8xQ1mZ4",
+											"isActive": true,
+											"model": {
+												"entity": null,
+												"localVariables": [],
+												"options": {
+													"description": "",
+													"notes": "",
+													"sortOrder": 0,
+													"variableName": "dit_route_label"
+												},
+												"type": "expression-variable"
+											},
+											"warnings": []
+										}
+									},
+									"properties": {
+										"data": {
+											"example": {
+												"controlId": "expression-variable:Rk2pV8xQ1mZ4",
+												"isActive": true,
+												"model": {
+													"entity": null,
+													"localVariables": [],
+													"options": {
+														"description": "",
+														"notes": "",
+														"sortOrder": 0,
+														"variableName": "dit_route_label"
+													},
+													"type": "expression-variable"
+												},
+												"warnings": []
+											},
+											"properties": {
+												"controlId": {
+													"description": "Id; null in a dry run that would create one.",
+													"nullable": true,
+													"type": "string"
+												},
+												"isActive": {
+													"type": "boolean"
+												},
+												"model": {
+													"additionalProperties": {
+														"nullable": true
+													},
+													"description": "The model as Companion stores it. Writable as-is with PUT.",
+													"properties": {
+														"type": {
+															"enum": ["expression-variable"],
+															"type": "string"
+														}
+													},
+													"required": ["type"],
+													"type": "object"
+												},
+												"value": {
+													"description": "Current value. Omitted if unset or inactive.",
+													"nullable": true
+												},
+												"warnings": {
+													"items": {
+														"properties": {
+															"message": {
+																"type": "string"
+															},
+															"path": {
+																"type": "string"
+															}
+														},
+														"required": ["path", "message"],
+														"type": "object"
+													},
+													"type": "array"
+												}
+											},
+											"required": ["controlId", "model", "isActive", "warnings"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The expression variable"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["read"]
+					}
+				],
+				"summary": "Get an expression variable",
+				"tags": ["Variables"]
+			},
+			"patch": {
+				"description": "Partially update an expression variable: options is merged; entity (or expression) and localVariables replace what is there. Send If-Match to only update a version you have seen.",
+				"parameters": [
+					{
+						"description": "Expression variable id.",
+						"in": "path",
+						"name": "controlId",
+						"required": true,
+						"schema": {
+							"description": "Expression variable id.",
+							"example": "expression-variable:Rk2pV8xQ1mZ4",
+							"type": "string"
+						}
+					},
+					{
+						"description": "If true, validate and return the resulting model without writing anything.",
+						"in": "query",
+						"name": "dryRun",
+						"required": false,
+						"schema": {
+							"description": "If true, validate and return the resulting model without writing anything.",
+							"enum": ["true", "false"],
+							"type": "string"
+						}
+					},
+					{
+						"description": "If true, entities of connections that are not running are accepted with a warning.",
+						"in": "query",
+						"name": "allowMissingDefinitions",
+						"required": false,
+						"schema": {
+							"description": "If true, entities of connections that are not running are accepted with a warning.",
+							"enum": ["true", "false"],
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"additionalProperties": false,
+								"properties": {
+									"entity": {
+										"additionalProperties": false,
+										"description": "The value feedback that computes the value. Use expression instead for a plain expression.",
+										"nullable": true,
+										"properties": {
+											"children": {
+												"additionalProperties": {
+													"items": {
+														"nullable": true
+													},
+													"type": "array"
+												},
+												"description": "Child entities of internal logic entities, keyed by child group id. Same shape as this entity.",
+												"type": "object"
+											},
+											"connectionId": {
+												"description": "Connection id, or \"internal\".",
+												"minLength": 1,
+												"type": "string"
+											},
+											"definitionId": {
+												"description": "Definition id, from the definitions resource.",
+												"minLength": 1,
+												"type": "string"
+											},
+											"disabled": {
+												"type": "boolean"
+											},
+											"headline": {
+												"type": "string"
+											},
+											"id": {
+												"description": "Ignored on write: entity ids are regenerated.",
+												"type": "string"
+											},
+											"isInverted": {
+												"additionalProperties": false,
+												"description": "Feedbacks only: invert a boolean feedback.",
+												"properties": {
+													"isExpression": {
+														"type": "boolean"
+													},
+													"value": {
+														"nullable": true
+													}
+												},
+												"required": ["isExpression"],
+												"type": "object"
+											},
+											"options": {
+												"additionalProperties": {
+													"additionalProperties": false,
+													"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+													"properties": {
+														"isExpression": {
+															"type": "boolean"
+														},
+														"value": {
+															"nullable": true
+														}
+													},
+													"required": ["isExpression"],
+													"type": "object"
+												},
+												"default": {},
+												"description": "Option values keyed by option id. Omitted options use their defaults.",
+												"type": "object"
+											},
+											"storeResult": {
+												"description": "Actions only: where to store the action result.",
+												"nullable": true
+											},
+											"styleOverrides": {
+												"description": "Feedbacks only: style element properties this feedback overrides.",
+												"items": {
+													"additionalProperties": false,
+													"properties": {
+														"elementId": {
+															"type": "string"
+														},
+														"elementProperty": {
+															"type": "string"
+														},
+														"override": {
+															"additionalProperties": false,
+															"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+															"properties": {
+																"isExpression": {
+																	"type": "boolean"
+																},
+																"value": {
+																	"nullable": true
+																}
+															},
+															"required": ["isExpression"],
+															"type": "object"
+														},
+														"overrideId": {
+															"type": "string"
+														}
+													},
+													"required": ["overrideId", "elementId", "elementProperty", "override"],
+													"type": "object"
+												},
+												"type": "array"
+											},
+											"type": {
+												"description": "action or feedback.",
+												"enum": ["action", "feedback"],
+												"type": "string"
+											},
+											"upgradeIndex": {
+												"description": "Omit to mean \"current\".",
+												"type": "integer"
+											},
+											"variableName": {
+												"description": "Local variables only: the variable name.",
+												"type": "string"
+											}
+										},
+										"required": ["type", "connectionId", "definitionId"],
+										"type": "object"
+									},
+									"expression": {
+										"description": "Shorthand for an entity that evaluates this expression (internal expression_value). Not allowed together with entity.",
+										"type": "string"
+									},
+									"localVariables": {
+										"items": {
+											"additionalProperties": false,
+											"properties": {
+												"children": {
+													"additionalProperties": {
+														"items": {
+															"nullable": true
+														},
+														"type": "array"
+													},
+													"description": "Child entities of internal logic entities, keyed by child group id. Same shape as this entity.",
+													"type": "object"
+												},
+												"connectionId": {
+													"description": "Connection id, or \"internal\".",
+													"minLength": 1,
+													"type": "string"
+												},
+												"definitionId": {
+													"description": "Definition id, from the definitions resource.",
+													"minLength": 1,
+													"type": "string"
+												},
+												"disabled": {
+													"type": "boolean"
+												},
+												"headline": {
+													"type": "string"
+												},
+												"id": {
+													"description": "Ignored on write: entity ids are regenerated.",
+													"type": "string"
+												},
+												"isInverted": {
+													"additionalProperties": false,
+													"description": "Feedbacks only: invert a boolean feedback.",
+													"properties": {
+														"isExpression": {
+															"type": "boolean"
+														},
+														"value": {
+															"nullable": true
+														}
+													},
+													"required": ["isExpression"],
+													"type": "object"
+												},
+												"options": {
+													"additionalProperties": {
+														"additionalProperties": false,
+														"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+														"properties": {
+															"isExpression": {
+																"type": "boolean"
+															},
+															"value": {
+																"nullable": true
+															}
+														},
+														"required": ["isExpression"],
+														"type": "object"
+													},
+													"default": {},
+													"description": "Option values keyed by option id. Omitted options use their defaults.",
+													"type": "object"
+												},
+												"storeResult": {
+													"description": "Actions only: where to store the action result.",
+													"nullable": true
+												},
+												"styleOverrides": {
+													"description": "Feedbacks only: style element properties this feedback overrides.",
+													"items": {
+														"additionalProperties": false,
+														"properties": {
+															"elementId": {
+																"type": "string"
+															},
+															"elementProperty": {
+																"type": "string"
+															},
+															"override": {
+																"additionalProperties": false,
+																"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+																"properties": {
+																	"isExpression": {
+																		"type": "boolean"
+																	},
+																	"value": {
+																		"nullable": true
+																	}
+																},
+																"required": ["isExpression"],
+																"type": "object"
+															},
+															"overrideId": {
+																"type": "string"
+															}
+														},
+														"required": ["overrideId", "elementId", "elementProperty", "override"],
+														"type": "object"
+													},
+													"type": "array"
+												},
+												"type": {
+													"description": "action or feedback.",
+													"enum": ["action", "feedback"],
+													"type": "string"
+												},
+												"upgradeIndex": {
+													"description": "Omit to mean \"current\".",
+													"type": "integer"
+												},
+												"variableName": {
+													"description": "Local variables only: the variable name.",
+													"type": "string"
+												}
+											},
+											"required": ["type", "connectionId", "definitionId"],
+											"type": "object"
+										},
+										"type": "array"
+									},
+									"options": {
+										"additionalProperties": false,
+										"properties": {
+											"collectionId": {
+												"type": "string"
+											},
+											"description": {
+												"type": "string"
+											},
+											"notes": {
+												"type": "string"
+											},
+											"sortOrder": {
+												"description": "Position in the list. Defaults to the end.",
+												"type": "number"
+											},
+											"variableName": {
+												"description": "Name, referenced as $(expression:<name>). Must be unique.",
+												"type": "string"
+											}
+										},
+										"type": "object"
+									},
+									"type": {
+										"enum": ["expression-variable"],
+										"type": "string"
+									}
+								},
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"controlId": "expression-variable:Rk2pV8xQ1mZ4",
+										"isActive": true,
+										"model": {
+											"entity": null,
+											"localVariables": [],
+											"options": {
+												"description": "",
+												"notes": "",
+												"sortOrder": 0,
+												"variableName": "dit_route_label"
+											},
+											"type": "expression-variable"
+										},
+										"warnings": []
+									}
+								},
+								"schema": {
+									"example": {
+										"data": {
+											"controlId": "expression-variable:Rk2pV8xQ1mZ4",
+											"isActive": true,
+											"model": {
+												"entity": null,
+												"localVariables": [],
+												"options": {
+													"description": "",
+													"notes": "",
+													"sortOrder": 0,
+													"variableName": "dit_route_label"
+												},
+												"type": "expression-variable"
+											},
+											"warnings": []
+										}
+									},
+									"properties": {
+										"data": {
+											"example": {
+												"controlId": "expression-variable:Rk2pV8xQ1mZ4",
+												"isActive": true,
+												"model": {
+													"entity": null,
+													"localVariables": [],
+													"options": {
+														"description": "",
+														"notes": "",
+														"sortOrder": 0,
+														"variableName": "dit_route_label"
+													},
+													"type": "expression-variable"
+												},
+												"warnings": []
+											},
+											"properties": {
+												"controlId": {
+													"description": "Id; null in a dry run that would create one.",
+													"nullable": true,
+													"type": "string"
+												},
+												"isActive": {
+													"type": "boolean"
+												},
+												"model": {
+													"additionalProperties": {
+														"nullable": true
+													},
+													"description": "The model as Companion stores it. Writable as-is with PUT.",
+													"properties": {
+														"type": {
+															"enum": ["expression-variable"],
+															"type": "string"
+														}
+													},
+													"required": ["type"],
+													"type": "object"
+												},
+												"value": {
+													"description": "Current value. Omitted if unset or inactive.",
+													"nullable": true
+												},
+												"warnings": {
+													"items": {
+														"properties": {
+															"message": {
+																"type": "string"
+															},
+															"path": {
+																"type": "string"
+															}
+														},
+														"required": ["path", "message"],
+														"type": "object"
+													},
+													"type": "array"
+												}
+											},
+											"required": ["controlId", "model", "isActive", "warnings"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The written expression variable"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					},
+					"409": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Another expression variable already has this name"
+					},
+					"412": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "If-Match does not match the current ETag"
+					},
+					"422": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The model is not valid; details lists each problem with its path"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["write"]
+					}
+				],
+				"summary": "Update an expression variable",
+				"tags": ["Variables"]
+			},
+			"put": {
+				"description": "Replace an expression variable with a whole model, keeping its id. Send If-Match to only replace a version you have seen.",
+				"parameters": [
+					{
+						"description": "Expression variable id.",
+						"in": "path",
+						"name": "controlId",
+						"required": true,
+						"schema": {
+							"description": "Expression variable id.",
+							"example": "expression-variable:Rk2pV8xQ1mZ4",
+							"type": "string"
+						}
+					},
+					{
+						"description": "If true, validate and return the resulting model without writing anything.",
+						"in": "query",
+						"name": "dryRun",
+						"required": false,
+						"schema": {
+							"description": "If true, validate and return the resulting model without writing anything.",
+							"enum": ["true", "false"],
+							"type": "string"
+						}
+					},
+					{
+						"description": "If true, entities of connections that are not running are accepted with a warning.",
+						"in": "query",
+						"name": "allowMissingDefinitions",
+						"required": false,
+						"schema": {
+							"description": "If true, entities of connections that are not running are accepted with a warning.",
+							"enum": ["true", "false"],
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"additionalProperties": false,
+								"properties": {
+									"entity": {
+										"additionalProperties": false,
+										"description": "The value feedback that computes the value. Use expression instead for a plain expression.",
+										"nullable": true,
+										"properties": {
+											"children": {
+												"additionalProperties": {
+													"items": {
+														"nullable": true
+													},
+													"type": "array"
+												},
+												"description": "Child entities of internal logic entities, keyed by child group id. Same shape as this entity.",
+												"type": "object"
+											},
+											"connectionId": {
+												"description": "Connection id, or \"internal\".",
+												"minLength": 1,
+												"type": "string"
+											},
+											"definitionId": {
+												"description": "Definition id, from the definitions resource.",
+												"minLength": 1,
+												"type": "string"
+											},
+											"disabled": {
+												"type": "boolean"
+											},
+											"headline": {
+												"type": "string"
+											},
+											"id": {
+												"description": "Ignored on write: entity ids are regenerated.",
+												"type": "string"
+											},
+											"isInverted": {
+												"additionalProperties": false,
+												"description": "Feedbacks only: invert a boolean feedback.",
+												"properties": {
+													"isExpression": {
+														"type": "boolean"
+													},
+													"value": {
+														"nullable": true
+													}
+												},
+												"required": ["isExpression"],
+												"type": "object"
+											},
+											"options": {
+												"additionalProperties": {
+													"additionalProperties": false,
+													"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+													"properties": {
+														"isExpression": {
+															"type": "boolean"
+														},
+														"value": {
+															"nullable": true
+														}
+													},
+													"required": ["isExpression"],
+													"type": "object"
+												},
+												"default": {},
+												"description": "Option values keyed by option id. Omitted options use their defaults.",
+												"type": "object"
+											},
+											"storeResult": {
+												"description": "Actions only: where to store the action result.",
+												"nullable": true
+											},
+											"styleOverrides": {
+												"description": "Feedbacks only: style element properties this feedback overrides.",
+												"items": {
+													"additionalProperties": false,
+													"properties": {
+														"elementId": {
+															"type": "string"
+														},
+														"elementProperty": {
+															"type": "string"
+														},
+														"override": {
+															"additionalProperties": false,
+															"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+															"properties": {
+																"isExpression": {
+																	"type": "boolean"
+																},
+																"value": {
+																	"nullable": true
+																}
+															},
+															"required": ["isExpression"],
+															"type": "object"
+														},
+														"overrideId": {
+															"type": "string"
+														}
+													},
+													"required": ["overrideId", "elementId", "elementProperty", "override"],
+													"type": "object"
+												},
+												"type": "array"
+											},
+											"type": {
+												"description": "action or feedback.",
+												"enum": ["action", "feedback"],
+												"type": "string"
+											},
+											"upgradeIndex": {
+												"description": "Omit to mean \"current\".",
+												"type": "integer"
+											},
+											"variableName": {
+												"description": "Local variables only: the variable name.",
+												"type": "string"
+											}
+										},
+										"required": ["type", "connectionId", "definitionId"],
+										"type": "object"
+									},
+									"expression": {
+										"description": "Shorthand for an entity that evaluates this expression (internal expression_value). Not allowed together with entity.",
+										"type": "string"
+									},
+									"localVariables": {
+										"items": {
+											"additionalProperties": false,
+											"properties": {
+												"children": {
+													"additionalProperties": {
+														"items": {
+															"nullable": true
+														},
+														"type": "array"
+													},
+													"description": "Child entities of internal logic entities, keyed by child group id. Same shape as this entity.",
+													"type": "object"
+												},
+												"connectionId": {
+													"description": "Connection id, or \"internal\".",
+													"minLength": 1,
+													"type": "string"
+												},
+												"definitionId": {
+													"description": "Definition id, from the definitions resource.",
+													"minLength": 1,
+													"type": "string"
+												},
+												"disabled": {
+													"type": "boolean"
+												},
+												"headline": {
+													"type": "string"
+												},
+												"id": {
+													"description": "Ignored on write: entity ids are regenerated.",
+													"type": "string"
+												},
+												"isInverted": {
+													"additionalProperties": false,
+													"description": "Feedbacks only: invert a boolean feedback.",
+													"properties": {
+														"isExpression": {
+															"type": "boolean"
+														},
+														"value": {
+															"nullable": true
+														}
+													},
+													"required": ["isExpression"],
+													"type": "object"
+												},
+												"options": {
+													"additionalProperties": {
+														"additionalProperties": false,
+														"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+														"properties": {
+															"isExpression": {
+																"type": "boolean"
+															},
+															"value": {
+																"nullable": true
+															}
+														},
+														"required": ["isExpression"],
+														"type": "object"
+													},
+													"default": {},
+													"description": "Option values keyed by option id. Omitted options use their defaults.",
+													"type": "object"
+												},
+												"storeResult": {
+													"description": "Actions only: where to store the action result.",
+													"nullable": true
+												},
+												"styleOverrides": {
+													"description": "Feedbacks only: style element properties this feedback overrides.",
+													"items": {
+														"additionalProperties": false,
+														"properties": {
+															"elementId": {
+																"type": "string"
+															},
+															"elementProperty": {
+																"type": "string"
+															},
+															"override": {
+																"additionalProperties": false,
+																"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+																"properties": {
+																	"isExpression": {
+																		"type": "boolean"
+																	},
+																	"value": {
+																		"nullable": true
+																	}
+																},
+																"required": ["isExpression"],
+																"type": "object"
+															},
+															"overrideId": {
+																"type": "string"
+															}
+														},
+														"required": ["overrideId", "elementId", "elementProperty", "override"],
+														"type": "object"
+													},
+													"type": "array"
+												},
+												"type": {
+													"description": "action or feedback.",
+													"enum": ["action", "feedback"],
+													"type": "string"
+												},
+												"upgradeIndex": {
+													"description": "Omit to mean \"current\".",
+													"type": "integer"
+												},
+												"variableName": {
+													"description": "Local variables only: the variable name.",
+													"type": "string"
+												}
+											},
+											"required": ["type", "connectionId", "definitionId"],
+											"type": "object"
+										},
+										"type": "array"
+									},
+									"options": {
+										"additionalProperties": false,
+										"properties": {
+											"collectionId": {
+												"type": "string"
+											},
+											"description": {
+												"type": "string"
+											},
+											"notes": {
+												"type": "string"
+											},
+											"sortOrder": {
+												"description": "Position in the list. Defaults to the end.",
+												"type": "number"
+											},
+											"variableName": {
+												"description": "Name, referenced as $(expression:<name>). Must be unique.",
+												"type": "string"
+											}
+										},
+										"type": "object"
+									},
+									"type": {
+										"enum": ["expression-variable"],
+										"type": "string"
+									}
+								},
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"controlId": "expression-variable:Rk2pV8xQ1mZ4",
+										"isActive": true,
+										"model": {
+											"entity": null,
+											"localVariables": [],
+											"options": {
+												"description": "",
+												"notes": "",
+												"sortOrder": 0,
+												"variableName": "dit_route_label"
+											},
+											"type": "expression-variable"
+										},
+										"warnings": []
+									}
+								},
+								"schema": {
+									"example": {
+										"data": {
+											"controlId": "expression-variable:Rk2pV8xQ1mZ4",
+											"isActive": true,
+											"model": {
+												"entity": null,
+												"localVariables": [],
+												"options": {
+													"description": "",
+													"notes": "",
+													"sortOrder": 0,
+													"variableName": "dit_route_label"
+												},
+												"type": "expression-variable"
+											},
+											"warnings": []
+										}
+									},
+									"properties": {
+										"data": {
+											"example": {
+												"controlId": "expression-variable:Rk2pV8xQ1mZ4",
+												"isActive": true,
+												"model": {
+													"entity": null,
+													"localVariables": [],
+													"options": {
+														"description": "",
+														"notes": "",
+														"sortOrder": 0,
+														"variableName": "dit_route_label"
+													},
+													"type": "expression-variable"
+												},
+												"warnings": []
+											},
+											"properties": {
+												"controlId": {
+													"description": "Id; null in a dry run that would create one.",
+													"nullable": true,
+													"type": "string"
+												},
+												"isActive": {
+													"type": "boolean"
+												},
+												"model": {
+													"additionalProperties": {
+														"nullable": true
+													},
+													"description": "The model as Companion stores it. Writable as-is with PUT.",
+													"properties": {
+														"type": {
+															"enum": ["expression-variable"],
+															"type": "string"
+														}
+													},
+													"required": ["type"],
+													"type": "object"
+												},
+												"value": {
+													"description": "Current value. Omitted if unset or inactive.",
+													"nullable": true
+												},
+												"warnings": {
+													"items": {
+														"properties": {
+															"message": {
+																"type": "string"
+															},
+															"path": {
+																"type": "string"
+															}
+														},
+														"required": ["path", "message"],
+														"type": "object"
+													},
+													"type": "array"
+												}
+											},
+											"required": ["controlId", "model", "isActive", "warnings"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The written expression variable"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					},
+					"409": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Another expression variable already has this name"
+					},
+					"412": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "If-Match does not match the current ETag"
+					},
+					"422": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The model is not valid; details lists each problem with its path"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["write"]
+					}
+				],
+				"summary": "Replace an expression variable",
+				"tags": ["Variables"]
+			}
+		},
 		"/variables/v1/values": {
 			"get": {
 				"description": "Returns every defined variable (connection, internal and custom) with its description and current value, ordered by namespace then name.",
