@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid'
 import { elementSchemas, type ElementSchemaSection } from '@companion-app/shared/Graphics/ElementPropertiesSchemas.js'
 import type {
 	ButtonModelBase,
@@ -5,16 +6,21 @@ import type {
 	NormalButtonSteps,
 	SomeButtonModel,
 } from '@companion-app/shared/Model/ButtonModel.js'
+import type { EventDefinition } from '@companion-app/shared/Model/Common.js'
 import type { ClientEntityDefinition } from '@companion-app/shared/Model/EntityDefinitionModel.js'
 import { EntityModelType, type SomeEntityModel } from '@companion-app/shared/Model/EntityModel.js'
 import type { SomeCompanionInputField } from '@companion-app/shared/Model/Options.js'
 import type { SomeButtonGraphicsElement } from '@companion-app/shared/Model/StyleLayersModel.js'
+import type { TriggerModel } from '@companion-app/shared/Model/TriggerModel.js'
+import { validateInputValue } from '@companion-app/shared/ValidateInputValue.js'
 import { validateEntityOptions, validateOptionValues } from '../Instance/EntityOptionsValidator.js'
 import { CreateElementOfType } from './ControlTypes/Button/LayerDefaults.js'
 import { ControlButtonLayered } from './ControlTypes/Button/Layered.js'
+import { ControlTrigger } from './ControlTypes/Triggers/Trigger.js'
 
 export type ControlModelIssueCode =
 	| 'unknown_definition'
+	| 'unknown_event_type'
 	| 'wrong_entity_type'
 	| 'unknown_child_group'
 	| 'invalid_action_set'
@@ -345,40 +351,138 @@ class EntityChecker {
 	}
 }
 
-/** Model members that are content, for change detection: entity ids are regenerated on every write */
+export interface PreparedTriggerModel {
+	/** The model, completed with Companion's defaults. Only safe to write if `errors` is empty. */
+	model: TriggerModel
+	errors: ControlModelIssue[]
+	warnings: ControlModelWarning[]
+}
+
+/**
+ * Complete and validate a trigger model before it is written to Companion.
+ *
+ * Completion: options, events, condition, actions and localVariables may be left out. Events get an id,
+ * `enabled: true` and their definition's default option values where left out.
+ *
+ * Validation: events must be a known type with valid option values (events store plain values, not
+ * expressions); conditions must be feedbacks, actions must be actions, and both are checked against their
+ * definitions exactly as for buttons.
+ */
+export function prepareTriggerModel(
+	input: Partial<TriggerModel> & Pick<TriggerModel, 'type'>,
+	deps: ControlModelValidatorDeps,
+	eventDefinitions: Readonly<Record<string, EventDefinition>>,
+	options: ControlModelValidatorOptions
+): PreparedTriggerModel {
+	const errors: ControlModelIssue[] = []
+	const warnings: ControlModelWarning[] = []
+
+	const model: TriggerModel = {
+		type: 'trigger',
+		options: { ...structuredClone(ControlTrigger.DefaultOptions), ...input.options },
+		events: [],
+		condition: structuredClone(input.condition ?? []),
+		actions: structuredClone(input.actions ?? []),
+		localVariables: structuredClone(input.localVariables ?? []),
+	}
+
+	;(input.events ?? []).forEach((event, index) => {
+		const path = `events[${index}]`
+		const definition = Object.hasOwn(eventDefinitions, event.type) ? eventDefinitions[event.type] : undefined
+		if (!definition) {
+			errors.push({ path: `${path}.type`, code: 'unknown_event_type', message: `Unknown event type "${event.type}"` })
+			return
+		}
+
+		const fieldsById = new Map(definition.options.map((field) => [field.id, field]))
+		const eventOptions: Record<string, any> = {}
+		for (const field of definition.options) {
+			if ('default' in field && field.default !== undefined) eventOptions[field.id] = structuredClone(field.default)
+		}
+		for (const [optionId, value] of Object.entries(event.options ?? {})) {
+			const field = fieldsById.get(optionId)
+			if (!field) {
+				errors.push({
+					path: `${path}.options.${optionId}`,
+					code: 'unknown_option',
+					message: `Unknown option "${optionId}"`,
+				})
+				continue
+			}
+			const result = validateInputValue(field, value)
+			if (result.validationError) {
+				errors.push({ path: `${path}.options.${optionId}`, code: 'invalid_value', message: result.validationError })
+			}
+			for (const warning of result.validationWarnings) {
+				warnings.push({ path: `${path}.options.${optionId}`, message: warning })
+			}
+			eventOptions[optionId] = value
+		}
+
+		model.events.push({
+			id: event.id ?? nanoid(),
+			type: event.type,
+			enabled: event.enabled ?? true,
+			...(event.headline !== undefined ? { headline: event.headline } : {}),
+			options: eventOptions,
+		})
+	})
+
+	const checker = new EntityChecker(deps, options, errors, warnings, new Map())
+	checker.checkList(model.condition, EntityModelType.Feedback, 'condition')
+	checker.checkList(model.actions, EntityModelType.Action, 'actions')
+	checker.checkList(model.localVariables, EntityModelType.Feedback, 'localVariables')
+
+	return { model, errors, warnings }
+}
+
+/** Entities without the ids and upgrade indexes Companion (re)generates on write, recursing into children */
+function stripEntityListIds(entities: SomeEntityModel[] | undefined): unknown[] {
+	return (entities ?? []).map((entity) => {
+		const { id: _id, upgradeIndex: _upgradeIndex, children, ...rest } = entity
+		return {
+			...rest,
+			...(children
+				? {
+						children: Object.fromEntries(
+							Object.entries(children).map(([groupId, list]) => [groupId, stripEntityListIds(list)])
+						),
+					}
+				: {}),
+		}
+	})
+}
+
+/** Button content for change detection: entity ids are left out, as they are regenerated on every write */
 export function stripEntityIds(model: SomeButtonModel): unknown {
 	if (!('feedbacks' in model)) return model
-
-	const stripList = (entities: SomeEntityModel[] | undefined): unknown[] =>
-		(entities ?? []).map((entity) => {
-			const { id: _id, upgradeIndex: _upgradeIndex, children, ...rest } = entity
-			return {
-				...rest,
-				...(children
-					? {
-							children: Object.fromEntries(
-								Object.entries(children).map(([groupId, list]) => [groupId, stripList(list)])
-							),
-						}
-					: {}),
-			}
-		})
 
 	const base = model as ButtonModelBase & SomeButtonModel
 	return {
 		...base,
-		feedbacks: stripList(base.feedbacks),
-		localVariables: stripList(base.localVariables),
+		feedbacks: stripEntityListIds(base.feedbacks),
+		localVariables: stripEntityListIds(base.localVariables),
 		steps: Object.fromEntries(
 			Object.entries(base.steps).map(([stepId, step]) => [
 				stepId,
 				{
 					...step,
 					action_sets: Object.fromEntries(
-						Object.entries(step.action_sets).map(([setId, list]) => [setId, stripList(list)])
+						Object.entries(step.action_sets).map(([setId, list]) => [setId, stripEntityListIds(list)])
 					),
 				},
 			])
 		),
+	}
+}
+
+/** Trigger content for change detection: entity and event ids are left out, as they are (re)generated on write */
+export function stripTriggerIds(model: TriggerModel): unknown {
+	return {
+		...model,
+		actions: stripEntityListIds(model.actions),
+		condition: stripEntityListIds(model.condition),
+		localVariables: stripEntityListIds(model.localVariables),
+		events: model.events.map(({ id: _id, ...rest }) => rest),
 	}
 }

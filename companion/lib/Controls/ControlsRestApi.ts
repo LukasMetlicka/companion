@@ -54,12 +54,12 @@ const defineControlEndpointSpec = createRestEndpointSpecFactory<ControlsRestCont
 // Children and style elements are typed loosely here (no recursive schemas: the OpenAPI generator cannot
 // handle them). Their content is validated by prepareControlModel, which reports errors with a path.
 
-const ExpressionOrValueSchema = z
+export const ExpressionOrValueSchema = z
 	.object({ isExpression: z.boolean(), value: z.unknown() })
 	.strict()
 	.describe('A stored option value: { isExpression: false, value } or { isExpression: true, value: "<expression>" }.')
 
-const EntitySchema = z
+export const EntitySchema = z
 	.object({
 		id: z.string().optional().describe('Ignored on write: entity ids are regenerated.'),
 		type: z.enum(EntityModelType).describe('action or feedback.'),
@@ -330,7 +330,7 @@ function buildControlResponse(
 }
 
 /** Give entities without an id one (recursing into children), and parse the loosely typed children */
-function normalizeEntities(entities: unknown[], path: string): SomeEntityModel[] {
+export function normalizeEntities(entities: unknown[], path: string): SomeEntityModel[] {
 	return entities.map((raw, index) => {
 		const parsed = EntitySchema.safeParse(raw)
 		if (!parsed.success) {

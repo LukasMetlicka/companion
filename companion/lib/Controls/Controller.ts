@@ -1,7 +1,7 @@
 import crypto from 'node:crypto'
 import { EventEmitter } from 'node:events'
 import debounceFn from 'debounce-fn'
-import type express from 'express'
+import express from 'express'
 import { nanoid } from 'nanoid'
 import z from 'zod'
 import {
@@ -28,6 +28,7 @@ import type { ImageResult } from '../Graphics/ImageResult.js'
 import type { CompositeElementIdString } from '../Instance/Definitions.js'
 import LogController, { type Logger } from '../Log/Controller.js'
 import type { ActiveLearningStore } from '../Resources/ActiveLearningStore.js'
+import { EventDefinitions } from '../Resources/EventDefinitions.js'
 import { publicProcedure, router, toIterable } from '../UI/TRPC.js'
 import { injectOverriddenLocalVariableValues } from '../Variables/Util.js'
 import { NO_CONNECTION_LABELS } from '../Variables/Values.js'
@@ -62,6 +63,7 @@ import { createStepsTrpcRouter } from './StepsTrpcRouter.js'
 import { createStylesTrpcRouter } from './StylesTrpcRouter.js'
 import { TriggerCollections } from './TriggerCollections.js'
 import type { TriggerEvents } from './TriggerEvents.js'
+import { createTriggersRestApiRouter } from './TriggersRestApi.js'
 import { createTriggersTrpcRouter } from './TriggersTrpcRouter.js'
 import { validateBankControlId, validateExpressionVariableControlId, validateTriggerControlId } from './Util.js'
 
@@ -224,12 +226,23 @@ export class ControlsController {
 	)
 
 	createRestApiRouter(logger: Logger): express.Router {
-		return createControlsRestApiRouter(logger, {
-			controls: this,
-			pageStore: this.#deps.pageStore,
-			definitions: this.#deps.instance.definitions,
-			userconfig: this.#deps.userconfig,
-		})
+		const router = express.Router()
+		router.use(
+			createControlsRestApiRouter(logger, {
+				controls: this,
+				pageStore: this.#deps.pageStore,
+				definitions: this.#deps.instance.definitions,
+				userconfig: this.#deps.userconfig,
+			})
+		)
+		router.use(
+			createTriggersRestApiRouter(logger, {
+				controls: this,
+				definitions: this.#deps.instance.definitions,
+				eventDefinitions: EventDefinitions,
+			})
+		)
+		return router
 	}
 
 	createTrpcRouter() {

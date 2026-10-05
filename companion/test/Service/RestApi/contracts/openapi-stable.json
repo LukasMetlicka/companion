@@ -11889,6 +11889,3564 @@
 				"tags": ["Surfaces"]
 			}
 		},
+		"/triggers/v1": {
+			"get": {
+				"description": "Returns a summary of every trigger, in list order.",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": [
+										{
+											"collectionId": null,
+											"controlId": "trigger:Xk3pQ9wL0aZ5",
+											"description": "On condition becoming true",
+											"enabled": true,
+											"lastExecuted": null,
+											"name": "DIT overlay prompt submitted",
+											"sortOrder": 0
+										}
+									],
+									"meta": {
+										"limit": 1,
+										"offset": 0,
+										"total": 1
+									}
+								},
+								"schema": {
+									"example": {
+										"data": [
+											{
+												"collectionId": null,
+												"controlId": "trigger:Xk3pQ9wL0aZ5",
+												"description": "On condition becoming true",
+												"enabled": true,
+												"lastExecuted": null,
+												"name": "DIT overlay prompt submitted",
+												"sortOrder": 0
+											}
+										],
+										"meta": {
+											"limit": 100,
+											"offset": 0,
+											"total": 1
+										}
+									},
+									"properties": {
+										"data": {
+											"items": {
+												"example": {
+													"collectionId": null,
+													"controlId": "trigger:Xk3pQ9wL0aZ5",
+													"description": "On condition becoming true",
+													"enabled": true,
+													"lastExecuted": null,
+													"name": "DIT overlay prompt submitted",
+													"sortOrder": 0
+												},
+												"properties": {
+													"collectionId": {
+														"nullable": true,
+														"type": "string"
+													},
+													"controlId": {
+														"type": "string"
+													},
+													"description": {
+														"description": "Human-readable summary of the enabled events.",
+														"type": "string"
+													},
+													"enabled": {
+														"type": "boolean"
+													},
+													"lastExecuted": {
+														"description": "When the trigger last ran (ms since epoch), or null.",
+														"nullable": true,
+														"type": "number"
+													},
+													"name": {
+														"type": "string"
+													},
+													"sortOrder": {
+														"type": "number"
+													}
+												},
+												"required": [
+													"controlId",
+													"name",
+													"enabled",
+													"sortOrder",
+													"collectionId",
+													"description",
+													"lastExecuted"
+												],
+												"type": "object"
+											},
+											"type": "array"
+										},
+										"meta": {
+											"example": {
+												"limit": 100,
+												"offset": 0,
+												"total": 1
+											},
+											"properties": {
+												"limit": {
+													"description": "Maximum number of resources returned by this response.",
+													"example": 100,
+													"type": "number"
+												},
+												"offset": {
+													"description": "Number of resources skipped before this response.",
+													"example": 0,
+													"type": "number"
+												},
+												"total": {
+													"description": "Total number of resources available.",
+													"example": 1,
+													"type": "number"
+												}
+											},
+											"required": ["total", "limit", "offset"],
+											"type": "object"
+										}
+									},
+									"required": ["data", "meta"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "List of triggers"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["read"]
+					}
+				],
+				"summary": "List triggers",
+				"tags": ["Triggers"]
+			},
+			"post": {
+				"description": "Create a trigger from a model. Everything may be left out; new triggers are disabled unless options.enabled is true. Validated like controls: a 422 lists every problem with its path.",
+				"parameters": [
+					{
+						"description": "If true, validate and return the resulting model without writing anything.",
+						"in": "query",
+						"name": "dryRun",
+						"required": false,
+						"schema": {
+							"description": "If true, validate and return the resulting model without writing anything.",
+							"enum": ["true", "false"],
+							"type": "string"
+						}
+					},
+					{
+						"description": "If true, entities of connections that are not running are accepted with a warning.",
+						"in": "query",
+						"name": "allowMissingDefinitions",
+						"required": false,
+						"schema": {
+							"description": "If true, entities of connections that are not running are accepted with a warning.",
+							"enum": ["true", "false"],
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"example": {
+								"events": [
+									{
+										"type": "condition_true"
+									}
+								],
+								"options": {
+									"enabled": true,
+									"name": "DIT overlay prompt submitted"
+								}
+							},
+							"schema": {
+								"additionalProperties": false,
+								"properties": {
+									"actions": {
+										"description": "Actions to run.",
+										"items": {
+											"additionalProperties": false,
+											"properties": {
+												"children": {
+													"additionalProperties": {
+														"items": {
+															"nullable": true
+														},
+														"type": "array"
+													},
+													"description": "Child entities of internal logic entities, keyed by child group id. Same shape as this entity.",
+													"type": "object"
+												},
+												"connectionId": {
+													"description": "Connection id, or \"internal\".",
+													"minLength": 1,
+													"type": "string"
+												},
+												"definitionId": {
+													"description": "Definition id, from the definitions resource.",
+													"minLength": 1,
+													"type": "string"
+												},
+												"disabled": {
+													"type": "boolean"
+												},
+												"headline": {
+													"type": "string"
+												},
+												"id": {
+													"description": "Ignored on write: entity ids are regenerated.",
+													"type": "string"
+												},
+												"isInverted": {
+													"additionalProperties": false,
+													"description": "Feedbacks only: invert a boolean feedback.",
+													"properties": {
+														"isExpression": {
+															"type": "boolean"
+														},
+														"value": {
+															"nullable": true
+														}
+													},
+													"required": ["isExpression"],
+													"type": "object"
+												},
+												"options": {
+													"additionalProperties": {
+														"additionalProperties": false,
+														"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+														"properties": {
+															"isExpression": {
+																"type": "boolean"
+															},
+															"value": {
+																"nullable": true
+															}
+														},
+														"required": ["isExpression"],
+														"type": "object"
+													},
+													"default": {},
+													"description": "Option values keyed by option id. Omitted options use their defaults.",
+													"type": "object"
+												},
+												"storeResult": {
+													"description": "Actions only: where to store the action result.",
+													"nullable": true
+												},
+												"styleOverrides": {
+													"description": "Feedbacks only: style element properties this feedback overrides.",
+													"items": {
+														"additionalProperties": false,
+														"properties": {
+															"elementId": {
+																"type": "string"
+															},
+															"elementProperty": {
+																"type": "string"
+															},
+															"override": {
+																"additionalProperties": false,
+																"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+																"properties": {
+																	"isExpression": {
+																		"type": "boolean"
+																	},
+																	"value": {
+																		"nullable": true
+																	}
+																},
+																"required": ["isExpression"],
+																"type": "object"
+															},
+															"overrideId": {
+																"type": "string"
+															}
+														},
+														"required": ["overrideId", "elementId", "elementProperty", "override"],
+														"type": "object"
+													},
+													"type": "array"
+												},
+												"type": {
+													"description": "action or feedback.",
+													"enum": ["action", "feedback"],
+													"type": "string"
+												},
+												"upgradeIndex": {
+													"description": "Omit to mean \"current\".",
+													"type": "integer"
+												},
+												"variableName": {
+													"description": "Local variables only: the variable name.",
+													"type": "string"
+												}
+											},
+											"required": ["type", "connectionId", "definitionId"],
+											"type": "object"
+										},
+										"type": "array"
+									},
+									"condition": {
+										"description": "Boolean feedbacks that must all be true for the actions to run.",
+										"items": {
+											"additionalProperties": false,
+											"properties": {
+												"children": {
+													"additionalProperties": {
+														"items": {
+															"nullable": true
+														},
+														"type": "array"
+													},
+													"description": "Child entities of internal logic entities, keyed by child group id. Same shape as this entity.",
+													"type": "object"
+												},
+												"connectionId": {
+													"description": "Connection id, or \"internal\".",
+													"minLength": 1,
+													"type": "string"
+												},
+												"definitionId": {
+													"description": "Definition id, from the definitions resource.",
+													"minLength": 1,
+													"type": "string"
+												},
+												"disabled": {
+													"type": "boolean"
+												},
+												"headline": {
+													"type": "string"
+												},
+												"id": {
+													"description": "Ignored on write: entity ids are regenerated.",
+													"type": "string"
+												},
+												"isInverted": {
+													"additionalProperties": false,
+													"description": "Feedbacks only: invert a boolean feedback.",
+													"properties": {
+														"isExpression": {
+															"type": "boolean"
+														},
+														"value": {
+															"nullable": true
+														}
+													},
+													"required": ["isExpression"],
+													"type": "object"
+												},
+												"options": {
+													"additionalProperties": {
+														"additionalProperties": false,
+														"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+														"properties": {
+															"isExpression": {
+																"type": "boolean"
+															},
+															"value": {
+																"nullable": true
+															}
+														},
+														"required": ["isExpression"],
+														"type": "object"
+													},
+													"default": {},
+													"description": "Option values keyed by option id. Omitted options use their defaults.",
+													"type": "object"
+												},
+												"storeResult": {
+													"description": "Actions only: where to store the action result.",
+													"nullable": true
+												},
+												"styleOverrides": {
+													"description": "Feedbacks only: style element properties this feedback overrides.",
+													"items": {
+														"additionalProperties": false,
+														"properties": {
+															"elementId": {
+																"type": "string"
+															},
+															"elementProperty": {
+																"type": "string"
+															},
+															"override": {
+																"additionalProperties": false,
+																"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+																"properties": {
+																	"isExpression": {
+																		"type": "boolean"
+																	},
+																	"value": {
+																		"nullable": true
+																	}
+																},
+																"required": ["isExpression"],
+																"type": "object"
+															},
+															"overrideId": {
+																"type": "string"
+															}
+														},
+														"required": ["overrideId", "elementId", "elementProperty", "override"],
+														"type": "object"
+													},
+													"type": "array"
+												},
+												"type": {
+													"description": "action or feedback.",
+													"enum": ["action", "feedback"],
+													"type": "string"
+												},
+												"upgradeIndex": {
+													"description": "Omit to mean \"current\".",
+													"type": "integer"
+												},
+												"variableName": {
+													"description": "Local variables only: the variable name.",
+													"type": "string"
+												}
+											},
+											"required": ["type", "connectionId", "definitionId"],
+											"type": "object"
+										},
+										"type": "array"
+									},
+									"events": {
+										"description": "What fires the trigger.",
+										"items": {
+											"additionalProperties": false,
+											"properties": {
+												"enabled": {
+													"description": "Defaults to true.",
+													"type": "boolean"
+												},
+												"headline": {
+													"type": "string"
+												},
+												"id": {
+													"description": "Generated if omitted.",
+													"type": "string"
+												},
+												"options": {
+													"additionalProperties": {
+														"nullable": true
+													},
+													"default": {},
+													"description": "Plain option values (events do not use the expression form). Omitted options use their defaults.",
+													"type": "object"
+												},
+												"type": {
+													"description": "Event type, e.g. interval, timeofday, startup, button_press, condition_true, condition_false, variable_changed.",
+													"type": "string"
+												}
+											},
+											"required": ["type"],
+											"type": "object"
+										},
+										"type": "array"
+									},
+									"localVariables": {
+										"items": {
+											"additionalProperties": false,
+											"properties": {
+												"children": {
+													"additionalProperties": {
+														"items": {
+															"nullable": true
+														},
+														"type": "array"
+													},
+													"description": "Child entities of internal logic entities, keyed by child group id. Same shape as this entity.",
+													"type": "object"
+												},
+												"connectionId": {
+													"description": "Connection id, or \"internal\".",
+													"minLength": 1,
+													"type": "string"
+												},
+												"definitionId": {
+													"description": "Definition id, from the definitions resource.",
+													"minLength": 1,
+													"type": "string"
+												},
+												"disabled": {
+													"type": "boolean"
+												},
+												"headline": {
+													"type": "string"
+												},
+												"id": {
+													"description": "Ignored on write: entity ids are regenerated.",
+													"type": "string"
+												},
+												"isInverted": {
+													"additionalProperties": false,
+													"description": "Feedbacks only: invert a boolean feedback.",
+													"properties": {
+														"isExpression": {
+															"type": "boolean"
+														},
+														"value": {
+															"nullable": true
+														}
+													},
+													"required": ["isExpression"],
+													"type": "object"
+												},
+												"options": {
+													"additionalProperties": {
+														"additionalProperties": false,
+														"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+														"properties": {
+															"isExpression": {
+																"type": "boolean"
+															},
+															"value": {
+																"nullable": true
+															}
+														},
+														"required": ["isExpression"],
+														"type": "object"
+													},
+													"default": {},
+													"description": "Option values keyed by option id. Omitted options use their defaults.",
+													"type": "object"
+												},
+												"storeResult": {
+													"description": "Actions only: where to store the action result.",
+													"nullable": true
+												},
+												"styleOverrides": {
+													"description": "Feedbacks only: style element properties this feedback overrides.",
+													"items": {
+														"additionalProperties": false,
+														"properties": {
+															"elementId": {
+																"type": "string"
+															},
+															"elementProperty": {
+																"type": "string"
+															},
+															"override": {
+																"additionalProperties": false,
+																"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+																"properties": {
+																	"isExpression": {
+																		"type": "boolean"
+																	},
+																	"value": {
+																		"nullable": true
+																	}
+																},
+																"required": ["isExpression"],
+																"type": "object"
+															},
+															"overrideId": {
+																"type": "string"
+															}
+														},
+														"required": ["overrideId", "elementId", "elementProperty", "override"],
+														"type": "object"
+													},
+													"type": "array"
+												},
+												"type": {
+													"description": "action or feedback.",
+													"enum": ["action", "feedback"],
+													"type": "string"
+												},
+												"upgradeIndex": {
+													"description": "Omit to mean \"current\".",
+													"type": "integer"
+												},
+												"variableName": {
+													"description": "Local variables only: the variable name.",
+													"type": "string"
+												}
+											},
+											"required": ["type", "connectionId", "definitionId"],
+											"type": "object"
+										},
+										"type": "array"
+									},
+									"options": {
+										"additionalProperties": false,
+										"properties": {
+											"collectionId": {
+												"description": "Collection to group the trigger in.",
+												"type": "string"
+											},
+											"enabled": {
+												"description": "Whether the trigger runs. New triggers default to disabled.",
+												"type": "boolean"
+											},
+											"name": {
+												"type": "string"
+											},
+											"notes": {
+												"type": "string"
+											},
+											"sortOrder": {
+												"description": "Position in the trigger list. Defaults to the end.",
+												"type": "number"
+											}
+										},
+										"type": "object"
+									},
+									"type": {
+										"enum": ["trigger"],
+										"type": "string"
+									}
+								},
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"201": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"controlId": "trigger:Xk3pQ9wL0aZ5",
+										"model": {
+											"actions": [],
+											"condition": [],
+											"events": [
+												{
+													"enabled": true,
+													"id": "ev1",
+													"options": {},
+													"type": "condition_true"
+												}
+											],
+											"localVariables": [],
+											"options": {
+												"enabled": true,
+												"name": "DIT overlay prompt submitted",
+												"notes": "",
+												"sortOrder": 0
+											},
+											"type": "trigger"
+										},
+										"warnings": []
+									}
+								},
+								"schema": {
+									"example": {
+										"data": {
+											"controlId": "trigger:Xk3pQ9wL0aZ5",
+											"model": {
+												"actions": [],
+												"condition": [],
+												"events": [
+													{
+														"enabled": true,
+														"id": "ev1",
+														"options": {},
+														"type": "condition_true"
+													}
+												],
+												"localVariables": [],
+												"options": {
+													"enabled": true,
+													"name": "DIT overlay prompt submitted",
+													"notes": "",
+													"sortOrder": 0
+												},
+												"type": "trigger"
+											},
+											"warnings": []
+										}
+									},
+									"properties": {
+										"data": {
+											"example": {
+												"controlId": "trigger:Xk3pQ9wL0aZ5",
+												"model": {
+													"actions": [],
+													"condition": [],
+													"events": [
+														{
+															"enabled": true,
+															"id": "ev1",
+															"options": {},
+															"type": "condition_true"
+														}
+													],
+													"localVariables": [],
+													"options": {
+														"enabled": true,
+														"name": "DIT overlay prompt submitted",
+														"notes": "",
+														"sortOrder": 0
+													},
+													"type": "trigger"
+												},
+												"warnings": []
+											},
+											"properties": {
+												"controlId": {
+													"description": "Trigger id; null in a dry run that would create a trigger.",
+													"nullable": true,
+													"type": "string"
+												},
+												"model": {
+													"additionalProperties": {
+														"nullable": true
+													},
+													"description": "The trigger model as Companion stores it. Writable as-is with PUT.",
+													"properties": {
+														"type": {
+															"enum": ["trigger"],
+															"type": "string"
+														}
+													},
+													"required": ["type"],
+													"type": "object"
+												},
+												"warnings": {
+													"items": {
+														"properties": {
+															"message": {
+																"type": "string"
+															},
+															"path": {
+																"type": "string"
+															}
+														},
+														"required": ["path", "message"],
+														"type": "object"
+													},
+													"type": "array"
+												}
+											},
+											"required": ["controlId", "model", "warnings"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The created trigger"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					},
+					"422": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The model is not valid; details lists each problem with its path"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["write"]
+					}
+				],
+				"summary": "Create a trigger",
+				"tags": ["Triggers"]
+			}
+		},
+		"/triggers/v1/{controlId}": {
+			"delete": {
+				"description": "Send If-Match to only delete a version you have seen.",
+				"parameters": [
+					{
+						"description": "Trigger id.",
+						"in": "path",
+						"name": "controlId",
+						"required": true,
+						"schema": {
+							"description": "Trigger id.",
+							"example": "trigger:Xk3pQ9wL0aZ5",
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "Trigger deleted"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					},
+					"412": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "If-Match does not match the current ETag"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["write"]
+					}
+				],
+				"summary": "Delete a trigger",
+				"tags": ["Triggers"]
+			},
+			"get": {
+				"description": "Returns a trigger with its full model. The ETag header identifies this version.",
+				"parameters": [
+					{
+						"description": "Trigger id.",
+						"in": "path",
+						"name": "controlId",
+						"required": true,
+						"schema": {
+							"description": "Trigger id.",
+							"example": "trigger:Xk3pQ9wL0aZ5",
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"controlId": "trigger:Xk3pQ9wL0aZ5",
+										"model": {
+											"actions": [],
+											"condition": [],
+											"events": [
+												{
+													"enabled": true,
+													"id": "ev1",
+													"options": {},
+													"type": "condition_true"
+												}
+											],
+											"localVariables": [],
+											"options": {
+												"enabled": true,
+												"name": "DIT overlay prompt submitted",
+												"notes": "",
+												"sortOrder": 0
+											},
+											"type": "trigger"
+										},
+										"warnings": []
+									}
+								},
+								"schema": {
+									"example": {
+										"data": {
+											"controlId": "trigger:Xk3pQ9wL0aZ5",
+											"model": {
+												"actions": [],
+												"condition": [],
+												"events": [
+													{
+														"enabled": true,
+														"id": "ev1",
+														"options": {},
+														"type": "condition_true"
+													}
+												],
+												"localVariables": [],
+												"options": {
+													"enabled": true,
+													"name": "DIT overlay prompt submitted",
+													"notes": "",
+													"sortOrder": 0
+												},
+												"type": "trigger"
+											},
+											"warnings": []
+										}
+									},
+									"properties": {
+										"data": {
+											"example": {
+												"controlId": "trigger:Xk3pQ9wL0aZ5",
+												"model": {
+													"actions": [],
+													"condition": [],
+													"events": [
+														{
+															"enabled": true,
+															"id": "ev1",
+															"options": {},
+															"type": "condition_true"
+														}
+													],
+													"localVariables": [],
+													"options": {
+														"enabled": true,
+														"name": "DIT overlay prompt submitted",
+														"notes": "",
+														"sortOrder": 0
+													},
+													"type": "trigger"
+												},
+												"warnings": []
+											},
+											"properties": {
+												"controlId": {
+													"description": "Trigger id; null in a dry run that would create a trigger.",
+													"nullable": true,
+													"type": "string"
+												},
+												"model": {
+													"additionalProperties": {
+														"nullable": true
+													},
+													"description": "The trigger model as Companion stores it. Writable as-is with PUT.",
+													"properties": {
+														"type": {
+															"enum": ["trigger"],
+															"type": "string"
+														}
+													},
+													"required": ["type"],
+													"type": "object"
+												},
+												"warnings": {
+													"items": {
+														"properties": {
+															"message": {
+																"type": "string"
+															},
+															"path": {
+																"type": "string"
+															}
+														},
+														"required": ["path", "message"],
+														"type": "object"
+													},
+													"type": "array"
+												}
+											},
+											"required": ["controlId", "model", "warnings"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The trigger"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["read"]
+					}
+				],
+				"summary": "Get a trigger",
+				"tags": ["Triggers"]
+			},
+			"patch": {
+				"description": "Partially update a trigger: options is merged; events, condition, actions and localVariables each replace the whole list when given. Use { \"options\": { \"enabled\": false } } to disable it. Send If-Match to only update a version you have seen.",
+				"parameters": [
+					{
+						"description": "Trigger id.",
+						"in": "path",
+						"name": "controlId",
+						"required": true,
+						"schema": {
+							"description": "Trigger id.",
+							"example": "trigger:Xk3pQ9wL0aZ5",
+							"type": "string"
+						}
+					},
+					{
+						"description": "If true, validate and return the resulting model without writing anything.",
+						"in": "query",
+						"name": "dryRun",
+						"required": false,
+						"schema": {
+							"description": "If true, validate and return the resulting model without writing anything.",
+							"enum": ["true", "false"],
+							"type": "string"
+						}
+					},
+					{
+						"description": "If true, entities of connections that are not running are accepted with a warning.",
+						"in": "query",
+						"name": "allowMissingDefinitions",
+						"required": false,
+						"schema": {
+							"description": "If true, entities of connections that are not running are accepted with a warning.",
+							"enum": ["true", "false"],
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"example": {
+								"options": {
+									"enabled": false
+								}
+							},
+							"schema": {
+								"additionalProperties": false,
+								"properties": {
+									"actions": {
+										"description": "Replaces all actions.",
+										"items": {
+											"additionalProperties": false,
+											"properties": {
+												"children": {
+													"additionalProperties": {
+														"items": {
+															"nullable": true
+														},
+														"type": "array"
+													},
+													"description": "Child entities of internal logic entities, keyed by child group id. Same shape as this entity.",
+													"type": "object"
+												},
+												"connectionId": {
+													"description": "Connection id, or \"internal\".",
+													"minLength": 1,
+													"type": "string"
+												},
+												"definitionId": {
+													"description": "Definition id, from the definitions resource.",
+													"minLength": 1,
+													"type": "string"
+												},
+												"disabled": {
+													"type": "boolean"
+												},
+												"headline": {
+													"type": "string"
+												},
+												"id": {
+													"description": "Ignored on write: entity ids are regenerated.",
+													"type": "string"
+												},
+												"isInverted": {
+													"additionalProperties": false,
+													"description": "Feedbacks only: invert a boolean feedback.",
+													"properties": {
+														"isExpression": {
+															"type": "boolean"
+														},
+														"value": {
+															"nullable": true
+														}
+													},
+													"required": ["isExpression"],
+													"type": "object"
+												},
+												"options": {
+													"additionalProperties": {
+														"additionalProperties": false,
+														"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+														"properties": {
+															"isExpression": {
+																"type": "boolean"
+															},
+															"value": {
+																"nullable": true
+															}
+														},
+														"required": ["isExpression"],
+														"type": "object"
+													},
+													"default": {},
+													"description": "Option values keyed by option id. Omitted options use their defaults.",
+													"type": "object"
+												},
+												"storeResult": {
+													"description": "Actions only: where to store the action result.",
+													"nullable": true
+												},
+												"styleOverrides": {
+													"description": "Feedbacks only: style element properties this feedback overrides.",
+													"items": {
+														"additionalProperties": false,
+														"properties": {
+															"elementId": {
+																"type": "string"
+															},
+															"elementProperty": {
+																"type": "string"
+															},
+															"override": {
+																"additionalProperties": false,
+																"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+																"properties": {
+																	"isExpression": {
+																		"type": "boolean"
+																	},
+																	"value": {
+																		"nullable": true
+																	}
+																},
+																"required": ["isExpression"],
+																"type": "object"
+															},
+															"overrideId": {
+																"type": "string"
+															}
+														},
+														"required": ["overrideId", "elementId", "elementProperty", "override"],
+														"type": "object"
+													},
+													"type": "array"
+												},
+												"type": {
+													"description": "action or feedback.",
+													"enum": ["action", "feedback"],
+													"type": "string"
+												},
+												"upgradeIndex": {
+													"description": "Omit to mean \"current\".",
+													"type": "integer"
+												},
+												"variableName": {
+													"description": "Local variables only: the variable name.",
+													"type": "string"
+												}
+											},
+											"required": ["type", "connectionId", "definitionId"],
+											"type": "object"
+										},
+										"type": "array"
+									},
+									"condition": {
+										"description": "Replaces the whole condition.",
+										"items": {
+											"additionalProperties": false,
+											"properties": {
+												"children": {
+													"additionalProperties": {
+														"items": {
+															"nullable": true
+														},
+														"type": "array"
+													},
+													"description": "Child entities of internal logic entities, keyed by child group id. Same shape as this entity.",
+													"type": "object"
+												},
+												"connectionId": {
+													"description": "Connection id, or \"internal\".",
+													"minLength": 1,
+													"type": "string"
+												},
+												"definitionId": {
+													"description": "Definition id, from the definitions resource.",
+													"minLength": 1,
+													"type": "string"
+												},
+												"disabled": {
+													"type": "boolean"
+												},
+												"headline": {
+													"type": "string"
+												},
+												"id": {
+													"description": "Ignored on write: entity ids are regenerated.",
+													"type": "string"
+												},
+												"isInverted": {
+													"additionalProperties": false,
+													"description": "Feedbacks only: invert a boolean feedback.",
+													"properties": {
+														"isExpression": {
+															"type": "boolean"
+														},
+														"value": {
+															"nullable": true
+														}
+													},
+													"required": ["isExpression"],
+													"type": "object"
+												},
+												"options": {
+													"additionalProperties": {
+														"additionalProperties": false,
+														"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+														"properties": {
+															"isExpression": {
+																"type": "boolean"
+															},
+															"value": {
+																"nullable": true
+															}
+														},
+														"required": ["isExpression"],
+														"type": "object"
+													},
+													"default": {},
+													"description": "Option values keyed by option id. Omitted options use their defaults.",
+													"type": "object"
+												},
+												"storeResult": {
+													"description": "Actions only: where to store the action result.",
+													"nullable": true
+												},
+												"styleOverrides": {
+													"description": "Feedbacks only: style element properties this feedback overrides.",
+													"items": {
+														"additionalProperties": false,
+														"properties": {
+															"elementId": {
+																"type": "string"
+															},
+															"elementProperty": {
+																"type": "string"
+															},
+															"override": {
+																"additionalProperties": false,
+																"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+																"properties": {
+																	"isExpression": {
+																		"type": "boolean"
+																	},
+																	"value": {
+																		"nullable": true
+																	}
+																},
+																"required": ["isExpression"],
+																"type": "object"
+															},
+															"overrideId": {
+																"type": "string"
+															}
+														},
+														"required": ["overrideId", "elementId", "elementProperty", "override"],
+														"type": "object"
+													},
+													"type": "array"
+												},
+												"type": {
+													"description": "action or feedback.",
+													"enum": ["action", "feedback"],
+													"type": "string"
+												},
+												"upgradeIndex": {
+													"description": "Omit to mean \"current\".",
+													"type": "integer"
+												},
+												"variableName": {
+													"description": "Local variables only: the variable name.",
+													"type": "string"
+												}
+											},
+											"required": ["type", "connectionId", "definitionId"],
+											"type": "object"
+										},
+										"type": "array"
+									},
+									"events": {
+										"description": "Replaces all events.",
+										"items": {
+											"additionalProperties": false,
+											"properties": {
+												"enabled": {
+													"description": "Defaults to true.",
+													"type": "boolean"
+												},
+												"headline": {
+													"type": "string"
+												},
+												"id": {
+													"description": "Generated if omitted.",
+													"type": "string"
+												},
+												"options": {
+													"additionalProperties": {
+														"nullable": true
+													},
+													"default": {},
+													"description": "Plain option values (events do not use the expression form). Omitted options use their defaults.",
+													"type": "object"
+												},
+												"type": {
+													"description": "Event type, e.g. interval, timeofday, startup, button_press, condition_true, condition_false, variable_changed.",
+													"type": "string"
+												}
+											},
+											"required": ["type"],
+											"type": "object"
+										},
+										"type": "array"
+									},
+									"localVariables": {
+										"description": "Replaces all local variables.",
+										"items": {
+											"additionalProperties": false,
+											"properties": {
+												"children": {
+													"additionalProperties": {
+														"items": {
+															"nullable": true
+														},
+														"type": "array"
+													},
+													"description": "Child entities of internal logic entities, keyed by child group id. Same shape as this entity.",
+													"type": "object"
+												},
+												"connectionId": {
+													"description": "Connection id, or \"internal\".",
+													"minLength": 1,
+													"type": "string"
+												},
+												"definitionId": {
+													"description": "Definition id, from the definitions resource.",
+													"minLength": 1,
+													"type": "string"
+												},
+												"disabled": {
+													"type": "boolean"
+												},
+												"headline": {
+													"type": "string"
+												},
+												"id": {
+													"description": "Ignored on write: entity ids are regenerated.",
+													"type": "string"
+												},
+												"isInverted": {
+													"additionalProperties": false,
+													"description": "Feedbacks only: invert a boolean feedback.",
+													"properties": {
+														"isExpression": {
+															"type": "boolean"
+														},
+														"value": {
+															"nullable": true
+														}
+													},
+													"required": ["isExpression"],
+													"type": "object"
+												},
+												"options": {
+													"additionalProperties": {
+														"additionalProperties": false,
+														"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+														"properties": {
+															"isExpression": {
+																"type": "boolean"
+															},
+															"value": {
+																"nullable": true
+															}
+														},
+														"required": ["isExpression"],
+														"type": "object"
+													},
+													"default": {},
+													"description": "Option values keyed by option id. Omitted options use their defaults.",
+													"type": "object"
+												},
+												"storeResult": {
+													"description": "Actions only: where to store the action result.",
+													"nullable": true
+												},
+												"styleOverrides": {
+													"description": "Feedbacks only: style element properties this feedback overrides.",
+													"items": {
+														"additionalProperties": false,
+														"properties": {
+															"elementId": {
+																"type": "string"
+															},
+															"elementProperty": {
+																"type": "string"
+															},
+															"override": {
+																"additionalProperties": false,
+																"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+																"properties": {
+																	"isExpression": {
+																		"type": "boolean"
+																	},
+																	"value": {
+																		"nullable": true
+																	}
+																},
+																"required": ["isExpression"],
+																"type": "object"
+															},
+															"overrideId": {
+																"type": "string"
+															}
+														},
+														"required": ["overrideId", "elementId", "elementProperty", "override"],
+														"type": "object"
+													},
+													"type": "array"
+												},
+												"type": {
+													"description": "action or feedback.",
+													"enum": ["action", "feedback"],
+													"type": "string"
+												},
+												"upgradeIndex": {
+													"description": "Omit to mean \"current\".",
+													"type": "integer"
+												},
+												"variableName": {
+													"description": "Local variables only: the variable name.",
+													"type": "string"
+												}
+											},
+											"required": ["type", "connectionId", "definitionId"],
+											"type": "object"
+										},
+										"type": "array"
+									},
+									"options": {
+										"additionalProperties": false,
+										"description": "Merged into the current options.",
+										"properties": {
+											"collectionId": {
+												"description": "Collection to group the trigger in.",
+												"type": "string"
+											},
+											"enabled": {
+												"description": "Whether the trigger runs. New triggers default to disabled.",
+												"type": "boolean"
+											},
+											"name": {
+												"type": "string"
+											},
+											"notes": {
+												"type": "string"
+											},
+											"sortOrder": {
+												"description": "Position in the trigger list. Defaults to the end.",
+												"type": "number"
+											}
+										},
+										"type": "object"
+									}
+								},
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"controlId": "trigger:Xk3pQ9wL0aZ5",
+										"model": {
+											"actions": [],
+											"condition": [],
+											"events": [
+												{
+													"enabled": true,
+													"id": "ev1",
+													"options": {},
+													"type": "condition_true"
+												}
+											],
+											"localVariables": [],
+											"options": {
+												"enabled": true,
+												"name": "DIT overlay prompt submitted",
+												"notes": "",
+												"sortOrder": 0
+											},
+											"type": "trigger"
+										},
+										"warnings": []
+									}
+								},
+								"schema": {
+									"example": {
+										"data": {
+											"controlId": "trigger:Xk3pQ9wL0aZ5",
+											"model": {
+												"actions": [],
+												"condition": [],
+												"events": [
+													{
+														"enabled": true,
+														"id": "ev1",
+														"options": {},
+														"type": "condition_true"
+													}
+												],
+												"localVariables": [],
+												"options": {
+													"enabled": true,
+													"name": "DIT overlay prompt submitted",
+													"notes": "",
+													"sortOrder": 0
+												},
+												"type": "trigger"
+											},
+											"warnings": []
+										}
+									},
+									"properties": {
+										"data": {
+											"example": {
+												"controlId": "trigger:Xk3pQ9wL0aZ5",
+												"model": {
+													"actions": [],
+													"condition": [],
+													"events": [
+														{
+															"enabled": true,
+															"id": "ev1",
+															"options": {},
+															"type": "condition_true"
+														}
+													],
+													"localVariables": [],
+													"options": {
+														"enabled": true,
+														"name": "DIT overlay prompt submitted",
+														"notes": "",
+														"sortOrder": 0
+													},
+													"type": "trigger"
+												},
+												"warnings": []
+											},
+											"properties": {
+												"controlId": {
+													"description": "Trigger id; null in a dry run that would create a trigger.",
+													"nullable": true,
+													"type": "string"
+												},
+												"model": {
+													"additionalProperties": {
+														"nullable": true
+													},
+													"description": "The trigger model as Companion stores it. Writable as-is with PUT.",
+													"properties": {
+														"type": {
+															"enum": ["trigger"],
+															"type": "string"
+														}
+													},
+													"required": ["type"],
+													"type": "object"
+												},
+												"warnings": {
+													"items": {
+														"properties": {
+															"message": {
+																"type": "string"
+															},
+															"path": {
+																"type": "string"
+															}
+														},
+														"required": ["path", "message"],
+														"type": "object"
+													},
+													"type": "array"
+												}
+											},
+											"required": ["controlId", "model", "warnings"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The updated trigger"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					},
+					"412": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "If-Match does not match the current ETag"
+					},
+					"422": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The model is not valid; details lists each problem with its path"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["write"]
+					}
+				],
+				"summary": "Update a trigger",
+				"tags": ["Triggers"]
+			},
+			"put": {
+				"description": "Replace a trigger with a whole model, keeping its id. Entity ids are regenerated. Send If-Match to only replace a version you have seen.",
+				"parameters": [
+					{
+						"description": "Trigger id.",
+						"in": "path",
+						"name": "controlId",
+						"required": true,
+						"schema": {
+							"description": "Trigger id.",
+							"example": "trigger:Xk3pQ9wL0aZ5",
+							"type": "string"
+						}
+					},
+					{
+						"description": "If true, validate and return the resulting model without writing anything.",
+						"in": "query",
+						"name": "dryRun",
+						"required": false,
+						"schema": {
+							"description": "If true, validate and return the resulting model without writing anything.",
+							"enum": ["true", "false"],
+							"type": "string"
+						}
+					},
+					{
+						"description": "If true, entities of connections that are not running are accepted with a warning.",
+						"in": "query",
+						"name": "allowMissingDefinitions",
+						"required": false,
+						"schema": {
+							"description": "If true, entities of connections that are not running are accepted with a warning.",
+							"enum": ["true", "false"],
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"additionalProperties": false,
+								"properties": {
+									"actions": {
+										"description": "Actions to run.",
+										"items": {
+											"additionalProperties": false,
+											"properties": {
+												"children": {
+													"additionalProperties": {
+														"items": {
+															"nullable": true
+														},
+														"type": "array"
+													},
+													"description": "Child entities of internal logic entities, keyed by child group id. Same shape as this entity.",
+													"type": "object"
+												},
+												"connectionId": {
+													"description": "Connection id, or \"internal\".",
+													"minLength": 1,
+													"type": "string"
+												},
+												"definitionId": {
+													"description": "Definition id, from the definitions resource.",
+													"minLength": 1,
+													"type": "string"
+												},
+												"disabled": {
+													"type": "boolean"
+												},
+												"headline": {
+													"type": "string"
+												},
+												"id": {
+													"description": "Ignored on write: entity ids are regenerated.",
+													"type": "string"
+												},
+												"isInverted": {
+													"additionalProperties": false,
+													"description": "Feedbacks only: invert a boolean feedback.",
+													"properties": {
+														"isExpression": {
+															"type": "boolean"
+														},
+														"value": {
+															"nullable": true
+														}
+													},
+													"required": ["isExpression"],
+													"type": "object"
+												},
+												"options": {
+													"additionalProperties": {
+														"additionalProperties": false,
+														"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+														"properties": {
+															"isExpression": {
+																"type": "boolean"
+															},
+															"value": {
+																"nullable": true
+															}
+														},
+														"required": ["isExpression"],
+														"type": "object"
+													},
+													"default": {},
+													"description": "Option values keyed by option id. Omitted options use their defaults.",
+													"type": "object"
+												},
+												"storeResult": {
+													"description": "Actions only: where to store the action result.",
+													"nullable": true
+												},
+												"styleOverrides": {
+													"description": "Feedbacks only: style element properties this feedback overrides.",
+													"items": {
+														"additionalProperties": false,
+														"properties": {
+															"elementId": {
+																"type": "string"
+															},
+															"elementProperty": {
+																"type": "string"
+															},
+															"override": {
+																"additionalProperties": false,
+																"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+																"properties": {
+																	"isExpression": {
+																		"type": "boolean"
+																	},
+																	"value": {
+																		"nullable": true
+																	}
+																},
+																"required": ["isExpression"],
+																"type": "object"
+															},
+															"overrideId": {
+																"type": "string"
+															}
+														},
+														"required": ["overrideId", "elementId", "elementProperty", "override"],
+														"type": "object"
+													},
+													"type": "array"
+												},
+												"type": {
+													"description": "action or feedback.",
+													"enum": ["action", "feedback"],
+													"type": "string"
+												},
+												"upgradeIndex": {
+													"description": "Omit to mean \"current\".",
+													"type": "integer"
+												},
+												"variableName": {
+													"description": "Local variables only: the variable name.",
+													"type": "string"
+												}
+											},
+											"required": ["type", "connectionId", "definitionId"],
+											"type": "object"
+										},
+										"type": "array"
+									},
+									"condition": {
+										"description": "Boolean feedbacks that must all be true for the actions to run.",
+										"items": {
+											"additionalProperties": false,
+											"properties": {
+												"children": {
+													"additionalProperties": {
+														"items": {
+															"nullable": true
+														},
+														"type": "array"
+													},
+													"description": "Child entities of internal logic entities, keyed by child group id. Same shape as this entity.",
+													"type": "object"
+												},
+												"connectionId": {
+													"description": "Connection id, or \"internal\".",
+													"minLength": 1,
+													"type": "string"
+												},
+												"definitionId": {
+													"description": "Definition id, from the definitions resource.",
+													"minLength": 1,
+													"type": "string"
+												},
+												"disabled": {
+													"type": "boolean"
+												},
+												"headline": {
+													"type": "string"
+												},
+												"id": {
+													"description": "Ignored on write: entity ids are regenerated.",
+													"type": "string"
+												},
+												"isInverted": {
+													"additionalProperties": false,
+													"description": "Feedbacks only: invert a boolean feedback.",
+													"properties": {
+														"isExpression": {
+															"type": "boolean"
+														},
+														"value": {
+															"nullable": true
+														}
+													},
+													"required": ["isExpression"],
+													"type": "object"
+												},
+												"options": {
+													"additionalProperties": {
+														"additionalProperties": false,
+														"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+														"properties": {
+															"isExpression": {
+																"type": "boolean"
+															},
+															"value": {
+																"nullable": true
+															}
+														},
+														"required": ["isExpression"],
+														"type": "object"
+													},
+													"default": {},
+													"description": "Option values keyed by option id. Omitted options use their defaults.",
+													"type": "object"
+												},
+												"storeResult": {
+													"description": "Actions only: where to store the action result.",
+													"nullable": true
+												},
+												"styleOverrides": {
+													"description": "Feedbacks only: style element properties this feedback overrides.",
+													"items": {
+														"additionalProperties": false,
+														"properties": {
+															"elementId": {
+																"type": "string"
+															},
+															"elementProperty": {
+																"type": "string"
+															},
+															"override": {
+																"additionalProperties": false,
+																"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+																"properties": {
+																	"isExpression": {
+																		"type": "boolean"
+																	},
+																	"value": {
+																		"nullable": true
+																	}
+																},
+																"required": ["isExpression"],
+																"type": "object"
+															},
+															"overrideId": {
+																"type": "string"
+															}
+														},
+														"required": ["overrideId", "elementId", "elementProperty", "override"],
+														"type": "object"
+													},
+													"type": "array"
+												},
+												"type": {
+													"description": "action or feedback.",
+													"enum": ["action", "feedback"],
+													"type": "string"
+												},
+												"upgradeIndex": {
+													"description": "Omit to mean \"current\".",
+													"type": "integer"
+												},
+												"variableName": {
+													"description": "Local variables only: the variable name.",
+													"type": "string"
+												}
+											},
+											"required": ["type", "connectionId", "definitionId"],
+											"type": "object"
+										},
+										"type": "array"
+									},
+									"events": {
+										"description": "What fires the trigger.",
+										"items": {
+											"additionalProperties": false,
+											"properties": {
+												"enabled": {
+													"description": "Defaults to true.",
+													"type": "boolean"
+												},
+												"headline": {
+													"type": "string"
+												},
+												"id": {
+													"description": "Generated if omitted.",
+													"type": "string"
+												},
+												"options": {
+													"additionalProperties": {
+														"nullable": true
+													},
+													"default": {},
+													"description": "Plain option values (events do not use the expression form). Omitted options use their defaults.",
+													"type": "object"
+												},
+												"type": {
+													"description": "Event type, e.g. interval, timeofday, startup, button_press, condition_true, condition_false, variable_changed.",
+													"type": "string"
+												}
+											},
+											"required": ["type"],
+											"type": "object"
+										},
+										"type": "array"
+									},
+									"localVariables": {
+										"items": {
+											"additionalProperties": false,
+											"properties": {
+												"children": {
+													"additionalProperties": {
+														"items": {
+															"nullable": true
+														},
+														"type": "array"
+													},
+													"description": "Child entities of internal logic entities, keyed by child group id. Same shape as this entity.",
+													"type": "object"
+												},
+												"connectionId": {
+													"description": "Connection id, or \"internal\".",
+													"minLength": 1,
+													"type": "string"
+												},
+												"definitionId": {
+													"description": "Definition id, from the definitions resource.",
+													"minLength": 1,
+													"type": "string"
+												},
+												"disabled": {
+													"type": "boolean"
+												},
+												"headline": {
+													"type": "string"
+												},
+												"id": {
+													"description": "Ignored on write: entity ids are regenerated.",
+													"type": "string"
+												},
+												"isInverted": {
+													"additionalProperties": false,
+													"description": "Feedbacks only: invert a boolean feedback.",
+													"properties": {
+														"isExpression": {
+															"type": "boolean"
+														},
+														"value": {
+															"nullable": true
+														}
+													},
+													"required": ["isExpression"],
+													"type": "object"
+												},
+												"options": {
+													"additionalProperties": {
+														"additionalProperties": false,
+														"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+														"properties": {
+															"isExpression": {
+																"type": "boolean"
+															},
+															"value": {
+																"nullable": true
+															}
+														},
+														"required": ["isExpression"],
+														"type": "object"
+													},
+													"default": {},
+													"description": "Option values keyed by option id. Omitted options use their defaults.",
+													"type": "object"
+												},
+												"storeResult": {
+													"description": "Actions only: where to store the action result.",
+													"nullable": true
+												},
+												"styleOverrides": {
+													"description": "Feedbacks only: style element properties this feedback overrides.",
+													"items": {
+														"additionalProperties": false,
+														"properties": {
+															"elementId": {
+																"type": "string"
+															},
+															"elementProperty": {
+																"type": "string"
+															},
+															"override": {
+																"additionalProperties": false,
+																"description": "A stored option value: { isExpression: false, value } or { isExpression: true, value: \"<expression>\" }.",
+																"properties": {
+																	"isExpression": {
+																		"type": "boolean"
+																	},
+																	"value": {
+																		"nullable": true
+																	}
+																},
+																"required": ["isExpression"],
+																"type": "object"
+															},
+															"overrideId": {
+																"type": "string"
+															}
+														},
+														"required": ["overrideId", "elementId", "elementProperty", "override"],
+														"type": "object"
+													},
+													"type": "array"
+												},
+												"type": {
+													"description": "action or feedback.",
+													"enum": ["action", "feedback"],
+													"type": "string"
+												},
+												"upgradeIndex": {
+													"description": "Omit to mean \"current\".",
+													"type": "integer"
+												},
+												"variableName": {
+													"description": "Local variables only: the variable name.",
+													"type": "string"
+												}
+											},
+											"required": ["type", "connectionId", "definitionId"],
+											"type": "object"
+										},
+										"type": "array"
+									},
+									"options": {
+										"additionalProperties": false,
+										"properties": {
+											"collectionId": {
+												"description": "Collection to group the trigger in.",
+												"type": "string"
+											},
+											"enabled": {
+												"description": "Whether the trigger runs. New triggers default to disabled.",
+												"type": "boolean"
+											},
+											"name": {
+												"type": "string"
+											},
+											"notes": {
+												"type": "string"
+											},
+											"sortOrder": {
+												"description": "Position in the trigger list. Defaults to the end.",
+												"type": "number"
+											}
+										},
+										"type": "object"
+									},
+									"type": {
+										"enum": ["trigger"],
+										"type": "string"
+									}
+								},
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"controlId": "trigger:Xk3pQ9wL0aZ5",
+										"model": {
+											"actions": [],
+											"condition": [],
+											"events": [
+												{
+													"enabled": true,
+													"id": "ev1",
+													"options": {},
+													"type": "condition_true"
+												}
+											],
+											"localVariables": [],
+											"options": {
+												"enabled": true,
+												"name": "DIT overlay prompt submitted",
+												"notes": "",
+												"sortOrder": 0
+											},
+											"type": "trigger"
+										},
+										"warnings": []
+									}
+								},
+								"schema": {
+									"example": {
+										"data": {
+											"controlId": "trigger:Xk3pQ9wL0aZ5",
+											"model": {
+												"actions": [],
+												"condition": [],
+												"events": [
+													{
+														"enabled": true,
+														"id": "ev1",
+														"options": {},
+														"type": "condition_true"
+													}
+												],
+												"localVariables": [],
+												"options": {
+													"enabled": true,
+													"name": "DIT overlay prompt submitted",
+													"notes": "",
+													"sortOrder": 0
+												},
+												"type": "trigger"
+											},
+											"warnings": []
+										}
+									},
+									"properties": {
+										"data": {
+											"example": {
+												"controlId": "trigger:Xk3pQ9wL0aZ5",
+												"model": {
+													"actions": [],
+													"condition": [],
+													"events": [
+														{
+															"enabled": true,
+															"id": "ev1",
+															"options": {},
+															"type": "condition_true"
+														}
+													],
+													"localVariables": [],
+													"options": {
+														"enabled": true,
+														"name": "DIT overlay prompt submitted",
+														"notes": "",
+														"sortOrder": 0
+													},
+													"type": "trigger"
+												},
+												"warnings": []
+											},
+											"properties": {
+												"controlId": {
+													"description": "Trigger id; null in a dry run that would create a trigger.",
+													"nullable": true,
+													"type": "string"
+												},
+												"model": {
+													"additionalProperties": {
+														"nullable": true
+													},
+													"description": "The trigger model as Companion stores it. Writable as-is with PUT.",
+													"properties": {
+														"type": {
+															"enum": ["trigger"],
+															"type": "string"
+														}
+													},
+													"required": ["type"],
+													"type": "object"
+												},
+												"warnings": {
+													"items": {
+														"properties": {
+															"message": {
+																"type": "string"
+															},
+															"path": {
+																"type": "string"
+															}
+														},
+														"required": ["path", "message"],
+														"type": "object"
+													},
+													"type": "array"
+												}
+											},
+											"required": ["controlId", "model", "warnings"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The written trigger"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					},
+					"412": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "If-Match does not match the current ETag"
+					},
+					"422": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The model is not valid; details lists each problem with its path"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["write"]
+					}
+				],
+				"summary": "Replace a trigger",
+				"tags": ["Triggers"]
+			}
+		},
+		"/triggers/v1/{controlId}/test": {
+			"post": {
+				"description": "Run the trigger's actions now, ignoring its events and condition, as the web UI's test button does.",
+				"parameters": [
+					{
+						"description": "Trigger id.",
+						"in": "path",
+						"name": "controlId",
+						"required": true,
+						"schema": {
+							"description": "Trigger id.",
+							"example": "trigger:Xk3pQ9wL0aZ5",
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "Actions started"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["execute"]
+					}
+				],
+				"summary": "Test-fire a trigger",
+				"tags": ["Triggers"]
+			}
+		},
 		"/variables/v1/custom": {
 			"get": {
 				"description": "Returns every custom variable with its definition and current value, ordered by name.",
