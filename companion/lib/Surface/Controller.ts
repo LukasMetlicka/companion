@@ -13,7 +13,7 @@
 import { createHash } from 'node:crypto'
 import { EventEmitter } from 'node:events'
 import debounceFn from 'debounce-fn'
-import type express from 'express'
+import express from 'express'
 import isEqual from 'fast-deep-equal'
 import jsonPatch from 'fast-json-patch'
 import HID from 'node-hid'
@@ -61,6 +61,7 @@ import { surfaceButtonSizesFromLayouts, surfaceLayoutsFromConfigs, type SurfaceL
 import { SurfaceOutboundController } from './Outbound.js'
 import type { SurfacePluginPanel } from './PluginPanel.js'
 import { stripReferenceSurfaceId } from './ReferenceSurfaceId.js'
+import { createSurfaceGroupsRestApiRouter } from './SurfaceGroupsRestApi.js'
 import { createSurfacesRestApiRouter } from './SurfacesRestApi.js'
 import type { SurfaceHandlerDependencies, SurfacePanel, UpdateEvents } from './Types.js'
 import { getSurfaceName } from './Util.js'
@@ -431,7 +432,12 @@ export class SurfaceController extends EventEmitter<SurfaceControllerEvents> {
 	}
 
 	createRestApiRouter(logger: Logger): express.Router {
-		return createSurfacesRestApiRouter(logger, this, this.#handlerDependencies.pageStore)
+		const router = express.Router()
+		router.use(createSurfacesRestApiRouter(logger, this, this.#handlerDependencies.pageStore))
+		router.use(
+			createSurfaceGroupsRestApiRouter(logger, { surfaces: this, pageStore: this.#handlerDependencies.pageStore })
+		)
+		return router
 	}
 
 	createTrpcRouter() {
@@ -486,18 +492,7 @@ export class SurfaceController extends EventEmitter<SurfaceControllerEvents> {
 				.subscription(async function* ({ input, signal }) {
 					const changes = toIterable(self.#updateEvents, `groupConfig:${input.groupId}`, signal)
 
-					let initialData: SurfaceGroupConfig | null = null
-					const group = self.#surfaceGroups.get(input.groupId)
-					if (group) {
-						initialData = group.groupConfig
-					} else {
-						// Perhaps this is an auto-group for an offline surface?
-						const surfaceConfig = self.#dbTableSurfaces.get(input.groupId)
-						if (surfaceConfig) {
-							initialData = surfaceConfig.groupConfig
-						}
-					}
-					yield initialData
+					yield self.getGroupConfig(input.groupId)
 
 					for await (const [change] of changes) {
 						yield change
@@ -763,29 +758,7 @@ export class SurfaceController extends EventEmitter<SurfaceControllerEvents> {
 					})
 				)
 				.mutation(async ({ input }) => {
-					const group = this.#surfaceGroups.get(input.groupId)
-					if (group) {
-						return group.setGroupConfigValue(input.key, input.value)
-					}
-
-					// Perhaps this is an auto-group for an offline surface?
-					const surfaceConfig = this.#dbTableSurfaces.get(input.groupId)
-					if (surfaceConfig && !this.#surfaceHandlers.has(input.groupId)) {
-						try {
-							const newValue = validateGroupConfigValue(this.#handlerDependencies.pageStore, input.key, input.value)
-
-							;(surfaceConfig.groupConfig as any)[input.key] = newValue
-
-							this.#dbTableSurfaces.set(input.groupId, surfaceConfig)
-							this.#updateEvents.emit(`groupConfig:${input.groupId}`, surfaceConfig.groupConfig)
-
-							return
-						} catch (e) {
-							throw new Error(`Failed to update value: ${stringifyError(e)}`)
-						}
-					}
-
-					throw new Error(`Group does not exist: ${input.groupId}`)
+					return this.setGroupConfigKey(input.groupId, input.key, input.value)
 				}),
 
 			surfaceSetGroup: publicProcedure
@@ -1889,6 +1862,49 @@ export class SurfaceController extends EventEmitter<SurfaceControllerEvents> {
 			surfaceGroup.doPageDown()
 		}
 	}
+	/**
+	 * Get the config of a surface group, including the auto-group of an offline surface
+	 * @returns null if there is no such group
+	 */
+	getGroupConfig(groupId: string): SurfaceGroupConfig | null {
+		const group = this.#surfaceGroups.get(groupId)
+		if (group) return group.groupConfig
+
+		// Perhaps this is an auto-group for an offline surface?
+		return this.#dbTableSurfaces.get(groupId)?.groupConfig ?? null
+	}
+
+	/**
+	 * Set a config key of a surface group, including the auto-group of an offline surface
+	 * @returns 'invalid value' if the value was rejected
+	 * @throws if there is no such group, or the value is invalid for an offline surface
+	 */
+	setGroupConfigKey(groupId: string, key: string, value: JsonValue | undefined): string | undefined {
+		const group = this.#surfaceGroups.get(groupId)
+		if (group) {
+			return group.setGroupConfigValue(key, value)
+		}
+
+		// Perhaps this is an auto-group for an offline surface?
+		const surfaceConfig = this.#dbTableSurfaces.get(groupId)
+		if (surfaceConfig && !this.#surfaceHandlers.has(groupId)) {
+			try {
+				const newValue = validateGroupConfigValue(this.#handlerDependencies.pageStore, key, value)
+
+				;(surfaceConfig.groupConfig as any)[key] = newValue
+
+				this.#dbTableSurfaces.set(groupId, surfaceConfig)
+				this.#updateEvents.emit(`groupConfig:${groupId}`, surfaceConfig.groupConfig)
+
+				return
+			} catch (e) {
+				throw new Error(`Failed to update value: ${stringifyError(e)}`)
+			}
+		}
+
+		throw new Error(`Group does not exist: ${groupId}`)
+	}
+
 	/**
 	 * Set the page id for a surface
 	 * @param surfaceOrGroupId

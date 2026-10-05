@@ -9,6 +9,7 @@ import { registerTriggerPaths, triggerCollectionsResource } from '../../Controls
 import { registerInstanceRestApiPaths } from '../../Instance/RestApi.js'
 import { registerPagePaths } from '../../Page/PagesRestApi.js'
 import type { AppInfo } from '../../Registry.js'
+import { registerSurfaceGroupPaths } from '../../Surface/SurfaceGroupsRestApi.js'
 import { registerSurfacePaths } from '../../Surface/SurfacesRestApi.js'
 import { customVariableCollectionsResource, registerVariablesPaths } from '../../Variables/VariablesRestApi.js'
 import { REST_API_BASE_PATH } from './constants.js'
@@ -26,6 +27,7 @@ export function generateOpenApiDocument(
 	// Register all route paths into the registry
 	registerInstanceRestApiPaths(registry)
 	registerSurfacePaths(registry)
+	registerSurfaceGroupPaths(registry)
 	registerPagePaths(registry)
 	registerVariablesPaths(registry)
 	registerControlPaths(registry)

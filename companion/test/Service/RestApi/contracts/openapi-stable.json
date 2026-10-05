@@ -11474,6 +11474,1014 @@
 				"tags": ["Pages"]
 			}
 		},
+		"/surface-groups/v1": {
+			"get": {
+				"description": "Returns every surface group with its page settings, including the auto group of each surface that is not in a group.",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": [
+										{
+											"allowedPageIds": ["ggmHXCUQ0RRXUwEr8HHtQ"],
+											"currentPageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+											"id": "streamdeck:CL12345",
+											"isAutoGroup": true,
+											"name": "Stream Deck XL (CL12345)",
+											"neverLock": false,
+											"restrictPages": true,
+											"startupPageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+											"surfaceIds": ["streamdeck:CL12345"],
+											"useLastPage": false
+										}
+									],
+									"meta": {
+										"limit": 1,
+										"offset": 0,
+										"total": 1
+									}
+								},
+								"schema": {
+									"example": {
+										"data": [
+											{
+												"allowedPageIds": ["ggmHXCUQ0RRXUwEr8HHtQ"],
+												"currentPageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+												"id": "streamdeck:CL12345",
+												"isAutoGroup": true,
+												"name": "Stream Deck XL (CL12345)",
+												"neverLock": false,
+												"restrictPages": true,
+												"startupPageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+												"surfaceIds": ["streamdeck:CL12345"],
+												"useLastPage": false
+											}
+										],
+										"meta": {
+											"limit": 100,
+											"offset": 0,
+											"total": 1
+										}
+									},
+									"properties": {
+										"data": {
+											"items": {
+												"example": {
+													"allowedPageIds": ["ggmHXCUQ0RRXUwEr8HHtQ"],
+													"currentPageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+													"id": "streamdeck:CL12345",
+													"isAutoGroup": true,
+													"name": "Stream Deck XL (CL12345)",
+													"neverLock": false,
+													"restrictPages": true,
+													"startupPageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+													"surfaceIds": ["streamdeck:CL12345"],
+													"useLastPage": false
+												},
+												"properties": {
+													"allowedPageIds": {
+														"description": "Pages the group may show when restrictPages is true.",
+														"items": {
+															"type": "string"
+														},
+														"type": "array"
+													},
+													"currentPageId": {
+														"description": "Page the group is showing, or null if it is offline.",
+														"nullable": true,
+														"type": "string"
+													},
+													"id": {
+														"description": "Group id. A surface that is not in a group has its own auto group, with its surface id.",
+														"type": "string"
+													},
+													"isAutoGroup": {
+														"description": "True for the implicit group of a single surface.",
+														"type": "boolean"
+													},
+													"name": {
+														"type": "string"
+													},
+													"neverLock": {
+														"description": "Never lock this group, even when the pincode lockout is active.",
+														"type": "boolean"
+													},
+													"restrictPages": {
+														"description": "Only allow navigating to allowedPageIds.",
+														"type": "boolean"
+													},
+													"startupPageId": {
+														"description": "Page shown at startup when useLastPage is false.",
+														"nullable": true,
+														"type": "string"
+													},
+													"surfaceIds": {
+														"description": "Surfaces in the group.",
+														"items": {
+															"type": "string"
+														},
+														"type": "array"
+													},
+													"useLastPage": {
+														"description": "Start on the last page shown instead of startupPageId.",
+														"type": "boolean"
+													}
+												},
+												"required": [
+													"id",
+													"name",
+													"isAutoGroup",
+													"surfaceIds",
+													"currentPageId",
+													"startupPageId",
+													"useLastPage",
+													"restrictPages",
+													"allowedPageIds",
+													"neverLock"
+												],
+												"type": "object"
+											},
+											"type": "array"
+										},
+										"meta": {
+											"example": {
+												"limit": 100,
+												"offset": 0,
+												"total": 1
+											},
+											"properties": {
+												"limit": {
+													"description": "Maximum number of resources returned by this response.",
+													"example": 100,
+													"type": "number"
+												},
+												"offset": {
+													"description": "Number of resources skipped before this response.",
+													"example": 0,
+													"type": "number"
+												},
+												"total": {
+													"description": "Total number of resources available.",
+													"example": 1,
+													"type": "number"
+												}
+											},
+											"required": ["total", "limit", "offset"],
+											"type": "object"
+										}
+									},
+									"required": ["data", "meta"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "List of surface groups"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["read"]
+					}
+				],
+				"summary": "List surface groups",
+				"tags": ["Surfaces"]
+			}
+		},
+		"/surface-groups/v1/{groupId}": {
+			"get": {
+				"parameters": [
+					{
+						"description": "Surface group id, or a surface id for its auto group.",
+						"in": "path",
+						"name": "groupId",
+						"required": true,
+						"schema": {
+							"description": "Surface group id, or a surface id for its auto group.",
+							"example": "streamdeck:CL12345",
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"allowedPageIds": ["ggmHXCUQ0RRXUwEr8HHtQ"],
+										"currentPageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+										"id": "streamdeck:CL12345",
+										"isAutoGroup": true,
+										"name": "Stream Deck XL (CL12345)",
+										"neverLock": false,
+										"restrictPages": true,
+										"startupPageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+										"surfaceIds": ["streamdeck:CL12345"],
+										"useLastPage": false
+									}
+								},
+								"schema": {
+									"example": {
+										"data": {
+											"allowedPageIds": ["ggmHXCUQ0RRXUwEr8HHtQ"],
+											"currentPageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+											"id": "streamdeck:CL12345",
+											"isAutoGroup": true,
+											"name": "Stream Deck XL (CL12345)",
+											"neverLock": false,
+											"restrictPages": true,
+											"startupPageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+											"surfaceIds": ["streamdeck:CL12345"],
+											"useLastPage": false
+										}
+									},
+									"properties": {
+										"data": {
+											"example": {
+												"allowedPageIds": ["ggmHXCUQ0RRXUwEr8HHtQ"],
+												"currentPageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+												"id": "streamdeck:CL12345",
+												"isAutoGroup": true,
+												"name": "Stream Deck XL (CL12345)",
+												"neverLock": false,
+												"restrictPages": true,
+												"startupPageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+												"surfaceIds": ["streamdeck:CL12345"],
+												"useLastPage": false
+											},
+											"properties": {
+												"allowedPageIds": {
+													"description": "Pages the group may show when restrictPages is true.",
+													"items": {
+														"type": "string"
+													},
+													"type": "array"
+												},
+												"currentPageId": {
+													"description": "Page the group is showing, or null if it is offline.",
+													"nullable": true,
+													"type": "string"
+												},
+												"id": {
+													"description": "Group id. A surface that is not in a group has its own auto group, with its surface id.",
+													"type": "string"
+												},
+												"isAutoGroup": {
+													"description": "True for the implicit group of a single surface.",
+													"type": "boolean"
+												},
+												"name": {
+													"type": "string"
+												},
+												"neverLock": {
+													"description": "Never lock this group, even when the pincode lockout is active.",
+													"type": "boolean"
+												},
+												"restrictPages": {
+													"description": "Only allow navigating to allowedPageIds.",
+													"type": "boolean"
+												},
+												"startupPageId": {
+													"description": "Page shown at startup when useLastPage is false.",
+													"nullable": true,
+													"type": "string"
+												},
+												"surfaceIds": {
+													"description": "Surfaces in the group.",
+													"items": {
+														"type": "string"
+													},
+													"type": "array"
+												},
+												"useLastPage": {
+													"description": "Start on the last page shown instead of startupPageId.",
+													"type": "boolean"
+												}
+											},
+											"required": [
+												"id",
+												"name",
+												"isAutoGroup",
+												"surfaceIds",
+												"currentPageId",
+												"startupPageId",
+												"useLastPage",
+												"restrictPages",
+												"allowedPageIds",
+												"neverLock"
+											],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The surface group"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["read"]
+					}
+				],
+				"summary": "Get a surface group",
+				"tags": ["Surfaces"]
+			},
+			"patch": {
+				"description": "Set the startup page, page restrictions and lock behaviour, and optionally switch page now. Restrictions are applied before the page switch, so with restrictPages on, a currentPageId outside allowedPageIds is refused (409). Fields left out are unchanged.",
+				"parameters": [
+					{
+						"description": "Surface group id, or a surface id for its auto group.",
+						"in": "path",
+						"name": "groupId",
+						"required": true,
+						"schema": {
+							"description": "Surface group id, or a surface id for its auto group.",
+							"example": "streamdeck:CL12345",
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"example": {
+								"allowedPageIds": ["ggmHXCUQ0RRXUwEr8HHtQ"],
+								"currentPageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+								"restrictPages": true,
+								"startupPageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+								"useLastPage": false
+							},
+							"schema": {
+								"additionalProperties": false,
+								"properties": {
+									"allowedPageIds": {
+										"items": {
+											"type": "string"
+										},
+										"type": "array"
+									},
+									"currentPageId": {
+										"description": "Switch the group to this page now (or, if offline, when it next connects).",
+										"type": "string"
+									},
+									"neverLock": {
+										"type": "boolean"
+									},
+									"restrictPages": {
+										"type": "boolean"
+									},
+									"startupPageId": {
+										"type": "string"
+									},
+									"useLastPage": {
+										"type": "boolean"
+									}
+								},
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"allowedPageIds": ["ggmHXCUQ0RRXUwEr8HHtQ"],
+										"currentPageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+										"id": "streamdeck:CL12345",
+										"isAutoGroup": true,
+										"name": "Stream Deck XL (CL12345)",
+										"neverLock": false,
+										"restrictPages": true,
+										"startupPageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+										"surfaceIds": ["streamdeck:CL12345"],
+										"useLastPage": false
+									}
+								},
+								"schema": {
+									"example": {
+										"data": {
+											"allowedPageIds": ["ggmHXCUQ0RRXUwEr8HHtQ"],
+											"currentPageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+											"id": "streamdeck:CL12345",
+											"isAutoGroup": true,
+											"name": "Stream Deck XL (CL12345)",
+											"neverLock": false,
+											"restrictPages": true,
+											"startupPageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+											"surfaceIds": ["streamdeck:CL12345"],
+											"useLastPage": false
+										}
+									},
+									"properties": {
+										"data": {
+											"example": {
+												"allowedPageIds": ["ggmHXCUQ0RRXUwEr8HHtQ"],
+												"currentPageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+												"id": "streamdeck:CL12345",
+												"isAutoGroup": true,
+												"name": "Stream Deck XL (CL12345)",
+												"neverLock": false,
+												"restrictPages": true,
+												"startupPageId": "ggmHXCUQ0RRXUwEr8HHtQ",
+												"surfaceIds": ["streamdeck:CL12345"],
+												"useLastPage": false
+											},
+											"properties": {
+												"allowedPageIds": {
+													"description": "Pages the group may show when restrictPages is true.",
+													"items": {
+														"type": "string"
+													},
+													"type": "array"
+												},
+												"currentPageId": {
+													"description": "Page the group is showing, or null if it is offline.",
+													"nullable": true,
+													"type": "string"
+												},
+												"id": {
+													"description": "Group id. A surface that is not in a group has its own auto group, with its surface id.",
+													"type": "string"
+												},
+												"isAutoGroup": {
+													"description": "True for the implicit group of a single surface.",
+													"type": "boolean"
+												},
+												"name": {
+													"type": "string"
+												},
+												"neverLock": {
+													"description": "Never lock this group, even when the pincode lockout is active.",
+													"type": "boolean"
+												},
+												"restrictPages": {
+													"description": "Only allow navigating to allowedPageIds.",
+													"type": "boolean"
+												},
+												"startupPageId": {
+													"description": "Page shown at startup when useLastPage is false.",
+													"nullable": true,
+													"type": "string"
+												},
+												"surfaceIds": {
+													"description": "Surfaces in the group.",
+													"items": {
+														"type": "string"
+													},
+													"type": "array"
+												},
+												"useLastPage": {
+													"description": "Start on the last page shown instead of startupPageId.",
+													"type": "boolean"
+												}
+											},
+											"required": [
+												"id",
+												"name",
+												"isAutoGroup",
+												"surfaceIds",
+												"currentPageId",
+												"startupPageId",
+												"useLastPage",
+												"restrictPages",
+												"allowedPageIds",
+												"neverLock"
+											],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The updated surface group"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					},
+					"409": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The page is not allowed for this group"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["write"]
+					}
+				],
+				"summary": "Update the page settings of a surface group",
+				"tags": ["Surfaces"]
+			}
+		},
 		"/surfaces/v1": {
 			"get": {
 				"description": "Returns all known surfaces, connected or not, with their current state.",
