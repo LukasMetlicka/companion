@@ -23,13 +23,14 @@ type FakeRestApiResource = { createRestApiRouter: (logger: Logger) => express.Ro
  * default here once, rather than editing every resource's test file.
  */
 export function createTestRestApiResources(
-	overrides: Partial<Record<'instance' | 'surfaces' | 'page', FakeRestApiResource>>
+	overrides: Partial<Record<'instance' | 'surfaces' | 'page' | 'variables', FakeRestApiResource>>
 ): Registry {
 	const emptyResource: FakeRestApiResource = { createRestApiRouter: () => express.Router() }
 	return {
 		instance: emptyResource,
 		surfaces: emptyResource,
 		page: emptyResource,
+		variables: emptyResource,
 		...overrides,
 	} as unknown as Registry
 }

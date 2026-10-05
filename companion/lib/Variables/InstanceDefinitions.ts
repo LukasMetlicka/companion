@@ -113,6 +113,13 @@ export class VariablesInstanceDefinitions {
 	 * Get the variable definitions for a connection
 	 */
 
+	/**
+	 * Get the variable definitions of every connection, keyed by connection label
+	 */
+	getAllVariableDefinitions(): Readonly<AllVariableDefinitions> {
+		return this.#variableDefinitions
+	}
+
 	getVariableDefinitions(connectionLabel: string): ModuleVariableDefinitions {
 		return this.#variableDefinitions[connectionLabel] ?? {}
 	}

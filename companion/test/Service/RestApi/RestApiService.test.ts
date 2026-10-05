@@ -28,6 +28,7 @@ function createService(initialEnabled: boolean) {
 		instance: { createRestApiRouter: () => express.Router() },
 		surfaces: { createRestApiRouter: () => express.Router() },
 		page: { createRestApiRouter: () => express.Router() },
+		variables: { createRestApiRouter: () => express.Router() },
 	} as unknown as Registry
 
 	let enabled = initialEnabled

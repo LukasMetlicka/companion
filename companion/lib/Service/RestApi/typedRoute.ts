@@ -5,7 +5,7 @@ import { RestApiError } from './errors.js'
 import { requireScopes, type ApiToken, type RequiredScope, type RestApiResponse } from './RestApiAuth.js'
 
 type RegisterPathConfig = Parameters<OpenAPIRegistry['registerPath']>[0]
-type HttpMethod = 'get' | 'post' | 'patch' | 'delete'
+type HttpMethod = 'get' | 'post' | 'put' | 'patch' | 'delete'
 type ResponseConfig = NonNullable<RegisterPathConfig['responses']>[number]
 type RouteParameter = NonNullable<NonNullable<RegisterPathConfig['request']>['params']>
 

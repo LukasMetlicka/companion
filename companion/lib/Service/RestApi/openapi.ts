@@ -3,6 +3,7 @@ import { registerInstanceRestApiPaths } from '../../Instance/RestApi.js'
 import { registerPagePaths } from '../../Page/PagesRestApi.js'
 import type { AppInfo } from '../../Registry.js'
 import { registerSurfacePaths } from '../../Surface/SurfacesRestApi.js'
+import { registerVariablesPaths } from '../../Variables/VariablesRestApi.js'
 import { REST_API_BASE_PATH } from './constants.js'
 import { createOpenApiRegistry } from './registry.js'
 
@@ -19,6 +20,7 @@ export function generateOpenApiDocument(
 	registerInstanceRestApiPaths(registry)
 	registerSurfacePaths(registry)
 	registerPagePaths(registry)
+	registerVariablesPaths(registry)
 
 	const generator = new OpenApiGeneratorV3(registry.definitions)
 

@@ -8188,6 +8188,2456 @@
 				"summary": "Update a surface",
 				"tags": ["Surfaces"]
 			}
+		},
+		"/variables/v1/custom": {
+			"get": {
+				"description": "Returns every custom variable with its definition and current value, ordered by name.",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": [
+										{
+											"collectionId": null,
+											"currentValue": false,
+											"defaultValue": false,
+											"description": "Set when a DIT chord fired, so the key release does nothing",
+											"name": "chord_dit_fired",
+											"persistCurrentValue": false
+										}
+									],
+									"meta": {
+										"limit": 1,
+										"offset": 0,
+										"total": 1
+									}
+								},
+								"schema": {
+									"example": {
+										"data": [
+											{
+												"collectionId": null,
+												"currentValue": false,
+												"defaultValue": false,
+												"description": "Set when a DIT chord fired, so the key release does nothing",
+												"name": "chord_dit_fired",
+												"persistCurrentValue": false
+											}
+										],
+										"meta": {
+											"limit": 100,
+											"offset": 0,
+											"total": 1
+										}
+									},
+									"properties": {
+										"data": {
+											"items": {
+												"example": {
+													"collectionId": null,
+													"currentValue": false,
+													"defaultValue": false,
+													"description": "Set when a DIT chord fired, so the key release does nothing",
+													"name": "chord_dit_fired",
+													"persistCurrentValue": false
+												},
+												"properties": {
+													"collectionId": {
+														"description": "Collection the variable is grouped in, or null.",
+														"nullable": true,
+														"type": "string"
+													},
+													"currentValue": {
+														"description": "Current value. Omitted if unset.",
+														"nullable": true
+													},
+													"defaultValue": {
+														"description": "Value the variable starts with when Companion starts. Omitted if unset.",
+														"nullable": true
+													},
+													"description": {
+														"description": "Description shown in the web UI.",
+														"type": "string"
+													},
+													"name": {
+														"description": "Variable name, referenced as $(custom:<name>).",
+														"type": "string"
+													},
+													"persistCurrentValue": {
+														"description": "If true, the current value survives restarts: the default value follows the current value.",
+														"type": "boolean"
+													}
+												},
+												"required": ["name", "description", "persistCurrentValue", "collectionId"],
+												"type": "object"
+											},
+											"type": "array"
+										},
+										"meta": {
+											"example": {
+												"limit": 100,
+												"offset": 0,
+												"total": 1
+											},
+											"properties": {
+												"limit": {
+													"description": "Maximum number of resources returned by this response.",
+													"example": 100,
+													"type": "number"
+												},
+												"offset": {
+													"description": "Number of resources skipped before this response.",
+													"example": 0,
+													"type": "number"
+												},
+												"total": {
+													"description": "Total number of resources available.",
+													"example": 1,
+													"type": "number"
+												}
+											},
+											"required": ["total", "limit", "offset"],
+											"type": "object"
+										}
+									},
+									"required": ["data", "meta"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "List of custom variables"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["read"]
+					}
+				],
+				"summary": "List custom variables",
+				"tags": ["Variables"]
+			},
+			"post": {
+				"description": "Create a custom variable. Its current value starts at the default value.",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"example": {
+								"defaultValue": false,
+								"description": "Set when a DIT chord fired, so the key release does nothing",
+								"name": "chord_dit_fired"
+							},
+							"schema": {
+								"additionalProperties": false,
+								"properties": {
+									"defaultValue": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "number"
+											},
+											{
+												"type": "boolean"
+											},
+											{
+												"nullable": true
+											},
+											{
+												"items": {
+													"nullable": true
+												},
+												"type": "array"
+											},
+											{
+												"additionalProperties": {
+													"nullable": true
+												},
+												"type": "object"
+											}
+										],
+										"description": "Starting value. Defaults to an empty string."
+									},
+									"description": {
+										"description": "Description shown in the web UI.",
+										"type": "string"
+									},
+									"name": {
+										"description": "Variable name. Letters, digits and underscores only.",
+										"minLength": 1,
+										"pattern": "^\\w+$",
+										"type": "string"
+									},
+									"persistCurrentValue": {
+										"description": "Keep the current value across restarts. Defaults to false.",
+										"type": "boolean"
+									}
+								},
+								"required": ["name"],
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"201": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"collectionId": null,
+										"currentValue": false,
+										"defaultValue": false,
+										"description": "Set when a DIT chord fired, so the key release does nothing",
+										"name": "chord_dit_fired",
+										"persistCurrentValue": false
+									}
+								},
+								"schema": {
+									"example": {
+										"data": {
+											"collectionId": null,
+											"currentValue": false,
+											"defaultValue": false,
+											"description": "Set when a DIT chord fired, so the key release does nothing",
+											"name": "chord_dit_fired",
+											"persistCurrentValue": false
+										}
+									},
+									"properties": {
+										"data": {
+											"example": {
+												"collectionId": null,
+												"currentValue": false,
+												"defaultValue": false,
+												"description": "Set when a DIT chord fired, so the key release does nothing",
+												"name": "chord_dit_fired",
+												"persistCurrentValue": false
+											},
+											"properties": {
+												"collectionId": {
+													"description": "Collection the variable is grouped in, or null.",
+													"nullable": true,
+													"type": "string"
+												},
+												"currentValue": {
+													"description": "Current value. Omitted if unset.",
+													"nullable": true
+												},
+												"defaultValue": {
+													"description": "Value the variable starts with when Companion starts. Omitted if unset.",
+													"nullable": true
+												},
+												"description": {
+													"description": "Description shown in the web UI.",
+													"type": "string"
+												},
+												"name": {
+													"description": "Variable name, referenced as $(custom:<name>).",
+													"type": "string"
+												},
+												"persistCurrentValue": {
+													"description": "If true, the current value survives restarts: the default value follows the current value.",
+													"type": "boolean"
+												}
+											},
+											"required": ["name", "description", "persistCurrentValue", "collectionId"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The created custom variable"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					},
+					"409": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Conflict"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["write"]
+					}
+				],
+				"summary": "Create a custom variable",
+				"tags": ["Variables"]
+			}
+		},
+		"/variables/v1/custom/{name}": {
+			"delete": {
+				"description": "Delete a custom variable. Buttons and triggers referencing it are not changed.",
+				"parameters": [
+					{
+						"description": "Custom variable name.",
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"description": "Custom variable name.",
+							"example": "chord_dit_fired",
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "Custom variable deleted"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["write"]
+					}
+				],
+				"summary": "Delete a custom variable",
+				"tags": ["Variables"]
+			},
+			"get": {
+				"parameters": [
+					{
+						"description": "Custom variable name.",
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"description": "Custom variable name.",
+							"example": "chord_dit_fired",
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"collectionId": null,
+										"currentValue": false,
+										"defaultValue": false,
+										"description": "Set when a DIT chord fired, so the key release does nothing",
+										"name": "chord_dit_fired",
+										"persistCurrentValue": false
+									}
+								},
+								"schema": {
+									"example": {
+										"data": {
+											"collectionId": null,
+											"currentValue": false,
+											"defaultValue": false,
+											"description": "Set when a DIT chord fired, so the key release does nothing",
+											"name": "chord_dit_fired",
+											"persistCurrentValue": false
+										}
+									},
+									"properties": {
+										"data": {
+											"example": {
+												"collectionId": null,
+												"currentValue": false,
+												"defaultValue": false,
+												"description": "Set when a DIT chord fired, so the key release does nothing",
+												"name": "chord_dit_fired",
+												"persistCurrentValue": false
+											},
+											"properties": {
+												"collectionId": {
+													"description": "Collection the variable is grouped in, or null.",
+													"nullable": true,
+													"type": "string"
+												},
+												"currentValue": {
+													"description": "Current value. Omitted if unset.",
+													"nullable": true
+												},
+												"defaultValue": {
+													"description": "Value the variable starts with when Companion starts. Omitted if unset.",
+													"nullable": true
+												},
+												"description": {
+													"description": "Description shown in the web UI.",
+													"type": "string"
+												},
+												"name": {
+													"description": "Variable name, referenced as $(custom:<name>).",
+													"type": "string"
+												},
+												"persistCurrentValue": {
+													"description": "If true, the current value survives restarts: the default value follows the current value.",
+													"type": "boolean"
+												}
+											},
+											"required": ["name", "description", "persistCurrentValue", "collectionId"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The custom variable"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["read"]
+					}
+				],
+				"summary": "Get a custom variable",
+				"tags": ["Variables"]
+			},
+			"patch": {
+				"description": "Update the description, default value or persistence of a custom variable. Fields left out are unchanged. The current value is changed through the value endpoint.",
+				"parameters": [
+					{
+						"description": "Custom variable name.",
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"description": "Custom variable name.",
+							"example": "chord_dit_fired",
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"example": {
+								"defaultValue": true
+							},
+							"schema": {
+								"additionalProperties": false,
+								"properties": {
+									"defaultValue": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "number"
+											},
+											{
+												"type": "boolean"
+											},
+											{
+												"nullable": true
+											},
+											{
+												"items": {
+													"nullable": true
+												},
+												"type": "array"
+											},
+											{
+												"additionalProperties": {
+													"nullable": true
+												},
+												"type": "object"
+											}
+										],
+										"description": "New default value. null is stored as the value null. Rejected while persistCurrentValue is (or becomes) true, since the default then follows the current value."
+									},
+									"description": {
+										"description": "New description.",
+										"type": "string"
+									},
+									"persistCurrentValue": {
+										"description": "Turning this on copies the current value into the default value.",
+										"type": "boolean"
+									}
+								},
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"collectionId": null,
+										"currentValue": false,
+										"defaultValue": true,
+										"description": "Set when a DIT chord fired, so the key release does nothing",
+										"name": "chord_dit_fired",
+										"persistCurrentValue": false
+									}
+								},
+								"schema": {
+									"example": {
+										"data": {
+											"collectionId": null,
+											"currentValue": false,
+											"defaultValue": false,
+											"description": "Set when a DIT chord fired, so the key release does nothing",
+											"name": "chord_dit_fired",
+											"persistCurrentValue": false
+										}
+									},
+									"properties": {
+										"data": {
+											"example": {
+												"collectionId": null,
+												"currentValue": false,
+												"defaultValue": false,
+												"description": "Set when a DIT chord fired, so the key release does nothing",
+												"name": "chord_dit_fired",
+												"persistCurrentValue": false
+											},
+											"properties": {
+												"collectionId": {
+													"description": "Collection the variable is grouped in, or null.",
+													"nullable": true,
+													"type": "string"
+												},
+												"currentValue": {
+													"description": "Current value. Omitted if unset.",
+													"nullable": true
+												},
+												"defaultValue": {
+													"description": "Value the variable starts with when Companion starts. Omitted if unset.",
+													"nullable": true
+												},
+												"description": {
+													"description": "Description shown in the web UI.",
+													"type": "string"
+												},
+												"name": {
+													"description": "Variable name, referenced as $(custom:<name>).",
+													"type": "string"
+												},
+												"persistCurrentValue": {
+													"description": "If true, the current value survives restarts: the default value follows the current value.",
+													"type": "boolean"
+												}
+											},
+											"required": ["name", "description", "persistCurrentValue", "collectionId"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The updated custom variable"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					},
+					"409": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Conflict"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["write"]
+					}
+				],
+				"summary": "Update a custom variable",
+				"tags": ["Variables"]
+			}
+		},
+		"/variables/v1/custom/{name}/value": {
+			"get": {
+				"parameters": [
+					{
+						"description": "Custom variable name.",
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"description": "Custom variable name.",
+							"example": "chord_dit_fired",
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"name": "chord_dit_fired",
+										"value": false
+									}
+								},
+								"schema": {
+									"properties": {
+										"data": {
+											"properties": {
+												"name": {
+													"type": "string"
+												},
+												"value": {
+													"description": "Current value. Omitted if unset.",
+													"nullable": true
+												}
+											},
+											"required": ["name"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The current value"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["read"]
+					}
+				],
+				"summary": "Get the value of a custom variable",
+				"tags": ["Variables"]
+			},
+			"put": {
+				"description": "Set the current value. This takes effect immediately, like an action: feedbacks and triggers watching the variable react to it.",
+				"parameters": [
+					{
+						"description": "Custom variable name.",
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"description": "Custom variable name.",
+							"example": "chord_dit_fired",
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"example": {
+								"value": true
+							},
+							"schema": {
+								"additionalProperties": false,
+								"properties": {
+									"value": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "number"
+											},
+											{
+												"type": "boolean"
+											},
+											{
+												"nullable": true
+											},
+											{
+												"items": {
+													"nullable": true
+												},
+												"type": "array"
+											},
+											{
+												"additionalProperties": {
+													"nullable": true
+												},
+												"type": "object"
+											}
+										],
+										"description": "New current value."
+									}
+								},
+								"required": ["value"],
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"name": "chord_dit_fired",
+										"value": true
+									}
+								},
+								"schema": {
+									"properties": {
+										"data": {
+											"properties": {
+												"name": {
+													"type": "string"
+												},
+												"value": {
+													"description": "Current value. Omitted if unset.",
+													"nullable": true
+												}
+											},
+											"required": ["name"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The new value"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["execute"]
+					}
+				],
+				"summary": "Set the value of a custom variable",
+				"tags": ["Variables"]
+			}
+		},
+		"/variables/v1/values": {
+			"get": {
+				"description": "Returns every defined variable (connection, internal and custom) with its description and current value, ordered by namespace then name.",
+				"parameters": [
+					{
+						"description": "Only return variables in this namespace.",
+						"in": "query",
+						"name": "namespace",
+						"required": false,
+						"schema": {
+							"description": "Only return variables in this namespace.",
+							"type": "string"
+						}
+					},
+					{
+						"description": "Case-insensitive search across name and description.",
+						"in": "query",
+						"name": "q",
+						"required": false,
+						"schema": {
+							"description": "Case-insensitive search across name and description.",
+							"type": "string"
+						}
+					},
+					{
+						"description": "Maximum number of variables to return (default 100, max 1000).",
+						"in": "query",
+						"name": "limit",
+						"required": false,
+						"schema": {
+							"default": 100,
+							"description": "Maximum number of variables to return (default 100, max 1000).",
+							"maximum": 1000,
+							"minimum": 1,
+							"type": "integer"
+						}
+					},
+					{
+						"description": "Number of variables to skip.",
+						"in": "query",
+						"name": "offset",
+						"required": false,
+						"schema": {
+							"default": 0,
+							"description": "Number of variables to skip.",
+							"minimum": 0,
+							"nullable": true,
+							"type": "integer"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": [
+										{
+											"description": "Time of day (HH:MM:SS)",
+											"name": "time_hms",
+											"namespace": "internal",
+											"value": "14:02:11"
+										}
+									],
+									"meta": {
+										"limit": 100,
+										"offset": 0,
+										"total": 1
+									}
+								},
+								"schema": {
+									"example": {
+										"data": [
+											{
+												"description": "Time of day (HH:MM:SS)",
+												"name": "time_hms",
+												"namespace": "internal",
+												"value": "14:02:11"
+											}
+										],
+										"meta": {
+											"limit": 100,
+											"offset": 0,
+											"total": 1
+										}
+									},
+									"properties": {
+										"data": {
+											"items": {
+												"example": {
+													"description": "Time of day (HH:MM:SS)",
+													"name": "time_hms",
+													"namespace": "internal",
+													"value": "14:02:11"
+												},
+												"properties": {
+													"description": {
+														"description": "Variable description.",
+														"type": "string"
+													},
+													"name": {
+														"description": "Variable name within the namespace.",
+														"type": "string"
+													},
+													"namespace": {
+														"description": "Variable namespace: a connection label, \"internal\" or \"custom\", as in $(<namespace>:<name>).",
+														"type": "string"
+													},
+													"value": {
+														"description": "Current value. Omitted if unset.",
+														"nullable": true
+													}
+												},
+												"required": ["namespace", "name", "description"],
+												"type": "object"
+											},
+											"type": "array"
+										},
+										"meta": {
+											"example": {
+												"limit": 100,
+												"offset": 0,
+												"total": 1
+											},
+											"properties": {
+												"limit": {
+													"description": "Maximum number of resources returned by this response.",
+													"example": 100,
+													"type": "number"
+												},
+												"offset": {
+													"description": "Number of resources skipped before this response.",
+													"example": 0,
+													"type": "number"
+												},
+												"total": {
+													"description": "Total number of resources available.",
+													"example": 1,
+													"type": "number"
+												}
+											},
+											"required": ["total", "limit", "offset"],
+											"type": "object"
+										}
+									},
+									"required": ["data", "meta"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "List of variables"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["read"]
+					}
+				],
+				"summary": "List variables with their values",
+				"tags": ["Variables"]
+			}
+		},
+		"/variables/v1/values/{namespace}/{name}": {
+			"get": {
+				"parameters": [
+					{
+						"description": "Variable namespace.",
+						"in": "path",
+						"name": "namespace",
+						"required": true,
+						"schema": {
+							"description": "Variable namespace.",
+							"example": "internal",
+							"type": "string"
+						}
+					},
+					{
+						"description": "Variable name.",
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"description": "Variable name.",
+							"example": "time_hms",
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"description": "Time of day (HH:MM:SS)",
+										"name": "time_hms",
+										"namespace": "internal",
+										"value": "14:02:11"
+									}
+								},
+								"schema": {
+									"example": {
+										"data": {
+											"description": "Time of day (HH:MM:SS)",
+											"name": "time_hms",
+											"namespace": "internal",
+											"value": "14:02:11"
+										}
+									},
+									"properties": {
+										"data": {
+											"example": {
+												"description": "Time of day (HH:MM:SS)",
+												"name": "time_hms",
+												"namespace": "internal",
+												"value": "14:02:11"
+											},
+											"properties": {
+												"description": {
+													"description": "Variable description.",
+													"type": "string"
+												},
+												"name": {
+													"description": "Variable name within the namespace.",
+													"type": "string"
+												},
+												"namespace": {
+													"description": "Variable namespace: a connection label, \"internal\" or \"custom\", as in $(<namespace>:<name>).",
+													"type": "string"
+												},
+												"value": {
+													"description": "Current value. Omitted if unset.",
+													"nullable": true
+												}
+											},
+											"required": ["namespace", "name", "description"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The variable"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["read"]
+					}
+				],
+				"summary": "Get a variable with its value",
+				"tags": ["Variables"]
+			}
 		}
 	},
 	"security": [
