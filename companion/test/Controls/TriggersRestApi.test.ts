@@ -107,6 +107,7 @@ function createFixture() {
 				definitions[`${entityType}:${connectionId}:${definitionId}`],
 		},
 		eventDefinitions,
+		collections: { doesCollectionIdExist: (id) => !id || id === 'known' },
 	}
 
 	const restApiRouter = createRestApiRouter(
@@ -201,6 +202,15 @@ describe('Triggers REST API', () => {
 			'actions[0] unknown_definition',
 		])
 		expect(triggers.size).toBe(0)
+	})
+
+	test('checks the collection exists', async () => {
+		const { request } = createFixture()
+
+		expect((await request('post', '/', { options: { collectionId: 'known' } })).status).toBe(201)
+		const res = await request('post', '/', { options: { collectionId: 'nope' } })
+		expect(res.status).toBe(422)
+		expect(res.body.error.details.errors).toMatchObject([{ path: 'options.collectionId' }])
 	})
 
 	test('dryRun creates nothing', async () => {

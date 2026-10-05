@@ -82,6 +82,10 @@ export class VariablesCustomVariable extends EventEmitter<VariablesCustomVariabl
 		}
 	}
 
+	get collections(): CustomVariableCollections {
+		return this.#collections
+	}
+
 	createTrpcRouter() {
 		const self = this
 		return router({

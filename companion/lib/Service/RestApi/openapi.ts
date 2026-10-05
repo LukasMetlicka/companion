@@ -1,13 +1,16 @@
 import { OpenApiGeneratorV3 } from '@asteasolutions/zod-to-openapi'
 import { registerControlPaths } from '../../Controls/ControlsRestApi.js'
-import { registerExpressionVariablePaths } from '../../Controls/ExpressionVariablesRestApi.js'
+import {
+	expressionVariableCollectionsResource,
+	registerExpressionVariablePaths,
+} from '../../Controls/ExpressionVariablesRestApi.js'
 import { registerPageVariablesPaths } from '../../Controls/PageVariablesRestApi.js'
-import { registerTriggerPaths } from '../../Controls/TriggersRestApi.js'
+import { registerTriggerPaths, triggerCollectionsResource } from '../../Controls/TriggersRestApi.js'
 import { registerInstanceRestApiPaths } from '../../Instance/RestApi.js'
 import { registerPagePaths } from '../../Page/PagesRestApi.js'
 import type { AppInfo } from '../../Registry.js'
 import { registerSurfacePaths } from '../../Surface/SurfacesRestApi.js'
-import { registerVariablesPaths } from '../../Variables/VariablesRestApi.js'
+import { customVariableCollectionsResource, registerVariablesPaths } from '../../Variables/VariablesRestApi.js'
 import { REST_API_BASE_PATH } from './constants.js'
 import { createOpenApiRegistry } from './registry.js'
 
@@ -29,6 +32,9 @@ export function generateOpenApiDocument(
 	registerTriggerPaths(registry)
 	registerExpressionVariablePaths(registry)
 	registerPageVariablesPaths(registry)
+	triggerCollectionsResource.registerPaths(registry)
+	customVariableCollectionsResource.registerPaths(registry)
+	expressionVariableCollectionsResource.registerPaths(registry)
 
 	const generator = new OpenApiGeneratorV3(registry.definitions)
 

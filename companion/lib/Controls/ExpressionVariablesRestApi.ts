@@ -7,6 +7,7 @@ import { isLabelValid } from '@companion-app/shared/Label.js'
 import { EntityModelType, type SomeEntityModel } from '@companion-app/shared/Model/EntityModel.js'
 import type { ExpressionVariableModel } from '@companion-app/shared/Model/ExpressionVariableModel.js'
 import type { Logger } from '../Log/Controller.js'
+import { createCollectionsResource } from '../Resources/CollectionsRestApi.js'
 import { REST_API_BASE_PATH } from '../Service/RestApi/constants.js'
 import { RestApiError } from '../Service/RestApi/errors.js'
 import { checkIfMatch, computeEtag } from '../Service/RestApi/etag.js'
@@ -37,6 +38,15 @@ import type { ControlExpressionVariable } from './ControlTypes/ExpressionVariabl
 import { validateExpressionVariableControlId } from './Util.js'
 
 export const EXPRESSION_VARIABLES_API_BASE_PATH = '/variables/v1/expression'
+
+/** /api/v2/variables/v1/expression/collections; mount before the expression variable routes */
+export const expressionVariableCollectionsResource = createCollectionsResource<null>({
+	basePath: `${EXPRESSION_VARIABLES_API_BASE_PATH}/collections`,
+	tags: ['Variables'],
+	noun: 'expression variable',
+	supportsEnabled: false,
+	createMetaData: () => null,
+})
 const EXPRESSION_VARIABLES_API_TAGS = ['Variables']
 
 export interface ExpressionVariablesApiDeps {
@@ -46,6 +56,7 @@ export interface ExpressionVariablesApiDeps {
 	>
 	definitions: ControlModelValidatorDeps
 	values: Pick<VariablesValues, 'getVariableValue'>
+	collections: { doesCollectionIdExist(collectionId: string | null | undefined): boolean }
 }
 
 type ExpressionVariablesRestContext = ExpressionVariablesApiDeps & { logger: Logger }
@@ -276,6 +287,9 @@ function prepareOrThrow(
 			code: 'invalid_value',
 			message: 'A name is required: letters, digits, underscores and dashes, and not a reserved word',
 		})
+	}
+	if (!ctx.collections.doesCollectionIdExist(prepared.model.options.collectionId)) {
+		prepared.errors.push({ path: 'options.collectionId', code: 'invalid_value', message: 'Collection not found' })
 	}
 
 	if (prepared.errors.length > 0) {

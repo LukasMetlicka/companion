@@ -199,6 +199,20 @@ describe('Variables REST API', () => {
 			expect((await request('put', '/custom/v/value', { value: 1 }, tokens.write)).status).toBe(403)
 		})
 
+		test('puts variables in collections, checking they exist', async () => {
+			const { request, controller } = createFixture()
+			const collectionId = controller.custom.collections.collectionCreate('Chords', null)
+
+			const created = await request('post', '/custom', { name: 'v', collectionId })
+			expect(created.body.data.collectionId).toBe(collectionId)
+
+			const moved = await request('patch', '/custom/v', { collectionId: null })
+			expect(moved.body.data.collectionId).toBeNull()
+
+			expect((await request('post', '/custom', { name: 'w', collectionId: 'nope' })).status).toBe(400)
+			expect((await request('patch', '/custom/v', { collectionId: 'nope' })).status).toBe(400)
+		})
+
 		test('read tokens cannot write', async () => {
 			const { request } = createFixture()
 			expect((await request('post', '/custom', { name: 'v' }, tokens.read)).status).toBe(403)

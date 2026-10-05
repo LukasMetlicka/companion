@@ -4,8 +4,9 @@ import { nanoid } from 'nanoid'
 import z from 'zod'
 import { CreateTriggerControlId } from '@companion-app/shared/ControlId.js'
 import type { EventDefinition } from '@companion-app/shared/Model/Common.js'
-import type { TriggerModel } from '@companion-app/shared/Model/TriggerModel.js'
+import type { TriggerCollectionData, TriggerModel } from '@companion-app/shared/Model/TriggerModel.js'
 import type { Logger } from '../Log/Controller.js'
+import { createCollectionsResource } from '../Resources/CollectionsRestApi.js'
 import { REST_API_BASE_PATH } from '../Service/RestApi/constants.js'
 import { RestApiError } from '../Service/RestApi/errors.js'
 import { checkIfMatch, computeEtag } from '../Service/RestApi/etag.js'
@@ -36,12 +37,22 @@ import { TriggerExecutionSource } from './ControlTypes/Triggers/TriggerExecution
 import { validateTriggerControlId } from './Util.js'
 
 export const TRIGGERS_API_BASE_PATH = '/triggers/v1'
+
+/** /api/v2/triggers/v1/collections; mount before the trigger routes so "collections" is not taken as an id */
+export const triggerCollectionsResource = createCollectionsResource<TriggerCollectionData>({
+	basePath: `${TRIGGERS_API_BASE_PATH}/collections`,
+	tags: ['Triggers'],
+	noun: 'trigger',
+	supportsEnabled: true,
+	createMetaData: (enabled) => ({ enabled }),
+})
 const TRIGGERS_API_TAGS = ['Triggers']
 
 export interface TriggersApiDeps {
 	controls: Pick<ControlsController, 'getControl' | 'getAllTriggers' | 'importTrigger' | 'deleteControl'>
 	definitions: ControlModelValidatorDeps
 	eventDefinitions: Readonly<Record<string, EventDefinition>>
+	collections: { doesCollectionIdExist(collectionId: string | null | undefined): boolean }
 }
 
 type TriggersRestContext = TriggersApiDeps & { logger: Logger }
@@ -247,6 +258,9 @@ function prepareOrThrow(
 	const prepared = prepareTriggerModel({ ...input, type: 'trigger' }, ctx.definitions, ctx.eventDefinitions, {
 		allowMissingDefinitions: query.allowMissingDefinitions === 'true',
 	})
+	if (!ctx.collections.doesCollectionIdExist(prepared.model.options.collectionId)) {
+		prepared.errors.push({ path: 'options.collectionId', code: 'invalid_value', message: 'Collection not found' })
+	}
 	if (prepared.errors.length > 0) {
 		throw RestApiError.unprocessable('Trigger model is not valid', {
 			errors: prepared.errors,

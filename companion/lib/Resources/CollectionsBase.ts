@@ -149,7 +149,8 @@ export abstract class CollectionsBaseController<TCollectionMetadata> {
 		return [...this.data] // Return a shallow copy of the data
 	}
 
-	protected collectionCreate = (label: string, metaData: TCollectionMetadata): string => {
+	// Public so the REST API can manage collections; they were only reached through the tRPC router
+	public collectionCreate = (label: string, metaData: TCollectionMetadata): string => {
 		const lastCollection = this.data[this.data.length - 1] as CollectionBase<TCollectionMetadata> | undefined
 
 		const newId = nanoid()
@@ -169,7 +170,7 @@ export abstract class CollectionsBaseController<TCollectionMetadata> {
 		return newId
 	}
 
-	protected collectionRemove = (collectionId: string): void => {
+	public collectionRemove = (collectionId: string): void => {
 		const matchedCollection = this.findCollectionAndParent(collectionId)
 		if (!matchedCollection) return
 
@@ -215,7 +216,7 @@ export abstract class CollectionsBaseController<TCollectionMetadata> {
 		this.removeUnknownCollectionReferences()
 	}
 
-	protected collectionSetName = (collectionId: string, collectionName: string): void => {
+	public collectionSetName = (collectionId: string, collectionName: string): void => {
 		const matchedCollection = this.findCollectionAndParent(collectionId)
 		if (!matchedCollection) throw new Error(`Collection ${collectionId} not found`)
 
@@ -240,7 +241,7 @@ export abstract class CollectionsBaseController<TCollectionMetadata> {
 		this.emitUpdate(this.data)
 	}
 
-	protected collectionMove = (collectionId: string, parentId: string | null, dropIndex: number): void => {
+	public collectionMove = (collectionId: string, parentId: string | null, dropIndex: number): void => {
 		if (collectionId === parentId) {
 			// Cannot move a collection into itself
 			return

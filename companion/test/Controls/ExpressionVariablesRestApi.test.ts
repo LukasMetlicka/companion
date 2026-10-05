@@ -83,6 +83,7 @@ function createFixture() {
 				definitions[`${entityType}:${connectionId}:${definitionId}`],
 		},
 		values: { getVariableValue: (_label: string, name: string) => `value of ${name}` },
+		collections: { doesCollectionIdExist: (id) => !id || id === 'known' },
 	}
 
 	const restApiRouter = createRestApiRouter(

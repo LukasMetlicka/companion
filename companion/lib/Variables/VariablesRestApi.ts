@@ -4,6 +4,7 @@ import type { JsonValue } from 'type-fest'
 import z from 'zod'
 import type { CustomVariableDefinition } from '@companion-app/shared/Model/CustomVariableModel.js'
 import type { Logger } from '../Log/Controller.js'
+import { createCollectionsResource } from '../Resources/CollectionsRestApi.js'
 import { REST_API_BASE_PATH } from '../Service/RestApi/constants.js'
 import { RestApiError } from '../Service/RestApi/errors.js'
 import {
@@ -23,6 +24,18 @@ import {
 import type { VariablesController } from './Controller.js'
 
 export const VARIABLES_API_BASE_PATH = '/variables/v1'
+
+/**
+ * /api/v2/variables/v1/custom/collections; mount before the custom variable routes. Note that a custom
+ * variable named "collections" is shadowed there; reach it through /values/custom/collections instead.
+ */
+export const customVariableCollectionsResource = createCollectionsResource<null>({
+	basePath: `${VARIABLES_API_BASE_PATH}/custom/collections`,
+	tags: ['Variables'],
+	noun: 'custom variable',
+	supportsEnabled: false,
+	createMetaData: () => null,
+})
 const VARIABLES_API_TAGS = ['Variables']
 
 /** The variable namespace custom variables live in, as in $(custom:name) */
@@ -43,7 +56,8 @@ export type VariablesApiController = {
 		| 'setVariableDefaultValue'
 		| 'setVariableDescription'
 		| 'setPersistence'
-	>
+		| 'setOrder'
+	> & { collections: Pick<VariablesController['custom']['collections'], 'doesCollectionIdExist'> }
 	values: Pick<VariablesController['values'], 'getVariableValue'>
 	definitions: Pick<VariablesController['definitions'], 'getAllVariableDefinitions'>
 }
@@ -97,6 +111,11 @@ const CustomVariableCreateBodySchema = z
 		defaultValue: JsonValueSchema.optional().describe('Starting value. Defaults to an empty string.'),
 		description: z.string().optional().describe('Description shown in the web UI.'),
 		persistCurrentValue: z.boolean().optional().describe('Keep the current value across restarts. Defaults to false.'),
+		collectionId: z
+			.string()
+			.nullable()
+			.optional()
+			.describe('Collection to put the variable in; null or omitted for none.'),
 	})
 	.strict()
 
@@ -110,6 +129,11 @@ const CustomVariablePatchBodySchema = z
 			.boolean()
 			.optional()
 			.describe('Turning this on copies the current value into the default value.'),
+		collectionId: z
+			.string()
+			.nullable()
+			.optional()
+			.describe('Move the variable to this collection (appended at the end); null for none.'),
 	})
 	.strict()
 
@@ -215,6 +239,13 @@ function getCustomVariableOrThrow(variables: VariablesApiController, name: strin
 	return definition
 }
 
+/** Collections are checked up front, as Companion silently ignores a move to an unknown one */
+function checkCollectionExists(variables: VariablesApiController, collectionId: string | null | undefined): void {
+	if (collectionId && !variables.custom.collections.doesCollectionIdExist(collectionId)) {
+		throw RestApiError.badRequest(`Collection "${collectionId}" not found`)
+	}
+}
+
 /** Throw if one of the custom variable setters reported a failure */
 function assertNoFailure(failure: string | null): void {
 	if (failure) throw RestApiError.badRequest(failure)
@@ -305,6 +336,7 @@ const variablesEndpointSpecs: RestEndpointSpec<VariablesRestContext>[] = [
 				if (getOwn(variables.custom.getDefinitions(), body.name)) {
 					throw RestApiError.conflict(`Custom variable "${body.name}" already exists`)
 				}
+				checkCollectionExists(variables, body.collectionId)
 
 				assertNoFailure(variables.custom.createVariable(body.name, body.defaultValue ?? ''))
 				if (body.description !== undefined) {
@@ -313,6 +345,7 @@ const variablesEndpointSpecs: RestEndpointSpec<VariablesRestContext>[] = [
 				if (body.persistCurrentValue) {
 					assertNoFailure(variables.custom.setPersistence(body.name, true))
 				}
+				if (body.collectionId) variables.custom.setOrder(body.collectionId, body.name, -1)
 
 				logger.info(`Created custom variable "${body.name}"`)
 
@@ -377,6 +410,8 @@ const variablesEndpointSpecs: RestEndpointSpec<VariablesRestContext>[] = [
 			return ({ params, body }) => {
 				const definition = getCustomVariableOrThrow(variables, params.name)
 
+				checkCollectionExists(variables, body.collectionId)
+
 				// The default value is locked while the current value is persisted, so check before changing anything
 				const willPersist = body.persistCurrentValue ?? definition.persistCurrentValue
 				if (body.defaultValue !== undefined && willPersist) {
@@ -397,6 +432,9 @@ const variablesEndpointSpecs: RestEndpointSpec<VariablesRestContext>[] = [
 				}
 				if (body.persistCurrentValue === true) {
 					assertNoFailure(variables.custom.setPersistence(params.name, true))
+				}
+				if (body.collectionId !== undefined && body.collectionId !== (definition.collectionId ?? null)) {
+					variables.custom.setOrder(body.collectionId, params.name, -1)
 				}
 
 				logger.info(`Updated custom variable "${params.name}"`)

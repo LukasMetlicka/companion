@@ -9,7 +9,7 @@
  * this program.
  */
 
-import type express from 'express'
+import express from 'express'
 import type { DataDatabase } from '../Data/Database.js'
 import type { DataUserConfig } from '../Data/UserConfig.js'
 import type { Logger } from '../Log/Controller.js'
@@ -17,7 +17,7 @@ import { router } from '../UI/TRPC.js'
 import { VariablesCustomVariable } from './CustomVariable.js'
 import { VariablesInstanceDefinitions } from './InstanceDefinitions.js'
 import { VariablesValues } from './Values.js'
-import { createVariablesRestApiRouter } from './VariablesRestApi.js'
+import { createVariablesRestApiRouter, customVariableCollectionsResource } from './VariablesRestApi.js'
 
 export class VariablesController {
 	readonly custom: VariablesCustomVariable
@@ -31,7 +31,10 @@ export class VariablesController {
 	}
 
 	createRestApiRouter(logger: Logger): express.Router {
-		return createVariablesRestApiRouter(logger, this)
+		const router = express.Router()
+		router.use(customVariableCollectionsResource.createRouter(logger, this.custom.collections))
+		router.use(createVariablesRestApiRouter(logger, this))
+		return router
 	}
 
 	createTrpcRouter() {

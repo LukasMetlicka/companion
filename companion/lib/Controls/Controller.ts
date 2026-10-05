@@ -56,7 +56,10 @@ import { createEntitiesTrpcRouter } from './EntitiesTrpcRouter.js'
 import { createEventsTrpcRouter } from './EventsTrpcRouter.js'
 import { ExpressionVariableCollections } from './ExpressionVariableCollections.js'
 import { ExpressionVariableNameMap } from './ExpressionVariableNameMap.js'
-import { createExpressionVariablesRestApiRouter } from './ExpressionVariablesRestApi.js'
+import {
+	createExpressionVariablesRestApiRouter,
+	expressionVariableCollectionsResource,
+} from './ExpressionVariablesRestApi.js'
 import { createExpressionVariableTrpcRouter } from './ExpressionVariableTrpcRouter.js'
 import { ControlsFactory } from './Factory.js'
 import type { SomeControl } from './IControlFragments.js'
@@ -65,7 +68,7 @@ import { createStepsTrpcRouter } from './StepsTrpcRouter.js'
 import { createStylesTrpcRouter } from './StylesTrpcRouter.js'
 import { TriggerCollections } from './TriggerCollections.js'
 import type { TriggerEvents } from './TriggerEvents.js'
-import { createTriggersRestApiRouter } from './TriggersRestApi.js'
+import { createTriggersRestApiRouter, triggerCollectionsResource } from './TriggersRestApi.js'
 import { createTriggersTrpcRouter } from './TriggersTrpcRouter.js'
 import { validateBankControlId, validateExpressionVariableControlId, validateTriggerControlId } from './Util.js'
 
@@ -237,18 +240,22 @@ export class ControlsController {
 				userconfig: this.#deps.userconfig,
 			})
 		)
+		router.use(triggerCollectionsResource.createRouter(logger, this.#triggerCollections))
 		router.use(
 			createTriggersRestApiRouter(logger, {
 				controls: this,
 				definitions: this.#deps.instance.definitions,
 				eventDefinitions: EventDefinitions,
+				collections: this.#triggerCollections,
 			})
 		)
+		router.use(expressionVariableCollectionsResource.createRouter(logger, this.#expressionVariableCollections))
 		router.use(
 			createExpressionVariablesRestApiRouter(logger, {
 				controls: this,
 				definitions: this.#deps.instance.definitions,
 				values: this.#deps.variableValues,
+				collections: this.#expressionVariableCollections,
 			})
 		)
 		router.use(
