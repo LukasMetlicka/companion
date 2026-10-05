@@ -27,6 +27,7 @@ function createService(initialEnabled: boolean) {
 		db: { getTableView: () => tableView },
 		instance: { createRestApiRouter: () => express.Router() },
 		surfaces: { createRestApiRouter: () => express.Router() },
+		page: { createRestApiRouter: () => express.Router() },
 	} as unknown as Registry
 
 	let enabled = initialEnabled

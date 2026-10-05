@@ -5288,6 +5288,1745 @@
 				"tags": ["Definitions"]
 			}
 		},
+		"/pages/v1": {
+			"get": {
+				"description": "Returns all pages in page order.",
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": [
+										{
+											"controlCount": 3,
+											"id": "ggmHXCUQ0RRXUwEr8HHtQ",
+											"name": "DIT",
+											"number": 1
+										}
+									],
+									"meta": {
+										"limit": 1,
+										"offset": 0,
+										"total": 1
+									}
+								},
+								"schema": {
+									"example": {
+										"data": [
+											{
+												"controlCount": 3,
+												"id": "ggmHXCUQ0RRXUwEr8HHtQ",
+												"name": "DIT",
+												"number": 1
+											}
+										],
+										"meta": {
+											"limit": 100,
+											"offset": 0,
+											"total": 1
+										}
+									},
+									"properties": {
+										"data": {
+											"items": {
+												"example": {
+													"controlCount": 3,
+													"id": "ggmHXCUQ0RRXUwEr8HHtQ",
+													"name": "DIT",
+													"number": 1
+												},
+												"properties": {
+													"controlCount": {
+														"description": "Number of populated grid locations on the page.",
+														"type": "integer"
+													},
+													"id": {
+														"description": "Unique page id. Stable when pages are added, removed or reordered.",
+														"type": "string"
+													},
+													"name": {
+														"description": "Display name of the page.",
+														"type": "string"
+													},
+													"number": {
+														"description": "Current position of the page in the page list, starting at 1.",
+														"type": "integer"
+													}
+												},
+												"required": ["id", "number", "name", "controlCount"],
+												"type": "object"
+											},
+											"type": "array"
+										},
+										"meta": {
+											"example": {
+												"limit": 100,
+												"offset": 0,
+												"total": 1
+											},
+											"properties": {
+												"limit": {
+													"description": "Maximum number of resources returned by this response.",
+													"example": 100,
+													"type": "number"
+												},
+												"offset": {
+													"description": "Number of resources skipped before this response.",
+													"example": 0,
+													"type": "number"
+												},
+												"total": {
+													"description": "Total number of resources available.",
+													"example": 1,
+													"type": "number"
+												}
+											},
+											"required": ["total", "limit", "offset"],
+											"type": "object"
+										}
+									},
+									"required": ["data", "meta"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "List of pages"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["read"]
+					}
+				],
+				"summary": "List all pages",
+				"tags": ["Pages"]
+			},
+			"post": {
+				"description": "Insert a new page. Pages at or after the requested position shift down by one.",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"example": {
+								"defaultNavButtons": false,
+								"name": "DIT",
+								"number": 1
+							},
+							"schema": {
+								"additionalProperties": false,
+								"properties": {
+									"defaultNavButtons": {
+										"default": true,
+										"description": "Whether to add the default page up / page number / page down buttons, as the web UI does. Set false when generating your own layout.",
+										"type": "boolean"
+									},
+									"name": {
+										"description": "Page name. Defaults to \"PAGE\".",
+										"minLength": 1,
+										"type": "string"
+									},
+									"number": {
+										"description": "Position to insert the page at; later pages shift down. Defaults to the end of the list.",
+										"minimum": 1,
+										"type": "integer"
+									}
+								},
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"201": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"controls": [],
+										"id": "ggmHXCUQ0RRXUwEr8HHtQ",
+										"name": "DIT",
+										"number": 1
+									}
+								},
+								"schema": {
+									"example": {
+										"data": {
+											"controls": [
+												{
+													"column": 0,
+													"controlId": "bank:7Uq3hW2pY0aJk1sXcV9bN",
+													"row": 0,
+													"type": "pageup"
+												},
+												{
+													"column": 1,
+													"controlId": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+													"row": 0,
+													"type": "button-layered"
+												}
+											],
+											"id": "ggmHXCUQ0RRXUwEr8HHtQ",
+											"name": "DIT",
+											"number": 1
+										}
+									},
+									"properties": {
+										"data": {
+											"example": {
+												"controls": [
+													{
+														"column": 0,
+														"controlId": "bank:7Uq3hW2pY0aJk1sXcV9bN",
+														"row": 0,
+														"type": "pageup"
+													},
+													{
+														"column": 1,
+														"controlId": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+														"row": 0,
+														"type": "button-layered"
+													}
+												],
+												"id": "ggmHXCUQ0RRXUwEr8HHtQ",
+												"name": "DIT",
+												"number": 1
+											},
+											"properties": {
+												"controls": {
+													"description": "Populated grid locations, ordered by row then column.",
+													"items": {
+														"properties": {
+															"column": {
+																"description": "Grid column of the control.",
+																"type": "integer"
+															},
+															"controlId": {
+																"description": "Id of the control placed at this location.",
+																"type": "string"
+															},
+															"row": {
+																"description": "Grid row of the control.",
+																"type": "integer"
+															},
+															"type": {
+																"description": "Control type, e.g. button-layered, pageup, pagedown, pagenum; null if the control is missing.",
+																"nullable": true,
+																"type": "string"
+															}
+														},
+														"required": ["row", "column", "controlId", "type"],
+														"type": "object"
+													},
+													"type": "array"
+												},
+												"id": {
+													"description": "Unique page id. Stable when pages are added, removed or reordered.",
+													"type": "string"
+												},
+												"name": {
+													"description": "Display name of the page.",
+													"type": "string"
+												},
+												"number": {
+													"description": "Current position of the page in the page list, starting at 1.",
+													"type": "integer"
+												}
+											},
+											"required": ["id", "number", "name", "controls"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The created page"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["write"]
+					}
+				],
+				"summary": "Create a page",
+				"tags": ["Pages"]
+			}
+		},
+		"/pages/v1/{pageId}": {
+			"delete": {
+				"description": "Delete a page and every control on it. Later pages shift up by one. The last remaining page cannot be deleted.",
+				"parameters": [
+					{
+						"description": "Page id, as returned by the list pages endpoint.",
+						"in": "path",
+						"name": "pageId",
+						"required": true,
+						"schema": {
+							"description": "Page id, as returned by the list pages endpoint.",
+							"example": "ggmHXCUQ0RRXUwEr8HHtQ",
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "Page deleted"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					},
+					"409": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Conflict"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["write"]
+					}
+				],
+				"summary": "Delete a page",
+				"tags": ["Pages"]
+			},
+			"get": {
+				"description": "Returns a page with the controls placed on its grid.",
+				"parameters": [
+					{
+						"description": "Page id, as returned by the list pages endpoint.",
+						"in": "path",
+						"name": "pageId",
+						"required": true,
+						"schema": {
+							"description": "Page id, as returned by the list pages endpoint.",
+							"example": "ggmHXCUQ0RRXUwEr8HHtQ",
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"controls": [
+											{
+												"column": 0,
+												"controlId": "bank:7Uq3hW2pY0aJk1sXcV9bN",
+												"row": 0,
+												"type": "pageup"
+											},
+											{
+												"column": 1,
+												"controlId": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+												"row": 0,
+												"type": "button-layered"
+											}
+										],
+										"id": "ggmHXCUQ0RRXUwEr8HHtQ",
+										"name": "DIT",
+										"number": 1
+									}
+								},
+								"schema": {
+									"example": {
+										"data": {
+											"controls": [
+												{
+													"column": 0,
+													"controlId": "bank:7Uq3hW2pY0aJk1sXcV9bN",
+													"row": 0,
+													"type": "pageup"
+												},
+												{
+													"column": 1,
+													"controlId": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+													"row": 0,
+													"type": "button-layered"
+												}
+											],
+											"id": "ggmHXCUQ0RRXUwEr8HHtQ",
+											"name": "DIT",
+											"number": 1
+										}
+									},
+									"properties": {
+										"data": {
+											"example": {
+												"controls": [
+													{
+														"column": 0,
+														"controlId": "bank:7Uq3hW2pY0aJk1sXcV9bN",
+														"row": 0,
+														"type": "pageup"
+													},
+													{
+														"column": 1,
+														"controlId": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+														"row": 0,
+														"type": "button-layered"
+													}
+												],
+												"id": "ggmHXCUQ0RRXUwEr8HHtQ",
+												"name": "DIT",
+												"number": 1
+											},
+											"properties": {
+												"controls": {
+													"description": "Populated grid locations, ordered by row then column.",
+													"items": {
+														"properties": {
+															"column": {
+																"description": "Grid column of the control.",
+																"type": "integer"
+															},
+															"controlId": {
+																"description": "Id of the control placed at this location.",
+																"type": "string"
+															},
+															"row": {
+																"description": "Grid row of the control.",
+																"type": "integer"
+															},
+															"type": {
+																"description": "Control type, e.g. button-layered, pageup, pagedown, pagenum; null if the control is missing.",
+																"nullable": true,
+																"type": "string"
+															}
+														},
+														"required": ["row", "column", "controlId", "type"],
+														"type": "object"
+													},
+													"type": "array"
+												},
+												"id": {
+													"description": "Unique page id. Stable when pages are added, removed or reordered.",
+													"type": "string"
+												},
+												"name": {
+													"description": "Display name of the page.",
+													"type": "string"
+												},
+												"number": {
+													"description": "Current position of the page in the page list, starting at 1.",
+													"type": "integer"
+												}
+											},
+											"required": ["id", "number", "name", "controls"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The requested page"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["read"]
+					}
+				],
+				"summary": "Get a page",
+				"tags": ["Pages"]
+			},
+			"patch": {
+				"description": "Rename a page and/or move it to a new position. Moving changes the numbers of the pages in between, but never their ids.",
+				"parameters": [
+					{
+						"description": "Page id, as returned by the list pages endpoint.",
+						"in": "path",
+						"name": "pageId",
+						"required": true,
+						"schema": {
+							"description": "Page id, as returned by the list pages endpoint.",
+							"example": "ggmHXCUQ0RRXUwEr8HHtQ",
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"example": {
+								"name": "DIT main",
+								"number": 2
+							},
+							"schema": {
+								"additionalProperties": false,
+								"properties": {
+									"name": {
+										"description": "New page name.",
+										"minLength": 1,
+										"type": "string"
+									},
+									"number": {
+										"description": "New position for the page; the pages in between shift to make room.",
+										"minimum": 1,
+										"type": "integer"
+									}
+								},
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"controls": [
+											{
+												"column": 0,
+												"controlId": "bank:7Uq3hW2pY0aJk1sXcV9bN",
+												"row": 0,
+												"type": "pageup"
+											},
+											{
+												"column": 1,
+												"controlId": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+												"row": 0,
+												"type": "button-layered"
+											}
+										],
+										"id": "ggmHXCUQ0RRXUwEr8HHtQ",
+										"name": "DIT main",
+										"number": 2
+									}
+								},
+								"schema": {
+									"example": {
+										"data": {
+											"controls": [
+												{
+													"column": 0,
+													"controlId": "bank:7Uq3hW2pY0aJk1sXcV9bN",
+													"row": 0,
+													"type": "pageup"
+												},
+												{
+													"column": 1,
+													"controlId": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+													"row": 0,
+													"type": "button-layered"
+												}
+											],
+											"id": "ggmHXCUQ0RRXUwEr8HHtQ",
+											"name": "DIT",
+											"number": 1
+										}
+									},
+									"properties": {
+										"data": {
+											"example": {
+												"controls": [
+													{
+														"column": 0,
+														"controlId": "bank:7Uq3hW2pY0aJk1sXcV9bN",
+														"row": 0,
+														"type": "pageup"
+													},
+													{
+														"column": 1,
+														"controlId": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+														"row": 0,
+														"type": "button-layered"
+													}
+												],
+												"id": "ggmHXCUQ0RRXUwEr8HHtQ",
+												"name": "DIT",
+												"number": 1
+											},
+											"properties": {
+												"controls": {
+													"description": "Populated grid locations, ordered by row then column.",
+													"items": {
+														"properties": {
+															"column": {
+																"description": "Grid column of the control.",
+																"type": "integer"
+															},
+															"controlId": {
+																"description": "Id of the control placed at this location.",
+																"type": "string"
+															},
+															"row": {
+																"description": "Grid row of the control.",
+																"type": "integer"
+															},
+															"type": {
+																"description": "Control type, e.g. button-layered, pageup, pagedown, pagenum; null if the control is missing.",
+																"nullable": true,
+																"type": "string"
+															}
+														},
+														"required": ["row", "column", "controlId", "type"],
+														"type": "object"
+													},
+													"type": "array"
+												},
+												"id": {
+													"description": "Unique page id. Stable when pages are added, removed or reordered.",
+													"type": "string"
+												},
+												"name": {
+													"description": "Display name of the page.",
+													"type": "string"
+												},
+												"number": {
+													"description": "Current position of the page in the page list, starting at 1.",
+													"type": "integer"
+												}
+											},
+											"required": ["id", "number", "name", "controls"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The updated page"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["write"]
+					}
+				],
+				"summary": "Update a page",
+				"tags": ["Pages"]
+			}
+		},
+		"/pages/v1/{pageId}/clear": {
+			"post": {
+				"description": "Delete every control on a page, clear its page variables and reset its name to \"PAGE\", as the web UI does. The page keeps its id and position.",
+				"parameters": [
+					{
+						"description": "Page id, as returned by the list pages endpoint.",
+						"in": "path",
+						"name": "pageId",
+						"required": true,
+						"schema": {
+							"description": "Page id, as returned by the list pages endpoint.",
+							"example": "ggmHXCUQ0RRXUwEr8HHtQ",
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"example": {
+								"defaultNavButtons": false
+							},
+							"schema": {
+								"additionalProperties": false,
+								"properties": {
+									"defaultNavButtons": {
+										"default": true,
+										"description": "Whether to re-add the default page up / page number / page down buttons.",
+										"type": "boolean"
+									}
+								},
+								"type": "object"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"content": {
+							"application/json": {
+								"example": {
+									"data": {
+										"controls": [],
+										"id": "ggmHXCUQ0RRXUwEr8HHtQ",
+										"name": "PAGE",
+										"number": 1
+									}
+								},
+								"schema": {
+									"example": {
+										"data": {
+											"controls": [
+												{
+													"column": 0,
+													"controlId": "bank:7Uq3hW2pY0aJk1sXcV9bN",
+													"row": 0,
+													"type": "pageup"
+												},
+												{
+													"column": 1,
+													"controlId": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+													"row": 0,
+													"type": "button-layered"
+												}
+											],
+											"id": "ggmHXCUQ0RRXUwEr8HHtQ",
+											"name": "DIT",
+											"number": 1
+										}
+									},
+									"properties": {
+										"data": {
+											"example": {
+												"controls": [
+													{
+														"column": 0,
+														"controlId": "bank:7Uq3hW2pY0aJk1sXcV9bN",
+														"row": 0,
+														"type": "pageup"
+													},
+													{
+														"column": 1,
+														"controlId": "bank:Qm4tR8zL2nH6vB1cX5kP0",
+														"row": 0,
+														"type": "button-layered"
+													}
+												],
+												"id": "ggmHXCUQ0RRXUwEr8HHtQ",
+												"name": "DIT",
+												"number": 1
+											},
+											"properties": {
+												"controls": {
+													"description": "Populated grid locations, ordered by row then column.",
+													"items": {
+														"properties": {
+															"column": {
+																"description": "Grid column of the control.",
+																"type": "integer"
+															},
+															"controlId": {
+																"description": "Id of the control placed at this location.",
+																"type": "string"
+															},
+															"row": {
+																"description": "Grid row of the control.",
+																"type": "integer"
+															},
+															"type": {
+																"description": "Control type, e.g. button-layered, pageup, pagedown, pagenum; null if the control is missing.",
+																"nullable": true,
+																"type": "string"
+															}
+														},
+														"required": ["row", "column", "controlId", "type"],
+														"type": "object"
+													},
+													"type": "array"
+												},
+												"id": {
+													"description": "Unique page id. Stable when pages are added, removed or reordered.",
+													"type": "string"
+												},
+												"name": {
+													"description": "Display name of the page.",
+													"type": "string"
+												},
+												"number": {
+													"description": "Current position of the page in the page list, starting at 1.",
+													"type": "integer"
+												}
+											},
+											"required": ["id", "number", "name", "controls"],
+											"type": "object"
+										}
+									},
+									"required": ["data"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "The cleared page"
+					},
+					"400": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Bad request"
+					},
+					"401": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Unauthorized"
+					},
+					"403": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Forbidden"
+					},
+					"404": {
+						"content": {
+							"application/json": {
+								"schema": {
+									"example": {
+										"error": {
+											"code": "unauthorized",
+											"message": "Missing bearer token"
+										}
+									},
+									"properties": {
+										"error": {
+											"properties": {
+												"code": {
+													"description": "Machine-readable error code.",
+													"example": "unauthorized",
+													"type": "string"
+												},
+												"details": {
+													"description": "Additional structured details about the error.",
+													"nullable": true
+												},
+												"message": {
+													"description": "Human-readable error message.",
+													"example": "Missing bearer token",
+													"type": "string"
+												}
+											},
+											"required": ["code", "message"],
+											"type": "object"
+										}
+									},
+									"required": ["error"],
+									"type": "object"
+								}
+							}
+						},
+						"description": "Not found"
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": ["write"]
+					}
+				],
+				"summary": "Clear a page",
+				"tags": ["Pages"]
+			}
+		},
 		"/surfaces/v1": {
 			"get": {
 				"description": "Returns all known surfaces, connected or not, with their current state.",

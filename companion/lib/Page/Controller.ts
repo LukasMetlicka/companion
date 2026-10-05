@@ -1,4 +1,5 @@
 import { EventEmitter } from 'node:events'
+import type express from 'express'
 import z from 'zod'
 import { CreatePageControlId } from '@companion-app/shared/ControlId.js'
 import type { ControlLocation } from '@companion-app/shared/Model/Common.js'
@@ -12,9 +13,10 @@ import type { ControlCommonEvents } from '../Controls/ControlDependencies.js'
 import type { ControlsController } from '../Controls/Controller.js'
 import type { DataUserConfig } from '../Data/UserConfig.js'
 import type { GraphicsController } from '../Graphics/Controller.js'
-import LogController from '../Log/Controller.js'
+import LogController, { type Logger } from '../Log/Controller.js'
 import { publicProcedure, router, toIterable } from '../UI/TRPC.js'
 import { default_nav_buttons_definitions } from './Defaults.js'
+import { createPagesRestApiRouter } from './PagesRestApi.js'
 import type { IPageStore, PageStore } from './Store.js'
 
 interface PageControllerEvents {
@@ -87,6 +89,10 @@ export class PageController extends EventEmitter<PageControllerEvents> {
 		}
 	}
 
+	createRestApiRouter(logger: Logger): express.Router {
+		return createPagesRestApiRouter(logger, this, this.#controlsController)
+	}
+
 	createTrpcRouter() {
 		const self = this
 		const selfEmitter: EventEmitter<PageControllerEvents> = this
@@ -128,18 +134,7 @@ export class PageController extends EventEmitter<PageControllerEvents> {
 				.mutation(({ input }) => {
 					this.#logger.silly(`trpc: pages:remove ${input.pageNumber}`)
 
-					if (this.#store.getPageCount() === 1) return 'fail'
-
-					// Delete the controls, and allow them to redraw
-					const controlIds = this.#store.getAllControlIdsOnPage(input.pageNumber)
-					for (const controlId of controlIds) {
-						this.#controlsController.deleteControl(controlId)
-					}
-
-					// Delete the page
-					this.deletePage(input.pageNumber)
-
-					return 'ok'
+					return this.deletePageAndControls(input.pageNumber) ? 'ok' : 'fail'
 				}),
 
 			insert: publicProcedure
@@ -152,13 +147,8 @@ export class PageController extends EventEmitter<PageControllerEvents> {
 				.mutation(({ input }) => {
 					this.#logger.silly(`trpc: pages:insert ${input.asPageNumber}`)
 
-					const pageIds = this.insertPages(input.asPageNumber, input.pageNames)
+					const pageIds = this.insertPagesWithNavButtons(input.asPageNumber, input.pageNames, true)
 					if (pageIds.length === 0) throw new Error(`Failed to insert pages`)
-
-					// Add nav buttons
-					for (let i = 0; i < pageIds.length; i++) {
-						this.createPageDefaultNavButtons(input.asPageNumber + i)
-					}
 
 					return 'ok'
 				}),
@@ -172,17 +162,7 @@ export class PageController extends EventEmitter<PageControllerEvents> {
 				.mutation(({ input }) => {
 					this.#logger.silly(`trpc: pages:clearPage ${input.pageNumber}`)
 
-					// Delete the controls, and allow them to redraw
-					const controlIds = this.#store.getAllControlIdsOnPage(input.pageNumber)
-					for (const controlId of controlIds) {
-						this.#controlsController.deleteControl(controlId)
-					}
-
-					// Clear the references on the page
-					this.resetPage(input.pageNumber)
-
-					// Re-add the nav buttons
-					this.createPageDefaultNavButtons(input.pageNumber)
+					this.clearPageAndControls(input.pageNumber, true)
 
 					return 'ok'
 				}),
@@ -197,36 +177,7 @@ export class PageController extends EventEmitter<PageControllerEvents> {
 				.mutation(({ input }) => {
 					this.#logger.silly(`trpc: pages:move ${input.pageId} to ${input.pageNumber}`)
 
-					// Bounds checks
-					if (this.#store.getPageCount() === 1) return 'fail'
-					if (input.pageNumber < 1 || input.pageNumber > this.#store.getPageCount()) return 'fail'
-
-					// Find current index of the page
-					const pageIds = [...this.#store.getPageIds()]
-					const currentPageIndex = pageIds.indexOf(input.pageId)
-					if (currentPageIndex === -1) return 'fail'
-
-					// move the page
-					this.#store._movePageInOrder(currentPageIndex, input.pageNumber - 1)
-
-					// Update cache for controls on later pages
-					const { changedPageIds } = this.#updateAndRedrawAllPagesInRange(
-						Math.min(currentPageIndex + 1, input.pageNumber),
-						Math.max(currentPageIndex + 1, input.pageNumber)
-					)
-
-					// save and report changes
-					this.emit('clientUpdate', {
-						type: 'update',
-						updatedOrder: [...this.#store.getPageIds()],
-						added: [],
-						changes: [],
-					})
-
-					// inform other interested controllers
-					this.#store.emit('pageindexchange', changedPageIds)
-
-					return 'ok'
+					return this.movePage(input.pageId, input.pageNumber) ? 'ok' : 'fail'
 				}),
 
 			recreateNav: publicProcedure
@@ -244,6 +195,94 @@ export class PageController extends EventEmitter<PageControllerEvents> {
 					return 'ok'
 				}),
 		})
+	}
+
+	/**
+	 * Delete a page and every control on it. Fails (returns false) if it is the last page.
+	 */
+	deletePageAndControls(pageNumber: number): boolean {
+		if (this.#store.getPageCount() === 1) return false
+
+		// Delete the controls, and allow them to redraw
+		const controlIds = this.#store.getAllControlIdsOnPage(pageNumber)
+		for (const controlId of controlIds) {
+			this.#controlsController.deleteControl(controlId)
+		}
+
+		// Delete the page
+		this.deletePage(pageNumber)
+
+		return true
+	}
+
+	/**
+	 * Insert new pages, optionally adding the default nav buttons to each
+	 * @returns The ids of the inserted pages
+	 */
+	insertPagesWithNavButtons(asPageNumber: number, pageNames: string[], createNavButtons: boolean): string[] {
+		const pageIds = this.insertPages(asPageNumber, pageNames)
+
+		if (createNavButtons) {
+			for (let i = 0; i < pageIds.length; i++) {
+				this.createPageDefaultNavButtons(asPageNumber + i)
+			}
+		}
+
+		return pageIds
+	}
+
+	/**
+	 * Delete every control on a page and reset it to defaults, optionally re-adding the default nav buttons
+	 */
+	clearPageAndControls(pageNumber: number, createNavButtons: boolean): void {
+		// Delete the controls, and allow them to redraw
+		const controlIds = this.#store.getAllControlIdsOnPage(pageNumber)
+		for (const controlId of controlIds) {
+			this.#controlsController.deleteControl(controlId)
+		}
+
+		// Clear the references on the page
+		this.resetPage(pageNumber)
+
+		// Re-add the nav buttons
+		if (createNavButtons) this.createPageDefaultNavButtons(pageNumber)
+	}
+
+	/**
+	 * Move a page to a new position in the page order
+	 * @returns false if the page or position is invalid
+	 */
+	movePage(pageId: string, pageNumber: number): boolean {
+		// Bounds checks
+		if (this.#store.getPageCount() === 1) return false
+		if (pageNumber < 1 || pageNumber > this.#store.getPageCount()) return false
+
+		// Find current index of the page
+		const pageIds = [...this.#store.getPageIds()]
+		const currentPageIndex = pageIds.indexOf(pageId)
+		if (currentPageIndex === -1) return false
+
+		// move the page
+		this.#store._movePageInOrder(currentPageIndex, pageNumber - 1)
+
+		// Update cache for controls on later pages
+		const { changedPageIds } = this.#updateAndRedrawAllPagesInRange(
+			Math.min(currentPageIndex + 1, pageNumber),
+			Math.max(currentPageIndex + 1, pageNumber)
+		)
+
+		// save and report changes
+		this.emit('clientUpdate', {
+			type: 'update',
+			updatedOrder: [...this.#store.getPageIds()],
+			added: [],
+			changes: [],
+		})
+
+		// inform other interested controllers
+		this.#store.emit('pageindexchange', changedPageIds)
+
+		return true
 	}
 
 	/**
