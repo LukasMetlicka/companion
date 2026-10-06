@@ -10,7 +10,10 @@ import { RestApiError } from './errors.js'
  * (e.g. regenerated internal ids) before passing the value in.
  */
 export function computeEtag(value: unknown): string {
-	return `"${createHash('sha256').update(canonicalStringify(value)).digest('base64url')}"`
+	// Hash exactly what a client receives: Companion's in-memory models can hold values that JSON drops or
+	// changes, which would otherwise make the same content hash differently before and after a write
+	const asSent: unknown = value === undefined ? null : JSON.parse(JSON.stringify(value))
+	return `"${createHash('sha256').update(canonicalStringify(asSent)).digest('base64url')}"`
 }
 
 /**

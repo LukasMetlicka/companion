@@ -433,7 +433,7 @@ describe('Controls REST API', () => {
 			const res = await request('patch', `/${id}?dryRun=true`, { options: { notes: 'x' } })
 			expect(res.status).toBe(200)
 			expect(res.body.data.model.options.notes).toBe('x')
-			expect((models.get(id) as any).options.notes).toBeUndefined()
+			expect((models.get(id) as any).options.notes).toBe('')
 		})
 
 		test('only patches layered buttons', async () => {

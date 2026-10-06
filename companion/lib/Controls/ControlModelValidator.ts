@@ -21,6 +21,7 @@ import type { SomeButtonGraphicsElement } from '@companion-app/shared/Model/Styl
 import type { TriggerModel } from '@companion-app/shared/Model/TriggerModel.js'
 import { validateInputValue } from '@companion-app/shared/ValidateInputValue.js'
 import { validateEntityOptions, validateOptionValues } from '../Instance/EntityOptionsValidator.js'
+import { ButtonControlBase } from './ControlTypes/Button/Base.js'
 import { CreateElementOfType } from './ControlTypes/Button/LayerDefaults.js'
 import { ControlButtonLayered } from './ControlTypes/Button/Layered.js'
 import { ControlExpressionVariable } from './ControlTypes/ExpressionVariable.js'
@@ -144,10 +145,12 @@ function completeLayeredButton(input: LayeredButtonModel): LayeredButtonModel {
 
 	return {
 		type: 'button-layered',
+		// The same defaults ControlButtonLayered starts from, so a dry run matches what is stored
 		options: {
-			stepProgression: 'auto',
+			...structuredClone(ButtonControlBase.DefaultOptions),
 			rotaryActions: false,
 			canModifyStyleInApis: false,
+			notes: '',
 			...partial.options,
 		},
 		style: { layers: layers.map(completeElement) },
@@ -563,18 +566,18 @@ export function stripExpressionVariableIds(model: ExpressionVariableModel): unkn
 	}
 }
 
-/** Entities without the ids and upgrade indexes Companion (re)generates on write, recursing into children */
+/**
+ * Entities without what Companion (re)generates on write: ids, upgrade indexes, and empty child groups (it
+ * adds every group its definition has, empty, to internal entities). Recurses into children.
+ */
 function stripEntityListIds(entities: SomeEntityModel[] | undefined): unknown[] {
 	return (entities ?? []).map((entity) => {
 		const { id: _id, upgradeIndex: _upgradeIndex, children, ...rest } = entity
+		const groups = Object.entries(children ?? {}).filter(([, list]) => list && list.length > 0)
 		return {
 			...rest,
-			...(children
-				? {
-						children: Object.fromEntries(
-							Object.entries(children).map(([groupId, list]) => [groupId, stripEntityListIds(list)])
-						),
-					}
+			...(groups.length > 0
+				? { children: Object.fromEntries(groups.map(([groupId, list]) => [groupId, stripEntityListIds(list)])) }
 				: {}),
 		}
 	})
@@ -594,8 +597,11 @@ export function stripEntityIds(model: SomeButtonModel): unknown {
 				stepId,
 				{
 					...step,
+					// Companion keeps unused action sets as undefined; leave them out, as JSON does
 					action_sets: Object.fromEntries(
-						Object.entries(step.action_sets).map(([setId, list]) => [setId, stripEntityListIds(list)])
+						Object.entries(step.action_sets)
+							.filter(([, list]) => list !== undefined)
+							.map(([setId, list]) => [setId, stripEntityListIds(list)])
 					),
 				},
 			])
