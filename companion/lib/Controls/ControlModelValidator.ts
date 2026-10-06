@@ -609,10 +609,15 @@ export function stripEntityIds(model: SomeButtonModel): unknown {
 	}
 }
 
-/** Trigger content for change detection: entity and event ids are left out, as they are (re)generated on write */
+/**
+ * Trigger content for change detection: entity and event ids are left out, as they are (re)generated on write,
+ * and so is the trigger's position in the list (options.sortOrder), which is ordering, not content.
+ */
 export function stripTriggerIds(model: TriggerModel): unknown {
+	const { sortOrder: _sortOrder, ...options } = model.options
 	return {
 		...model,
+		options,
 		actions: stripEntityListIds(model.actions),
 		condition: stripEntityListIds(model.condition),
 		localVariables: stripEntityListIds(model.localVariables),

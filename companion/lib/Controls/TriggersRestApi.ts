@@ -417,7 +417,12 @@ const triggerEndpointSpecs: RestEndpointSpec<TriggersRestContext>[] = [
 				const current = getTriggerOrThrow(ctx, params.controlId).toJSON(true)
 				checkIfMatch(headers, triggerEtag(current))
 
-				const { model, warnings } = prepareOrThrow(ctx, normalizeTriggerInput(body), query)
+				// A replaced trigger keeps its place in the list unless the body gives a new one
+				const input = normalizeTriggerInput(body)
+				if (input.options?.sortOrder === undefined) {
+					input.options = { ...(input.options as TriggerModel['options']), sortOrder: current.options.sortOrder }
+				}
+				const { model, warnings } = prepareOrThrow(ctx, input, query)
 
 				if (query.dryRun === 'true') {
 					return {
