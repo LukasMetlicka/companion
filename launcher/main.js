@@ -63,7 +63,10 @@ if (!lock) {
 	)
 	app.quit()
 } else {
-	let configDir = path.join(app.getPath('appData'), '/companion/')
+	// Companion Planter builds keep their own data folder, so they install next to Companion without touching
+	// its config (the build sets the product name: tools/build/package.mts)
+	const configFolder = app.getName() === 'Companion Planter' ? 'companion-planter' : 'companion'
+	let configDir = path.join(app.getPath('appData'), configFolder)
 	if (process.env.COMPANION_CONFIG_BASEDIR !== undefined) {
 		configDir = process.env.COMPANION_CONFIG_BASEDIR
 	}

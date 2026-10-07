@@ -129,11 +129,13 @@ if (process.env.ELECTRON !== '0') {
 	const versionInfo = await generateVersionString()
 	const launcherPkgJson = JSON.parse(launcherPkgJsonStr.toString())
 	launcherPkgJson.version = versionInfo.includes('-stable-') ? await readReleaseVersion() : versionInfo
+	// The app's name at run time (app.getName()): the launcher picks its data folder by it
+	launcherPkgJson.productName = process.env.COMPANION_PRODUCT_NAME || 'Companion'
 	await fs.writeFile(launcherPkgJsonPath, JSON.stringify(launcherPkgJson))
 
 	try {
 		const options: electronBuilder.Configuration = {
-			productName: 'Companion',
+			productName: process.env.COMPANION_PRODUCT_NAME || 'Companion',
 			executableName: 'Companion',
 			// Companion Planter builds set their own bundle id, as they are signed with their own identity
 			appId: process.env.COMPANION_APP_ID || 'test-companion.bitfocus.no',
