@@ -136,7 +136,8 @@ if (process.env.ELECTRON !== '0') {
 	try {
 		const options: electronBuilder.Configuration = {
 			productName: process.env.COMPANION_PRODUCT_NAME || 'Companion',
-			executableName: 'Companion',
+			// On macOS this also names the .app, so a Companion Planter build installs next to Companion, not over it
+			executableName: process.env.COMPANION_PRODUCT_NAME || 'Companion',
 			// Companion Planter builds set their own bundle id, as they are signed with their own identity
 			appId: process.env.COMPANION_APP_ID || 'test-companion.bitfocus.no',
 			dmg: {
@@ -255,7 +256,7 @@ if (process.env.ELECTRON !== '0') {
 	// Ensure the node_modules was included, as that requires our patch to app-builder-lib to be applied
 	const expectedPathGlob =
 		platformInfo.runtimePlatform === 'darwin'
-			? 'electron-output/*/Companion.app/Contents/Resources/node_modules'
+			? 'electron-output/*/*.app/Contents/Resources/node_modules'
 			: 'electron-output/*/resources/node_modules'
 	const nodeModulesDirs = await glob(expectedPathGlob, { onlyDirectories: true })
 	if (nodeModulesDirs.length === 0) throw new Error('node_modules was not included in the electron build!')
